@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Education</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        .profile-nav { display: flex; gap: 1rem; margin-bottom: 2rem; border-bottom: 1px solid var(--border-color); padding-bottom: 1rem; }
+        .profile-nav a { text-decoration: none; color: var(--text-muted); font-weight: 500; padding: 0.5rem 1rem; border-radius: 5px; }
+        .profile-nav a.active { background-color: rgba(67, 97, 238, 0.1); color: var(--primary-color); }
+        
+        .timeline-item { border-left: 2px solid var(--primary-color); padding-left: 1.5rem; margin-bottom: 1.5rem; position: relative; }
+        .timeline-item::before { content: ''; position: absolute; left: -6px; top: 0; width: 10px; height: 10px; border-radius: 50%; background: var(--primary-color); }
+        .item-actions { float: right; }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-brand">Job Portal</div>
+            <ul class="sidebar-menu">
+                <li><a href="dashboard.html">Dashboard</a></li>
+                <li><a href="profile.html" class="active">Profile Settings</a></li>
+                <li><a href="jobs.html">Browse Jobs</a></li>
+                <li><a href="#" id="logoutBtn">Logout</a></li>
+            </ul>
+        </aside>
+
+        <main class="main-content">
+            <header class="header">
+                <h1 class="page-title">Education History</h1>
+            </header>
+            
+            <div id="alertMessage" class="alert"></div>
+
+            <div class="profile-nav">
+                <a href="profile.html">Basic Info</a>
+                <a href="skills.html">Skills</a>
+                <a href="education.html" class="active">Education</a>
+                <a href="experience.html">Experience</a>
+                <a href="resume.html">Resume</a>
+            </div>
+
+            <div class="content-card">
+                <div class="card-header">
+                    <h3>Add Education</h3>
+                </div>
+                <form id="eduForm">
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                        <div class="form-group">
+                            <label>Institution / University Name</label>
+                            <input type="text" id="institution" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Degree</label>
+                            <input type="text" id="degree" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Field of Study</label>
+                            <input type="text" id="fieldOfStudy" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label>Grade / Percentage</label>
+                            <input type="text" id="grade" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label>Start Year</label>
+                            <input type="number" id="startYear" class="form-control" required min="1900" max="2100">
+                        </div>
+                        <div class="form-group">
+                            <label>End Year (Leave blank if currently studying)</label>
+                            <input type="number" id="endYear" class="form-control" min="1900" max="2100">
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Save Education</button>
+                </form>
+            </div>
+
+            <div class="content-card">
+                <h3>Your Education</h3>
+                <div id="eduList" style="margin-top: 1.5rem;">
+                    <!-- Populated via JS -->
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="js/app.js"></script>
+    <script>
+        let currentUser = null;
+        
+        document.addEventListener('DOMContentLoaded', async () => {
+            currentUser = await checkAuth();
+            if (currentUser) {
+                renderEducation(currentUser.educations);
+            }
+        });
+
+        function renderEducation(educations) {
+            const container = document.getElementById('eduList');
+            if (!educations || educations.length === 0) {
+                container.innerHTML = '<div class="empty-state">No education records found.</div>';
+                return;
+            }
+            container.innerHTML = educations.map(edu => `
+                <div class="timeline-item">
+                    <div class="item-actions">
+                        <button onclick="deleteEdu(${edu.id})" class="btn btn-sm btn-danger">Delete</button>
+                    </div>
+                    <h4 style="margin:0; color: var(--primary-color);">${edu.degree} in ${edu.fieldOfStudy || 'General'}</h4>
+                    <p style="margin: 0.2rem 0; font-weight: 500;">${edu.institution}</p>
+                    <p class="text-muted" style="margin: 0; font-size: 0.9rem;">
+                        ${edu.startYear} - ${edu.endYear ? edu.endYear : 'Present'} | Grade: ${edu.grade || 'N/A'}
+                    </p>
+                </div>
+            `).join('');
+        }
+
+        document.getElementById('eduForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const data = {
+                institution: document.getElementById('institution').value,
+                degree: document.getElementById('degree').value,
+                fieldOfStudy: document.getElementById('fieldOfStudy').value,
+                grade: document.getElementById('grade').value,
+                startYear: document.getElementById('startYear').value,
+                endYear: document.getElementById('endYear').value || null
+            };
+
+            try {
+                const response = await fetch(`/api/candidates/${currentUser.id}/education`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(data)
+                });
+
+                if (response.ok) {
+                    document.getElementById('eduForm').reset();
+                    showAlert('Education added successfully!', 'success');
+                    currentUser = await checkAuth(); // Refresh UI
+                    renderEducation(currentUser.educations);
+                } else {
+                    showAlert('Failed to add education.');
+                }
+            } catch (error) {
+                showAlert('An error occurred.');
+            }
+        });
+
+        async function deleteEdu(id) {
+            if(!confirm('Are you sure?')) return;
+            try {
+                const response = await fetch(`/api/candidates/${currentUser.id}/education/${id}`, { method: 'DELETE' });
+                if(response.ok) {
+                    showAlert('Deleted', 'success');
+                    currentUser = await checkAuth();
+                    renderEducation(currentUser.educations);
+                }
+            } catch (error) {
+                showAlert('Error deleting');
+            }
+        }
+    </script>
+</body>
+</html>

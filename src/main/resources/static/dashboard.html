@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Candidate Dashboard</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-brand">Job Portal</div>
+            <ul class="sidebar-menu">
+                <li><a href="dashboard.html" class="active">Dashboard</a></li>
+                <li><a href="profile.html">Profile Settings</a></li>
+                <li><a href="jobs.html">Browse Jobs</a></li>
+                <li><a href="#" id="logoutBtn">Logout</a></li>
+            </ul>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header class="header">
+                <h1 class="page-title">Welcome, <span class="user-name-display">Candidate</span>!</h1>
+            </header>
+
+            <div class="dashboard-cards">
+                <div class="stat-card">
+                    <h3 id="skillsCount">0</h3>
+                    <p>Skills Added</p>
+                </div>
+                <div class="stat-card">
+                    <h3 id="eduCount">0</h3>
+                    <p>Education Records</p>
+                </div>
+                <div class="stat-card">
+                    <h3 id="expCount">0</h3>
+                    <p>Experience Records</p>
+                </div>
+                <div class="stat-card">
+                    <h3 id="resumeStatus">No</h3>
+                    <p>Resume Uploaded</p>
+                </div>
+            </div>
+
+            <div class="content-card">
+                <div class="card-header">
+                    <h3>Profile Summary</h3>
+                    <a href="profile.html" class="btn btn-sm btn-primary">Edit Profile</a>
+                </div>
+                <div id="profileSummaryContent">
+                    <p class="text-muted">Loading...</p>
+                </div>
+            </div>
+            
+            <div style="background-color: #fff3cd; color: #856404; padding: 1rem; border-radius: 5px; border: 1px solid #ffeeba; margin-top: 2rem;">
+                <strong>Integration Note:</strong> This Candidate Module is Member 1's responsibility. Job postings and applications will be integrated later by Member 2 and Member 3.
+            </div>
+
+        </main>
+    </div>
+
+    <script src="js/app.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            const user = await checkAuth();
+            if (user) {
+                document.getElementById('skillsCount').textContent = user.candidateSkills ? user.candidateSkills.length : 0;
+                document.getElementById('eduCount').textContent = user.educations ? user.educations.length : 0;
+                document.getElementById('expCount').textContent = user.experiences ? user.experiences.length : 0;
+                document.getElementById('resumeStatus').textContent = (user.resumes && user.resumes.length > 0) ? 'Yes' : 'No';
+                
+                const summaryDiv = document.getElementById('profileSummaryContent');
+                if (user.profileSummary) {
+                    summaryDiv.innerHTML = `<p>${user.profileSummary}</p>`;
+                } else {
+                    summaryDiv.innerHTML = `<p class="empty-state">No profile summary added yet. Update your profile to stand out to recruiters.</p>`;
+                }
+            }
+        });
+    </script>
+</body>
+</html>

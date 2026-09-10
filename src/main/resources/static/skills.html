@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Skills</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        .profile-nav {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 1rem;
+        }
+        .profile-nav a { text-decoration: none; color: var(--text-muted); font-weight: 500; padding: 0.5rem 1rem; border-radius: 5px; }
+        .profile-nav a.active { background-color: rgba(67, 97, 238, 0.1); color: var(--primary-color); }
+        .skill-tag { display: inline-flex; align-items: center; background: #eef2ff; color: #4361ee; padding: 0.5rem 1rem; border-radius: 20px; margin: 0.5rem; border: 1px solid #c7d2fe; }
+        .skill-tag span.level { font-size: 0.8rem; color: #666; margin-left: 0.5rem; background: #fff; padding: 0.1rem 0.4rem; border-radius: 10px;}
+        .skill-tag button { background: none; border: none; color: #e74c3c; cursor: pointer; margin-left: 0.5rem; font-weight: bold;}
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-brand">Job Portal</div>
+            <ul class="sidebar-menu">
+                <li><a href="dashboard.html">Dashboard</a></li>
+                <li><a href="profile.html" class="active">Profile Settings</a></li>
+                <li><a href="jobs.html">Browse Jobs</a></li>
+                <li><a href="#" id="logoutBtn">Logout</a></li>
+            </ul>
+        </aside>
+
+        <main class="main-content">
+            <header class="header">
+                <h1 class="page-title">Manage Skills</h1>
+            </header>
+            
+            <div id="alertMessage" class="alert"></div>
+
+            <div class="profile-nav">
+                <a href="profile.html">Basic Info</a>
+                <a href="skills.html" class="active">Skills</a>
+                <a href="education.html">Education</a>
+                <a href="experience.html">Experience</a>
+                <a href="resume.html">Resume</a>
+            </div>
+
+            <div class="content-card">
+                <form id="skillForm" style="display: flex; gap: 1rem; align-items: flex-end; margin-bottom: 2rem;">
+                    <div class="form-group" style="flex: 1; margin-bottom: 0;">
+                        <label for="skillName">Skill Name (e.g., Java)</label>
+                        <input type="text" id="skillName" class="form-control" required>
+                    </div>
+                    <div class="form-group" style="flex: 1; margin-bottom: 0;">
+                        <label for="skillLevel">Proficiency Level</label>
+                        <select id="skillLevel" class="form-control" required>
+                            <option value="Beginner">Beginner</option>
+                            <option value="Intermediate">Intermediate</option>
+                            <option value="Advanced">Advanced</option>
+                            <option value="Expert">Expert</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary" style="width: auto;">Add Skill</button>
+                </form>
+
+                <div id="skillsContainer" style="margin-top: 2rem;">
+                    <!-- Skills will be loaded here -->
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="js/app.js"></script>
+    <script>
+        let currentUser = null;
+        
+        document.addEventListener('DOMContentLoaded', async () => {
+            currentUser = await checkAuth();
+            if (currentUser) {
+                renderSkills(currentUser.candidateSkills);
+            }
+        });
+
+        function renderSkills(skills) {
+            const container = document.getElementById('skillsContainer');
+            if (!skills || skills.length === 0) {
+                container.innerHTML = '<p class="text-muted">No skills added yet.</p>';
+                return;
+            }
+            container.innerHTML = skills.map(cs => `
+                <div class="skill-tag">
+                    ${cs.skill.name} <span class="level">${cs.skillLevel}</span>
+                    <button onclick="deleteSkill(${cs.skill.id})" title="Remove skill">&times;</button>
+                </div>
+            `).join('');
+        }
+
+        document.getElementById('skillForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const skillName = document.getElementById('skillName').value;
+            const skillLevel = document.getElementById('skillLevel').value;
+
+            try {
+                const response = await fetch(`/api/candidates/${currentUser.id}/skills`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ skillName, skillLevel })
+                });
+
+                if (response.ok) {
+                    const updatedSkills = await response.json();
+                    renderSkills(updatedSkills);
+                    document.getElementById('skillName').value = '';
+                    showAlert('Skill added successfully!', 'success');
+                } else {
+                    showAlert('Failed to add skill');
+                }
+            } catch (error) {
+                showAlert('Error adding skill');
+            }
+        });
+
+        async function deleteSkill(skillId) {
+            if(!confirm('Are you sure you want to remove this skill?')) return;
+            try {
+                const response = await fetch(`/api/candidates/${currentUser.id}/skills/${skillId}`, {
+                    method: 'DELETE'
+                });
+                if (response.ok) {
+                    currentUser = await checkAuth(); // refresh
+                    renderSkills(currentUser.candidateSkills);
+                    showAlert('Skill removed', 'success');
+                } else {
+                    showAlert('Failed to remove skill');
+                }
+            } catch (error) {
+                showAlert('Error removing skill');
+            }
+        }
+    </script>
+</body>
+</html>

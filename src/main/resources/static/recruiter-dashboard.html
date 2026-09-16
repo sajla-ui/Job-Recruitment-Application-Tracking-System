@@ -1,0 +1,954 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Recruiter Dashboard - Job Portal</title>
+
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+<div class="app-container">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+
+        <div class="sidebar-brand">
+            Job Portal
+        </div>
+
+        <ul class="sidebar-menu">
+
+            <li>
+                <a href="recruiter-dashboard.html" class="active">
+                    Dashboard
+                </a>
+            </li>
+
+            <li>
+                <a href="#profile">
+                    Company Profile
+                </a>
+            </li>
+
+            <li>
+                <a href="#postJob">
+                    Post a Job
+                </a>
+            </li>
+
+            <li>
+    <a href="recruiter-jobs.html">
+        My Jobs
+    </a>
+</li>
+<li>
+    <a href="recruiter-applications.html">
+        Applications
+    </a>
+</li>
+
+            <li>
+                <a href="#" id="logoutBtn">
+                    Logout
+                </a>
+            </li>
+
+        </ul>
+
+    </aside>
+
+
+    <!-- MAIN CONTENT -->
+    <main class="main-content">
+
+        <div class="header">
+
+            <div>
+                <h1 class="page-title">
+                    Recruiter Dashboard
+                </h1>
+
+                <p id="welcomeMessage">
+                    Welcome!
+                </p>
+            </div>
+
+        </div>
+
+
+        <!-- STAT CARDS -->
+
+        <div class="dashboard-cards">
+
+            <div class="stat-card">
+                <h3 id="jobCount">0</h3>
+                <p>Jobs Posted</p>
+            </div>
+
+            <div class="stat-card">
+                <h3 id="companyNameCard">-</h3>
+                <p>Company</p>
+            </div>
+
+        </div>
+
+
+        <!-- COMPANY PROFILE -->
+
+        <div class="content-card" id="profile">
+
+            <div class="card-header">
+
+                <h3>Company Profile</h3>
+
+                <button
+                    class="btn btn-primary btn-sm"
+                    id="editProfileBtn">
+                    Edit Profile
+                </button>
+
+            </div>
+
+            <div id="profileAlert" class="alert"></div>
+
+            <form id="profileForm">
+
+                <div class="form-group">
+                    <label>Company Name</label>
+
+                    <input
+                        type="text"
+                        id="companyName"
+                        class="form-control"
+                        disabled>
+                </div>
+
+                <div class="form-group">
+                    <label>Company Description</label>
+
+                    <textarea
+                        id="companyDescription"
+                        class="form-control"
+                        rows="4"
+                        disabled></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>Website</label>
+
+                    <input
+                        type="text"
+                        id="website"
+                        class="form-control"
+                        disabled>
+                </div>
+
+                <div class="form-group">
+                    <label>Company Location</label>
+
+                    <input
+                        type="text"
+                        id="companyLocation"
+                        class="form-control"
+                        disabled>
+                </div>
+
+                <div class="form-group">
+                    <label>Contact Person</label>
+
+                    <input
+                        type="text"
+                        id="contactPerson"
+                        class="form-control"
+                        disabled>
+                </div>
+
+                <div class="form-group">
+                    <label>Phone</label>
+
+                    <input
+                        type="text"
+                        id="phone"
+                        class="form-control"
+                        disabled>
+                </div>
+
+                <button
+                    type="submit"
+                    class="btn btn-primary"
+                    id="saveProfileBtn"
+                    style="display:none;">
+                    Save Changes
+                </button>
+
+            </form>
+
+        </div>
+
+
+        <!-- POST JOB -->
+
+        <div class="content-card" id="postJob">
+
+            <div class="card-header">
+                <h3>Post a New Job</h3>
+            </div>
+
+            <div id="jobAlert" class="alert"></div>
+
+            <form id="jobForm">
+
+                <div class="form-group">
+                    <label>Job Title</label>
+
+                    <input
+                        type="text"
+                        id="jobTitle"
+                        class="form-control"
+                        placeholder="Example: Java Developer"
+                        required>
+                </div>
+
+                <div class="form-group">
+                    <label>Location</label>
+
+                    <input
+                        type="text"
+                        id="jobLocation"
+                        class="form-control"
+                        placeholder="Example: Kochi"
+                        required>
+                </div>
+
+                <div class="form-group">
+                    <label>Employment Type</label>
+
+                    <select
+                        id="employmentType"
+                        class="form-control"
+                        required>
+
+                        <option value="">
+                            Select employment type
+                        </option>
+
+                        <option value="Full Time">
+                            Full Time
+                        </option>
+
+                        <option value="Part Time">
+                            Part Time
+                        </option>
+
+                        <option value="Internship">
+                            Internship
+                        </option>
+
+                        <option value="Contract">
+                            Contract
+                        </option>
+
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Job Description</label>
+
+                    <textarea
+                        id="jobDescription"
+                        class="form-control"
+                        rows="5"
+                        placeholder="Describe the job..."
+                        required></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>Job Requirements</label>
+
+                    <textarea
+                        id="jobRequirements"
+                        class="form-control"
+                        rows="5"
+                        placeholder="Example: Java, Spring Boot, MySQL..."
+                        required></textarea>
+                </div>
+
+                <button
+                    type="submit"
+                    class="btn btn-primary"
+                    id="postJobBtn">
+                    Post Job
+                </button>
+
+            </form>
+
+        </div>
+
+
+        <!-- MY JOBS -->
+
+        <div class="content-card" id="myJobs">
+
+            <div class="card-header">
+
+                <h3>My Posted Jobs</h3>
+
+                <button
+                    class="btn btn-primary btn-sm"
+                    onclick="loadJobs()">
+                    Refresh
+                </button>
+
+            </div>
+
+            <div id="jobsContainer" class="job-list">
+
+                <div class="empty-state">
+                    Loading jobs...
+                </div>
+
+            </div>
+
+        </div>
+
+    </main>
+
+</div>
+
+
+<script>
+
+let recruiterId = localStorage.getItem("recruiterId");
+
+
+// ==========================================
+// CHECK LOGIN
+// ==========================================
+
+if (!recruiterId) {
+
+    alert("Please login first.");
+
+    window.location.href = "recruiter-login.html";
+}
+
+
+// ==========================================
+// LOAD COMPANY PROFILE
+// ==========================================
+
+async function loadProfile() {
+
+    try {
+
+        const response = await fetch(
+            `/api/recruiters/${recruiterId}`
+        );
+
+        if (!response.ok) {
+
+            throw new Error("Unable to load profile");
+        }
+
+        const recruiter = await response.json();
+
+        document.getElementById("companyName").value =
+            recruiter.companyName || "";
+
+        document.getElementById("companyDescription").value =
+            recruiter.companyDescription || "";
+
+        document.getElementById("website").value =
+            recruiter.website || "";
+
+        document.getElementById("companyLocation").value =
+            recruiter.companyLocation || "";
+
+        document.getElementById("contactPerson").value =
+            recruiter.contactPerson || "";
+
+        document.getElementById("phone").value =
+            recruiter.phone || "";
+
+        document.getElementById("companyNameCard").textContent =
+            recruiter.companyName || "-";
+
+        document.getElementById("welcomeMessage").textContent =
+            "Welcome, " + (recruiter.companyName || "Recruiter") + "!";
+
+    } catch (error) {
+
+        console.error(error);
+
+        showAlert(
+            "profileAlert",
+            "Unable to load company profile.",
+            "error"
+        );
+    }
+}
+
+
+// ==========================================
+// EDIT PROFILE
+// ==========================================
+
+document.getElementById("editProfileBtn")
+    .addEventListener("click", function() {
+
+        const fields = document.querySelectorAll(
+            "#profileForm .form-control"
+        );
+
+        fields.forEach(field => {
+            field.disabled = false;
+        });
+
+        document.getElementById("saveProfileBtn")
+            .style.display = "block";
+
+        this.style.display = "none";
+    });
+
+
+// ==========================================
+// UPDATE PROFILE
+// ==========================================
+
+document.getElementById("profileForm")
+    .addEventListener("submit", async function(e) {
+
+        e.preventDefault();
+
+        const updatedData = {
+
+            companyName:
+                document.getElementById("companyName").value,
+
+            companyDescription:
+                document.getElementById("companyDescription").value,
+
+            website:
+                document.getElementById("website").value,
+
+            companyLocation:
+                document.getElementById("companyLocation").value,
+
+            contactPerson:
+                document.getElementById("contactPerson").value,
+
+            phone:
+                document.getElementById("phone").value
+        };
+
+        try {
+
+            const response = await fetch(
+                `/api/recruiters/${recruiterId}`,
+                {
+                    method: "PUT",
+
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+
+                    body: JSON.stringify(updatedData)
+                }
+            );
+
+            if (!response.ok) {
+
+                const error = await response.json();
+
+                throw new Error(
+                    error.message || "Update failed"
+                );
+            }
+
+            const recruiter = await response.json();
+
+            localStorage.setItem(
+                "recruiter",
+                JSON.stringify(recruiter)
+            );
+
+            document.querySelectorAll(
+                "#profileForm .form-control"
+            ).forEach(field => {
+                field.disabled = true;
+            });
+
+            document.getElementById("saveProfileBtn")
+                .style.display = "none";
+
+            document.getElementById("editProfileBtn")
+                .style.display = "inline-block";
+
+            showAlert(
+                "profileAlert",
+                "Company profile updated successfully!",
+                "success"
+            );
+
+            document.getElementById("companyNameCard")
+                .textContent = recruiter.companyName;
+
+        } catch (error) {
+
+            console.error(error);
+
+            showAlert(
+                "profileAlert",
+                error.message,
+                "error"
+            );
+        }
+
+    });
+
+
+// ==========================================
+// POST JOB
+// ==========================================
+
+document.getElementById("jobForm")
+    .addEventListener("submit", async function(e) {
+
+        e.preventDefault();
+
+        const button =
+            document.getElementById("postJobBtn");
+
+        button.disabled = true;
+        button.textContent = "Posting...";
+
+        const job = {
+
+            title:
+                document.getElementById("jobTitle").value,
+
+            location:
+                document.getElementById("jobLocation").value,
+
+            employmentType:
+                document.getElementById("employmentType").value,
+
+            description:
+                document.getElementById("jobDescription").value,
+
+            requirements:
+                document.getElementById("jobRequirements").value
+        };
+
+        try {
+
+            const response = await fetch(
+                `/api/recruiter/jobs?recruiterId=${recruiterId}`,
+                {
+                    method: "POST",
+
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+
+                    body: JSON.stringify(job)
+                }
+            );
+
+            if (!response.ok) {
+
+                const error = await response.json();
+
+                throw new Error(
+                    error.message || "Unable to post job"
+                );
+            }
+
+            alert("Job posted successfully!");
+
+            document.getElementById("jobForm").reset();
+
+            loadJobs();
+
+        } catch (error) {
+
+            console.error(error);
+
+            showAlert(
+                "jobAlert",
+                error.message,
+                "error"
+            );
+
+        } finally {
+
+            button.disabled = false;
+            button.textContent = "Post Job";
+        }
+
+    });
+
+
+// ==========================================
+// LOAD MY JOBS
+// ==========================================
+
+async function loadJobs() {
+
+    const container =
+        document.getElementById("jobsContainer");
+
+    try {
+
+        const response = await fetch(
+            `/api/recruiter/jobs/recruiter/${recruiterId}`
+        );
+
+        if (!response.ok) {
+
+            throw new Error("Unable to load jobs");
+        }
+
+        const jobs = await response.json();
+
+        document.getElementById("jobCount")
+            .textContent = jobs.length;
+
+        if (jobs.length === 0) {
+
+            container.innerHTML = `
+                <div class="empty-state">
+                    <h3>No Jobs Posted Yet</h3>
+                    <p>Post your first job using the form above.</p>
+                </div>
+            `;
+
+            return;
+        }
+
+        container.innerHTML = "";
+
+        jobs.forEach(job => {
+
+            const card =
+                document.createElement("div");
+
+            card.className = "job-card";
+
+            card.innerHTML = `
+
+                <div class="job-header">
+
+                    <div>
+
+                        <h3 class="job-title">
+                            ${escapeHtml(job.title)}
+                        </h3>
+
+                        <div class="job-company">
+                            ${escapeHtml(job.company)}
+                        </div>
+
+                    </div>
+
+                    <span class="badge badge-primary">
+                        ${escapeHtml(job.employmentType)}
+                    </span>
+
+                </div>
+
+                <div class="job-details">
+
+                    <span>
+                        📍 ${escapeHtml(job.location)}
+                    </span>
+
+                </div>
+
+                <p>
+                    ${escapeHtml(job.description || "")}
+                </p>
+
+                <p>
+                    <strong>Requirements:</strong><br>
+                    ${escapeHtml(job.requirements || "")}
+                </p>
+
+                <div style="margin-top: 1rem;">
+
+                    <button
+                        class="btn btn-primary btn-sm"
+                        onclick="editJob(${job.id})">
+                        Edit
+                    </button>
+
+                    <button
+                        class="btn btn-danger btn-sm"
+                        onclick="deleteJob(${job.id})">
+                        Delete
+                    </button>
+
+                </div>
+
+            `;
+
+            container.appendChild(card);
+
+        });
+
+    } catch (error) {
+
+        console.error(error);
+
+        container.innerHTML = `
+            <div class="empty-state">
+                Unable to load jobs.
+            </div>
+        `;
+    }
+}
+
+
+// ==========================================
+// DELETE JOB
+// ==========================================
+
+async function deleteJob(jobId) {
+
+    if (!confirm("Are you sure you want to delete this job?")) {
+        return;
+    }
+
+    try {
+
+        const response = await fetch(
+            `/api/recruiter/jobs/${jobId}?recruiterId=${recruiterId}`,
+            {
+                method: "DELETE"
+            }
+        );
+
+        if (!response.ok) {
+
+            const error = await response.json();
+
+            throw new Error(
+                error.message || "Delete failed"
+            );
+        }
+
+        alert("Job deleted successfully!");
+
+        loadJobs();
+
+    } catch (error) {
+
+        console.error(error);
+
+        alert(error.message);
+    }
+}
+
+
+// ==========================================
+// EDIT JOB
+// ==========================================
+
+async function editJob(jobId) {
+
+    try {
+
+        const response = await fetch(
+            `/api/recruiter/jobs/${jobId}`
+        );
+
+        if (!response.ok) {
+
+            throw new Error("Unable to load job");
+        }
+
+        const job = await response.json();
+
+        document.getElementById("jobTitle").value =
+            job.title || "";
+
+        document.getElementById("jobLocation").value =
+            job.location || "";
+
+        document.getElementById("employmentType").value =
+            job.employmentType || "";
+
+        document.getElementById("jobDescription").value =
+            job.description || "";
+
+        document.getElementById("jobRequirements").value =
+            job.requirements || "";
+
+        document.getElementById("postJob")
+            .scrollIntoView({
+                behavior: "smooth"
+            });
+
+        const form =
+            document.getElementById("jobForm");
+
+        form.dataset.editingId = jobId;
+
+        document.getElementById("postJobBtn")
+            .textContent = "Update Job";
+
+    } catch (error) {
+
+        alert(error.message);
+    }
+}
+
+
+// ==========================================
+// CHANGE POST JOB → UPDATE JOB
+// ==========================================
+
+document.getElementById("jobForm")
+    .addEventListener("submit", async function(e) {
+
+        if (!this.dataset.editingId) {
+            return;
+        }
+
+        e.preventDefault();
+
+        const jobId = this.dataset.editingId;
+
+        const updatedJob = {
+
+            title:
+                document.getElementById("jobTitle").value,
+
+            location:
+                document.getElementById("jobLocation").value,
+
+            employmentType:
+                document.getElementById("employmentType").value,
+
+            description:
+                document.getElementById("jobDescription").value,
+
+            requirements:
+                document.getElementById("jobRequirements").value
+        };
+
+        try {
+
+            const response = await fetch(
+                `/api/recruiter/jobs/${jobId}?recruiterId=${recruiterId}`,
+                {
+                    method: "PUT",
+
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+
+                    body: JSON.stringify(updatedJob)
+                }
+            );
+
+            if (!response.ok) {
+
+                const error = await response.json();
+
+                throw new Error(
+                    error.message || "Update failed"
+                );
+            }
+
+            alert("Job updated successfully!");
+
+            this.reset();
+
+            delete this.dataset.editingId;
+
+            document.getElementById("postJobBtn")
+                .textContent = "Post Job";
+
+            loadJobs();
+
+        } catch (error) {
+
+            alert(error.message);
+        }
+
+    });
+
+
+// ==========================================
+// LOGOUT
+// ==========================================
+
+document.getElementById("logoutBtn")
+    .addEventListener("click", function(e) {
+
+        e.preventDefault();
+
+        localStorage.removeItem("recruiter");
+        localStorage.removeItem("recruiterId");
+
+        window.location.href =
+            "recruiter-login.html";
+    });
+
+
+// ==========================================
+// ALERT FUNCTION
+// ==========================================
+
+function showAlert(id, message, type) {
+
+    const alertBox =
+        document.getElementById(id);
+
+    alertBox.textContent = message;
+
+    alertBox.className =
+        "alert alert-" + type;
+
+    alertBox.style.display = "block";
+
+    setTimeout(() => {
+
+        alertBox.style.display = "none";
+
+    }, 4000);
+}
+
+
+// ==========================================
+// BASIC HTML ESCAPING
+// ==========================================
+
+function escapeHtml(value) {
+
+    const div =
+        document.createElement("div");
+
+    div.textContent =
+        value ?? "";
+
+    return div.innerHTML;
+}
+
+
+// ==========================================
+// INITIAL LOAD
+// ==========================================
+
+loadProfile();
+loadJobs();
+
+</script>
+
+</body>
+</html>

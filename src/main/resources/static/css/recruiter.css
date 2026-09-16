@@ -1,0 +1,477 @@
+/* =========================================================
+   JOB PORTAL - RECRUITER / COMPANY
+   DARK TECH + BRIGHT NEON UI
+   ========================================================= */
+
+:root {
+    --bg-dark: #07111f;
+    --bg-dark-2: #0b1830;
+    --card: rgba(14, 29, 52, 0.88);
+
+    --blue: #38bdf8;
+    --blue-bright: #0ea5e9;
+    --cyan: #22d3ee;
+    --purple: #8b5cf6;
+
+    --text: #f1f5f9;
+    --muted: #94a3b8;
+
+    --border: rgba(56, 189, 248, 0.22);
+
+    --input-bg: rgba(5, 15, 30, 0.75);
+
+    --success: #22c55e;
+    --danger: #ef4444;
+}
+
+/* =========================================================
+   GLOBAL
+   ========================================================= */
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+
+    font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+
+    color: var(--text);
+
+    background:
+        radial-gradient(
+            circle at 10% 10%,
+            rgba(14, 165, 233, 0.18),
+            transparent 28%
+        ),
+        radial-gradient(
+            circle at 90% 20%,
+            rgba(139, 92, 246, 0.16),
+            transparent 30%
+        ),
+        radial-gradient(
+            circle at 50% 100%,
+            rgba(34, 211, 238, 0.10),
+            transparent 35%
+        ),
+        linear-gradient(
+            135deg,
+            var(--bg-dark),
+            var(--bg-dark-2)
+        );
+}
+
+/* =========================================================
+   REGISTRATION CONTAINER
+   ========================================================= */
+
+.recruiter-container {
+    min-height: 100vh;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding: 40px 20px;
+
+    position: relative;
+    overflow: hidden;
+}
+
+/* Decorative glowing circles */
+
+.recruiter-container::before {
+    content: "";
+
+    position: absolute;
+
+    width: 350px;
+    height: 350px;
+
+    top: -150px;
+    left: -120px;
+
+    border-radius: 50%;
+
+    background: rgba(14, 165, 233, 0.16);
+
+    filter: blur(80px);
+
+    pointer-events: none;
+}
+
+.recruiter-container::after {
+    content: "";
+
+    position: absolute;
+
+    width: 350px;
+    height: 350px;
+
+    bottom: -160px;
+    right: -120px;
+
+    border-radius: 50%;
+
+    background: rgba(139, 92, 246, 0.16);
+
+    filter: blur(80px);
+
+    pointer-events: none;
+}
+
+/* =========================================================
+   COMPANY CARD
+   ========================================================= */
+
+.recruiter-card {
+    position: relative;
+    z-index: 2;
+
+    width: 100%;
+    max-width: 620px;
+
+    padding: 42px;
+
+    background: var(--card);
+
+    border: 1px solid var(--border);
+
+    border-radius: 24px;
+
+    box-shadow:
+        0 25px 70px rgba(0, 0, 0, 0.45),
+        0 0 40px rgba(14, 165, 233, 0.08);
+
+    backdrop-filter: blur(18px);
+
+    animation: cardEnter 0.6s ease;
+}
+
+@keyframes cardEnter {
+
+    from {
+        opacity: 0;
+        transform: translateY(25px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* =========================================================
+   HEADING
+   ========================================================= */
+
+.recruiter-card h1 {
+    margin: 0;
+
+    text-align: center;
+
+    font-size: 2.1rem;
+    font-weight: 800;
+
+    letter-spacing: -0.5px;
+
+    background:
+        linear-gradient(
+            90deg,
+            var(--blue),
+            var(--cyan),
+            var(--purple)
+        );
+
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+
+    text-shadow:
+        0 0 25px rgba(34, 211, 238, 0.12);
+}
+
+.subtitle {
+    margin: 10px 0 30px;
+
+    text-align: center;
+
+    color: var(--muted);
+
+    font-size: 0.95rem;
+}
+
+/* =========================================================
+   FORM
+   ========================================================= */
+
+.form-group {
+    margin-bottom: 19px;
+}
+
+.form-group label {
+    display: block;
+
+    margin-bottom: 8px;
+
+    color: #cbd5e1;
+
+    font-size: 0.88rem;
+    font-weight: 600;
+}
+
+/* Inputs + textarea */
+
+.form-group input,
+.form-group textarea,
+.form-control {
+    width: 100%;
+
+    padding: 13px 15px;
+
+    border: 1px solid rgba(148, 163, 184, 0.22);
+
+    border-radius: 10px;
+
+    background: var(--input-bg);
+
+    color: var(--text);
+
+    font-family: inherit;
+
+    font-size: 0.94rem;
+
+    outline: none;
+
+    transition:
+        border-color 0.25s ease,
+        box-shadow 0.25s ease,
+        background 0.25s ease;
+}
+
+/* Placeholder */
+
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+    color: #64748b;
+}
+
+/* Hover */
+
+.form-group input:hover,
+.form-group textarea:hover {
+    border-color: rgba(56, 189, 248, 0.45);
+}
+
+/* Focus */
+
+.form-group input:focus,
+.form-group textarea:focus {
+    border-color: var(--cyan);
+
+    background: rgba(8, 24, 45, 0.95);
+
+    box-shadow:
+        0 0 0 3px rgba(34, 211, 238, 0.10),
+        0 0 20px rgba(34, 211, 238, 0.08);
+}
+
+/* Textarea */
+
+.form-group textarea {
+    min-height: 100px;
+
+    resize: vertical;
+}
+
+/* =========================================================
+   REGISTER BUTTON
+   ========================================================= */
+
+#registerBtn {
+    width: 100%;
+
+    margin-top: 8px;
+
+    padding: 14px 20px;
+
+    border: none;
+
+    border-radius: 11px;
+
+    color: white;
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--blue-bright),
+            var(--cyan),
+            var(--purple)
+        );
+
+    font-size: 0.98rem;
+    font-weight: 700;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 8px 25px rgba(14, 165, 233, 0.25);
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease,
+        filter 0.2s ease;
+}
+
+#registerBtn:hover {
+    transform: translateY(-2px);
+
+    filter: brightness(1.08);
+
+    box-shadow:
+        0 12px 35px rgba(34, 211, 238, 0.35);
+}
+
+#registerBtn:active {
+    transform: translateY(0);
+}
+
+#registerBtn:disabled {
+    opacity: 0.65;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* =========================================================
+   MESSAGE
+   ========================================================= */
+
+#message {
+    margin-bottom: 18px;
+
+    border-radius: 10px;
+
+    font-size: 0.9rem;
+
+    font-weight: 600;
+}
+
+.success-message {
+    padding: 12px 15px;
+
+    color: #86efac;
+
+    background: rgba(34, 197, 94, 0.10);
+
+    border: 1px solid rgba(34, 197, 94, 0.35);
+}
+
+.error-message {
+    padding: 12px 15px;
+
+    color: #fca5a5;
+
+    background: rgba(239, 68, 68, 0.10);
+
+    border: 1px solid rgba(239, 68, 68, 0.35);
+}
+
+/* =========================================================
+   BOTTOM LINKS
+   ========================================================= */
+
+.bottom-text {
+    margin: 18px 0 0;
+
+    text-align: center;
+
+    color: var(--muted);
+
+    font-size: 0.88rem;
+}
+
+.bottom-text a {
+    color: var(--cyan);
+
+    font-weight: 600;
+
+    text-decoration: none;
+
+    transition: 0.2s ease;
+}
+
+.bottom-text a:hover {
+    color: white;
+
+    text-shadow:
+        0 0 12px rgba(34, 211, 238, 0.65);
+}
+
+/* =========================================================
+   TECH GRID EFFECT
+   ========================================================= */
+
+.recruiter-container {
+    background-image:
+        linear-gradient(
+            rgba(56, 189, 248, 0.025) 1px,
+            transparent 1px
+        ),
+        linear-gradient(
+            90deg,
+            rgba(56, 189, 248, 0.025) 1px,
+            transparent 1px
+        ),
+        radial-gradient(
+            circle at 50% 50%,
+            rgba(14, 165, 233, 0.08),
+            transparent 55%
+        );
+    
+    background-size:
+        45px 45px,
+        45px 45px,
+        auto;
+}
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 650px) {
+
+    .recruiter-container {
+        padding: 25px 15px;
+    }
+
+    .recruiter-card {
+        padding: 30px 22px;
+
+        border-radius: 18px;
+    }
+
+    .recruiter-card h1 {
+        font-size: 1.7rem;
+    }
+}
+
+@media (max-width: 400px) {
+
+    .recruiter-card {
+        padding: 25px 18px;
+    }
+
+    .recruiter-card h1 {
+        font-size: 1.5rem;
+    }
+
+    .form-group input,
+    .form-group textarea {
+        padding: 12px;
+    }
+}

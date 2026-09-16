@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Recruiter Login - Job Portal</title>
+
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+          rel="stylesheet">
+</head>
+
+<body>
+
+<div class="auth-container">
+
+    <div class="auth-card">
+
+        <h2>Company Login</h2>
+
+        <div id="alertMessage" class="alert"></div>
+
+        <form id="loginForm">
+
+            <div class="form-group">
+                <label for="email">Email Address</label>
+
+                <input
+                    type="email"
+                    id="email"
+                    class="form-control"
+                    placeholder="Enter company email"
+                    required>
+            </div>
+
+            <div class="form-group">
+                <label for="password">Password</label>
+
+                <input
+                    type="password"
+                    id="password"
+                    class="form-control"
+                    placeholder="Enter password"
+                    required>
+            </div>
+
+            <button
+                type="submit"
+                class="btn btn-primary"
+                id="loginBtn">
+                Login
+            </button>
+
+        </form>
+
+        <div class="auth-links">
+
+            <p>
+                Don't have a company account?
+                <a href="register.html">Register here</a>
+            </p>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<script>
+
+document.getElementById("loginForm").addEventListener("submit", async function(e) {
+
+    e.preventDefault();
+
+    const email =
+        document.getElementById("email").value;
+
+    const password =
+        document.getElementById("password").value;
+
+    const loginBtn =
+        document.getElementById("loginBtn");
+
+    loginBtn.textContent = "Logging in...";
+    loginBtn.disabled = true;
+
+    try {
+
+        const response = await fetch(
+            `/api/recruiters/login?email=${encodeURIComponent(email)}&password=${encodeURIComponent(password)}`,
+            {
+                method: "POST"
+            }
+        );
+
+        const data = await response.json();
+
+        if (response.ok) {
+
+            // Save recruiter information
+            localStorage.setItem(
+                "recruiter",
+                JSON.stringify(data)
+            );
+
+            localStorage.setItem(
+                "recruiterId",
+                data.id
+            );
+
+            alert("Login successful!");
+
+            window.location.href = "recruiter-dashboard.html";
+
+        } else {
+
+            showAlert(
+                data.message || "Invalid email or password."
+            );
+        }
+
+    } catch (error) {
+
+        console.error(error);
+
+        showAlert(
+            "Unable to connect to the server."
+        );
+
+    } finally {
+
+        loginBtn.textContent = "Login";
+        loginBtn.disabled = false;
+    }
+
+});
+
+
+function showAlert(message) {
+
+    const alertBox =
+        document.getElementById("alertMessage");
+
+    alertBox.textContent = message;
+
+    alertBox.style.display = "block";
+}
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,1059 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Applications - Job Portal</title>
+
+    <link rel="stylesheet" href="css/recruiter.css">
+
+    <style>
+
+        /* =====================================================
+           RECRUITER APPLICATIONS PAGE
+           ===================================================== */
+
+        .applications-page {
+            min-height: 100vh;
+            padding: 35px;
+        }
+
+        /* ================= HEADER ================= */
+
+        .applications-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid rgba(56, 189, 248, 0.22);
+        }
+
+        .applications-header h1 {
+            margin: 0;
+            font-size: 2rem;
+            font-weight: 800;
+
+            background: linear-gradient(
+                90deg,
+                #38bdf8,
+                #22d3ee,
+                #8b5cf6
+            );
+
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .applications-header p {
+            margin: 8px 0 0;
+            color: #94a3b8;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .tech-btn {
+            padding: 11px 18px;
+            border: 1px solid rgba(56, 189, 248, 0.35);
+            border-radius: 10px;
+
+            background: rgba(14, 165, 233, 0.10);
+            color: #22d3ee;
+
+            font-weight: 700;
+            cursor: pointer;
+            text-decoration: none;
+
+            transition: 0.25s ease;
+        }
+
+        .tech-btn:hover {
+            transform: translateY(-2px);
+
+            background: rgba(34, 211, 238, 0.16);
+
+            box-shadow:
+                0 0 20px rgba(34, 211, 238, 0.18);
+        }
+
+        /* ================= SEARCH ================= */
+
+        .search-panel {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 25px;
+            padding: 18px;
+
+            border-radius: 16px;
+
+            background: rgba(14, 29, 52, 0.75);
+            border: 1px solid rgba(56, 189, 248, 0.18);
+
+            box-shadow:
+                0 12px 35px rgba(0, 0, 0, 0.20);
+        }
+
+        .search-box,
+        .status-filter {
+            padding: 13px 15px;
+
+            border: 1px solid rgba(148, 163, 184, 0.22);
+            border-radius: 10px;
+
+            background: rgba(5, 15, 30, 0.75);
+            color: #f1f5f9;
+
+            font-family: inherit;
+            font-size: 0.94rem;
+
+            outline: none;
+            transition: 0.25s ease;
+        }
+
+        .search-box {
+            flex: 1;
+        }
+
+        .status-filter {
+            min-width: 170px;
+        }
+
+        .search-box::placeholder {
+            color: #64748b;
+        }
+
+        .search-box:focus,
+        .status-filter:focus {
+            border-color: #22d3ee;
+
+            box-shadow:
+                0 0 0 3px rgba(34, 211, 238, 0.10),
+                0 0 20px rgba(34, 211, 238, 0.08);
+        }
+
+        .status-filter option {
+            background: #0b1830;
+            color: white;
+        }
+
+        /* ================= COUNT ================= */
+
+        .application-count {
+            margin-bottom: 20px;
+            color: #94a3b8;
+            font-size: 0.95rem;
+        }
+
+        .application-count strong {
+            color: #22d3ee;
+        }
+
+        /* ================= APPLICATION GRID ================= */
+
+        .applications-grid {
+            display: grid;
+
+            grid-template-columns:
+                repeat(auto-fit, minmax(340px, 1fr));
+
+            gap: 22px;
+        }
+
+        /* ================= APPLICATION CARD ================= */
+
+        .application-card {
+            position: relative;
+
+            padding: 25px;
+
+            border-radius: 18px;
+
+            background: rgba(14, 29, 52, 0.88);
+
+            border: 1px solid rgba(56, 189, 248, 0.20);
+
+            box-shadow:
+                0 15px 40px rgba(0, 0, 0, 0.30);
+
+            overflow: hidden;
+
+            transition: 0.3s ease;
+        }
+
+        .application-card::before {
+            content: "";
+
+            position: absolute;
+
+            top: 0;
+            left: 0;
+
+            width: 100%;
+            height: 3px;
+
+            background: linear-gradient(
+                90deg,
+                #38bdf8,
+                #22d3ee,
+                #8b5cf6
+            );
+        }
+
+        .application-card:hover {
+            transform: translateY(-5px);
+
+            border-color:
+                rgba(34, 211, 238, 0.45);
+
+            box-shadow:
+                0 20px 45px rgba(0, 0, 0, 0.40),
+                0 0 25px rgba(14, 165, 233, 0.10);
+        }
+
+        /* ================= CANDIDATE ================= */
+
+        .candidate-header {
+            display: flex;
+
+            justify-content: space-between;
+            align-items: flex-start;
+
+            gap: 15px;
+        }
+
+        .candidate-name {
+            margin: 0 0 6px;
+
+            color: #38bdf8;
+
+            font-size: 1.25rem;
+        }
+
+        .candidate-email {
+            color: #94a3b8;
+
+            font-size: 0.85rem;
+        }
+
+        /* ================= STATUS ================= */
+
+        .status-badge {
+            padding: 6px 10px;
+
+            border-radius: 20px;
+
+            font-size: 0.75rem;
+            font-weight: 700;
+
+            white-space: nowrap;
+        }
+
+        .status-applied {
+            color: #67e8f9;
+
+            background:
+                rgba(34, 211, 238, 0.10);
+
+            border:
+                1px solid rgba(34, 211, 238, 0.25);
+        }
+
+        .status-shortlisted {
+            color: #86efac;
+
+            background:
+                rgba(34, 197, 94, 0.10);
+
+            border:
+                1px solid rgba(34, 197, 94, 0.25);
+        }
+
+        .status-rejected {
+            color: #fca5a5;
+
+            background:
+                rgba(239, 68, 68, 0.10);
+
+            border:
+                1px solid rgba(239, 68, 68, 0.25);
+        }
+
+        /* ================= DETAILS ================= */
+
+        .application-info {
+            margin: 20px 0;
+
+            display: flex;
+
+            flex-direction: column;
+
+            gap: 10px;
+        }
+
+        .info-row {
+            display: flex;
+
+            justify-content: space-between;
+
+            gap: 15px;
+
+            padding: 9px 11px;
+
+            border-radius: 8px;
+
+            background:
+                rgba(5, 15, 30, 0.55);
+        }
+
+        .info-label {
+            color: #64748b;
+
+            font-size: 0.82rem;
+        }
+
+        .info-value {
+            color: #cbd5e1;
+
+            font-size: 0.84rem;
+
+            text-align: right;
+        }
+
+        /* ================= COVER LETTER ================= */
+
+        .cover-title {
+            margin-bottom: 7px;
+
+            color: #22d3ee;
+
+            font-size: 0.88rem;
+
+            font-weight: 700;
+        }
+
+        .cover-letter {
+            color: #94a3b8;
+
+            font-size: 0.86rem;
+
+            line-height: 1.6;
+
+            margin-bottom: 20px;
+        }
+
+        /* ================= ACTIONS ================= */
+
+        .application-actions {
+            display: flex;
+
+            gap: 10px;
+
+            padding-top: 18px;
+
+            border-top:
+                1px solid rgba(56, 189, 248, 0.12);
+        }
+
+        .action-btn {
+            flex: 1;
+
+            padding: 10px 12px;
+
+            border-radius: 9px;
+
+            font-family: inherit;
+
+            font-weight: 700;
+
+            font-size: 0.82rem;
+
+            cursor: pointer;
+
+            transition: 0.25s ease;
+        }
+
+        .shortlist-btn {
+            color: #86efac;
+
+            background:
+                rgba(34, 197, 94, 0.08);
+
+            border:
+                1px solid rgba(34, 197, 94, 0.28);
+        }
+
+        .shortlist-btn:hover {
+            background:
+                rgba(34, 197, 94, 0.16);
+
+            transform: translateY(-2px);
+        }
+
+        .reject-btn {
+            color: #fca5a5;
+
+            background:
+                rgba(239, 68, 68, 0.08);
+
+            border:
+                1px solid rgba(239, 68, 68, 0.28);
+        }
+
+        .reject-btn:hover {
+            background:
+                rgba(239, 68, 68, 0.16);
+
+            transform: translateY(-2px);
+        }
+
+        /* ================= EMPTY ================= */
+
+        .empty-state {
+            grid-column: 1 / -1;
+
+            text-align: center;
+
+            padding: 65px 25px;
+
+            border-radius: 18px;
+
+            background:
+                rgba(14, 29, 52, 0.70);
+
+            border:
+                1px dashed rgba(56, 189, 248, 0.28);
+
+            color: #94a3b8;
+        }
+
+        .empty-state h2 {
+            margin: 0 0 10px;
+
+            color: #38bdf8;
+        }
+
+        /* ================= RESPONSIVE ================= */
+
+        @media (max-width: 700px) {
+
+            .applications-page {
+                padding: 25px 18px;
+            }
+
+            .applications-header {
+                flex-direction: column;
+
+                align-items: flex-start;
+            }
+
+            .search-panel {
+                flex-direction: column;
+            }
+
+            .status-filter {
+                width: 100%;
+            }
+
+            .applications-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 450px) {
+
+            .applications-page {
+                padding: 18px 12px;
+            }
+
+            .applications-header h1 {
+                font-size: 1.6rem;
+            }
+
+            .application-card {
+                padding: 20px;
+            }
+
+            .candidate-header {
+                flex-direction: column;
+            }
+
+            .application-actions {
+                flex-direction: column;
+            }
+
+            .action-btn {
+                width: 100%;
+            }
+        }
+
+    </style>
+</head>
+
+<body>
+
+<div class="applications-page">
+
+    <!-- =====================================================
+         HEADER
+         ===================================================== -->
+
+    <div class="applications-header">
+
+        <div>
+
+            <h1>Applications</h1>
+
+            <p>
+                Manage candidates who applied for your jobs.
+            </p>
+
+        </div>
+
+        <div class="header-actions">
+
+            <a
+                href="recruiter-dashboard.html"
+                class="tech-btn">
+                ← Dashboard
+            </a>
+
+            <button
+                type="button"
+                class="tech-btn"
+                onclick="loadApplications()">
+                ↻ Refresh
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- =====================================================
+         SEARCH + FILTER
+         ===================================================== -->
+
+    <div class="search-panel">
+
+        <input
+            type="text"
+            id="searchInput"
+            class="search-box"
+            placeholder="Search candidate, email, job title..."
+            autocomplete="off">
+
+
+        <select
+            id="statusFilter"
+            class="status-filter">
+
+            <option value="all">
+                All Applications
+            </option>
+
+            <option value="Applied">
+                Applied
+            </option>
+
+            <option value="Shortlisted">
+                Shortlisted
+            </option>
+
+            <option value="Rejected">
+                Rejected
+            </option>
+
+        </select>
+
+    </div>
+
+
+    <!-- =====================================================
+         COUNT
+         ===================================================== -->
+
+    <div class="application-count">
+
+        Showing
+        <strong id="applicationCount">0</strong>
+        applications
+
+    </div>
+
+
+    <!-- =====================================================
+         APPLICATIONS
+         ===================================================== -->
+
+    <div
+        id="applicationsContainer"
+        class="applications-grid">
+
+        <div class="empty-state">
+
+            <h2>Applications Coming Soon</h2>
+
+            <p>
+                Candidate applications will appear here
+                once the application system is connected.
+            </p>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<script>
+
+    // =========================================================
+    // LOGIN CHECK
+    // =========================================================
+
+    const recruiterId =
+        localStorage.getItem("recruiterId");
+
+
+    if (!recruiterId) {
+
+        alert("Please login first.");
+
+        window.location.href =
+            "recruiter-login.html";
+    }
+
+
+    // =========================================================
+    // APPLICATION DATA
+    // =========================================================
+
+    let allApplications = [];
+
+
+    // =========================================================
+    // LOAD APPLICATIONS
+    // =========================================================
+
+    async function loadApplications() {
+
+    try {
+
+        const recruiterId = localStorage.getItem("recruiterId");
+
+        if (!recruiterId) {
+            alert("Please login as a recruiter first.");
+            window.location.href = "recruiter-login.html";
+            return;
+        }
+
+        const response = await fetch(
+            `http://localhost:8080/api/applications/recruiter/${recruiterId}`
+        );
+
+        if (!response.ok) {
+            throw new Error("Failed to load applications");
+        }
+
+        const applications = await response.json();
+
+        allApplications = applications.map(application => ({
+
+            id: application.id,
+
+            candidateName:
+                application.candidate?.name || "Unknown Candidate",
+
+            email:
+                application.candidate?.email || "No email",
+
+            phone:
+                application.candidate?.phone || "No phone",
+
+            jobTitle:
+                application.job?.title || "Unknown Job",
+
+            status:
+                application.status || "Applied",
+
+            appliedDate:
+                application.appliedDate,
+
+            coverLetter:
+                application.coverLetter || ""
+
+        }));
+
+        displayApplications(allApplications);
+
+    } catch (error) {
+
+        console.error("Error loading applications:", error);
+
+        alert("Unable to load applications.");
+
+    }
+}
+
+
+    // =========================================================
+    // DISPLAY APPLICATIONS
+    // =========================================================
+
+    function displayApplications(applications) {
+
+        const container =
+            document.getElementById(
+                "applicationsContainer"
+            );
+
+
+        document.getElementById(
+            "applicationCount"
+        ).textContent =
+            applications.length;
+
+
+        if (applications.length === 0) {
+
+            container.innerHTML = `
+
+                <div class="empty-state">
+
+                    <h2>No Applications Yet</h2>
+
+                    <p>
+                        Applications from candidates
+                        will appear here.
+                    </p>
+
+                </div>
+
+            `;
+
+            return;
+        }
+
+
+        container.innerHTML = "";
+
+
+        applications.forEach(function(application) {
+
+            const card =
+                document.createElement("div");
+
+            card.className =
+                "application-card";
+
+
+            const status =
+                application.status ||
+                "Applied";
+
+
+            let statusClass =
+                "status-applied";
+
+
+            if (status === "Shortlisted") {
+                statusClass =
+                    "status-shortlisted";
+            }
+
+
+            if (status === "Rejected") {
+                statusClass =
+                    "status-rejected";
+            }
+
+
+            card.innerHTML = `
+
+                <div class="candidate-header">
+
+                    <div>
+
+                        <h2 class="candidate-name">
+                            ${escapeHtml(
+                                application.candidateName
+                                || "Candidate"
+                            )}
+                        </h2>
+
+                        <div class="candidate-email">
+                            ${escapeHtml(
+                                application.email
+                                || "No email provided"
+                            )}
+                        </div>
+
+                    </div>
+
+                    <span
+                        class="status-badge ${statusClass}">
+                        ${escapeHtml(status)}
+                    </span>
+
+                </div>
+
+
+                <div class="application-info">
+
+                    <div class="info-row">
+
+                        <span class="info-label">
+                            Job
+                        </span>
+
+                        <span class="info-value">
+                            ${escapeHtml(
+                                application.jobTitle
+                                || "Unknown Job"
+                            )}
+                        </span>
+
+                    </div>
+
+
+                    <div class="info-row">
+
+                        <span class="info-label">
+                            Applied On
+                        </span>
+
+                        <span class="info-value">
+                            ${escapeHtml(
+                                application.appliedDate
+                                || "Not available"
+                            )}
+                        </span>
+
+                    </div>
+
+
+                    <div class="info-row">
+
+                        <span class="info-label">
+                            Phone
+                        </span>
+
+                        <span class="info-value">
+                            ${escapeHtml(
+                                application.phone
+                                || "Not provided"
+                            )}
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <div class="cover-title">
+                    Cover Letter
+                </div>
+
+                <div class="cover-letter">
+
+                    ${escapeHtml(
+                        application.coverLetter
+                        || "No cover letter provided."
+                    )}
+
+                </div>
+
+
+                <div class="application-actions">
+
+                    <button
+                        class="action-btn shortlist-btn"
+                        onclick="updateStatus(
+                            ${application.id},
+                            'Shortlisted'
+                        )">
+
+                        ✓ Shortlist
+
+                    </button>
+
+
+                    <button
+                        class="action-btn reject-btn"
+                        onclick="updateStatus(
+                            ${application.id},
+                            'Rejected'
+                        )">
+
+                        ✕ Reject
+
+                    </button>
+
+                </div>
+
+            `;
+
+
+            container.appendChild(card);
+
+        });
+    }
+
+
+    // =========================================================
+    // SEARCH + FILTER
+    // =========================================================
+
+    function filterApplications() {
+
+        const searchText =
+            document.getElementById(
+                "searchInput"
+            ).value
+            .trim()
+            .toLowerCase();
+
+
+        const selectedStatus =
+            document.getElementById(
+                "statusFilter"
+            ).value;
+
+
+        const filtered =
+            allApplications.filter(
+                function(application) {
+
+                    const name =
+                        (
+                            application.candidateName
+                            || ""
+                        ).toLowerCase();
+
+
+                    const email =
+                        (
+                            application.email
+                            || ""
+                        ).toLowerCase();
+
+
+                    const jobTitle =
+                        (
+                            application.jobTitle
+                            || ""
+                        ).toLowerCase();
+
+
+                    const status =
+                        application.status
+                        || "Applied";
+
+
+                    const matchesSearch =
+                        name.includes(searchText) ||
+                        email.includes(searchText) ||
+                        jobTitle.includes(searchText);
+
+
+                    const matchesStatus =
+                        selectedStatus === "all" ||
+                        status === selectedStatus;
+
+
+                    return (
+                        matchesSearch &&
+                        matchesStatus
+                    );
+                }
+            );
+
+
+        displayApplications(filtered);
+    }
+
+
+    document.getElementById("searchInput")
+        .addEventListener(
+            "input",
+            filterApplications
+        );
+
+
+    document.getElementById("statusFilter")
+        .addEventListener(
+            "change",
+            filterApplications
+        );
+
+
+    // =========================================================
+    // UPDATE STATUS
+    // =========================================================
+
+    async function updateStatus(applicationId, status) {
+    try {
+        const recruiterId = localStorage.getItem("recruiterId");
+
+        if (!recruiterId) {
+            alert("Please login as a recruiter first.");
+            return;
+        }
+
+        const response = await fetch(
+            `http://localhost:8080/api/applications/${applicationId}/status?recruiterId=${recruiterId}&status=${encodeURIComponent(status)}`,
+            {
+                method: "PUT"
+            }
+        );
+
+        if (!response.ok) {
+            const errorText = await response.text();
+            throw new Error(errorText || "Failed to update application");
+        }
+
+        alert(`Application ${status.toLowerCase()} successfully!`);
+
+        // Reload applications after updating
+        await loadApplications();
+
+    } catch (error) {
+        console.error("Error updating application:", error);
+        alert("Unable to update application status.");
+    }
+}
+
+    // =========================================================
+    // HTML ESCAPING
+    // =========================================================
+
+    function escapeHtml(value) {
+
+        const div =
+            document.createElement("div");
+
+        div.textContent =
+            value ?? "";
+
+        return div.innerHTML;
+    }
+
+
+    // =========================================================
+    // INITIAL LOAD
+    // =========================================================
+
+    loadApplications();
+
+</script>
+
+</body>
+</html>
+```

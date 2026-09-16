@@ -4,101 +4,402 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Browse Jobs</title>
+
     <link rel="stylesheet" href="css/style.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
+
 <body>
-    <div class="app-container">
-        <!-- Sidebar -->
-        <aside class="sidebar">
-            <div class="sidebar-brand">Job Portal</div>
-            <ul class="sidebar-menu">
-                <li><a href="dashboard.html">Dashboard</a></li>
-                <li><a href="profile.html">Profile Settings</a></li>
-                <li><a href="jobs.html" class="active">Browse Jobs</a></li>
-                <li><a href="#" id="logoutBtn">Logout</a></li>
-            </ul>
-        </aside>
 
-        <!-- Main Content -->
-        <main class="main-content">
-            <header class="header">
-                <h1 class="page-title">Available Jobs</h1>
-            </header>
-            
-            <div style="background-color: #e2e3e5; color: #383d41; padding: 1rem; border-radius: 5px; margin-bottom: 2rem;">
-                <strong>Integration Note (Member 2 & 3):</strong> 
-                This view pulls from the <code>JobIntegrationService</code>. Currently showing mock data until Member 2 implements the Jobs database. The Apply button is a placeholder for Member 3's Application module.
-            </div>
+<div class="app-container">
 
-            <div class="content-card">
-                <form id="searchForm" style="display: flex; gap: 1rem; margin-bottom: 2rem;">
-                    <input type="text" id="keyword" class="form-control" placeholder="Job Title or Keyword">
-                    <input type="text" id="location" class="form-control" placeholder="Location">
-                    <button type="submit" class="btn btn-primary" style="width: auto;">Search</button>
-                </form>
+    <!-- Sidebar -->
+    <aside class="sidebar">
 
-                <div id="jobList" class="job-list">
-                    <div class="empty-state">Loading jobs...</div>
+        <div class="sidebar-brand">
+            Job Portal
+        </div>
+
+        <ul class="sidebar-menu">
+            <li>
+                <a href="dashboard.html">Dashboard</a>
+            </li>
+
+            <li>
+                <a href="profile.html">Profile Settings</a>
+            </li>
+
+            <li>
+                <a href="jobs.html" class="active">Browse Jobs</a>
+            </li>
+
+            <li>
+                <a href="#" id="logoutBtn">Logout</a>
+            </li>
+        </ul>
+
+    </aside>
+
+
+    <!-- Main Content -->
+    <main class="main-content">
+
+        <header class="header">
+            <h1 class="page-title">
+                Available Jobs
+            </h1>
+        </header>
+
+
+        <div class="content-card">
+
+            <!-- Search -->
+            <form
+                id="searchForm"
+                style="display: flex; gap: 1rem; margin-bottom: 2rem;"
+            >
+
+                <input
+                    type="text"
+                    id="keyword"
+                    class="form-control"
+                    placeholder="Job Title or Keyword"
+                >
+
+                <input
+                    type="text"
+                    id="location"
+                    class="form-control"
+                    placeholder="Location"
+                >
+
+                <button
+                    type="submit"
+                    class="btn btn-primary"
+                    style="width: auto;"
+                >
+                    Search
+                </button>
+
+            </form>
+
+
+            <!-- Jobs -->
+            <div id="jobList" class="job-list">
+
+                <div class="empty-state">
+                    Loading jobs...
                 </div>
+
             </div>
-        </main>
-    </div>
 
-    <script src="js/app.js"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', async () => {
-            await checkAuth();
-            loadJobs();
-            
-            document.getElementById('searchForm').addEventListener('submit', (e) => {
-                e.preventDefault();
-                const k = document.getElementById('keyword').value;
-                const l = document.getElementById('location').value;
-                loadJobs(k, l);
-            });
-        });
+        </div>
 
-        async function loadJobs(keyword = '', location = '') {
-            const listDiv = document.getElementById('jobList');
-            try {
-                let url = '/api/jobs';
-                if(keyword || location) {
-                    url += `?keyword=${encodeURIComponent(keyword)}&location=${encodeURIComponent(location)}`;
-                }
-                
-                const res = await fetch(url);
-                const jobs = await res.json();
-                
-                if (jobs.length === 0) {
-                    listDiv.innerHTML = '<div class="empty-state">No jobs found matching your criteria.</div>';
-                    return;
-                }
+    </main>
 
-                listDiv.innerHTML = jobs.map(job => `
-                    <div class="job-card">
-                        <div class="job-header">
-                            <div>
-                                <h3 class="job-title">${job.title}</h3>
-                                <div class="job-company">${job.company}</div>
-                            </div>
-                            <span class="badge badge-primary">${job.employmentType}</span>
-                        </div>
-                        <div class="job-details">
-                            <span>&#128205; ${job.location}</span>
-                            <span>&#128197; ${new Date(job.postedDate).toLocaleDateString()}</span>
-                        </div>
-                        <p style="margin-top: 1rem; color: #555;">${job.description}</p>
-                        <div style="margin-top: 1.5rem; text-align: right;">
-                            <button class="btn btn-sm btn-primary" onclick="alert('Application module will be implemented by Member 3.')">Apply Now (Member 3)</button>
-                        </div>
-                    </div>
-                `).join('');
-                
-            } catch (error) {
-                listDiv.innerHTML = '<div class="alert alert-error">Failed to load jobs. Check console.</div>';
-            }
+</div>
+
+
+<script src="js/app.js"></script>
+
+
+<script>
+
+document.addEventListener('DOMContentLoaded', async () => {
+
+    await checkAuth();
+
+    loadJobs();
+
+    document.getElementById('searchForm').addEventListener('submit', function(e) {
+
+        e.preventDefault();
+
+        const keyword =
+            document.getElementById('keyword').value.trim();
+
+        const location =
+            document.getElementById('location').value.trim();
+
+        loadJobs(keyword, location);
+    });
+
+});
+
+
+/* =====================================================
+   LOAD JOBS
+   ===================================================== */
+
+async function loadJobs(keyword = '', location = '') {
+
+    const listDiv = document.getElementById('jobList');
+
+    try {
+
+        let url = '/api/recruiter/jobs';
+
+        /*
+         * Use the SEARCH endpoint when searching.
+         */
+        if (keyword || location) {
+
+            url = '/api/recruiter/jobs/search'
+                + '?keyword=' + encodeURIComponent(keyword)
+                + '&location=' + encodeURIComponent(location);
         }
-    </script>
+
+        console.log('Loading jobs from:', url);
+
+        const response = await fetch(url);
+
+        console.log('Jobs response status:', response.status);
+
+        if (!response.ok) {
+
+            const errorText = await response.text();
+
+            console.error('Jobs API error:', errorText);
+
+            listDiv.innerHTML =
+                '<div class="alert alert-error">' +
+                'Failed to load jobs.' +
+                '</div>';
+
+            return;
+        }
+
+        const jobs = await response.json();
+
+        console.log('Jobs received:', jobs);
+
+
+        if (!Array.isArray(jobs) || jobs.length === 0) {
+
+            listDiv.innerHTML =
+                '<div class="empty-state">' +
+                'No jobs found matching your criteria.' +
+                '</div>';
+
+            return;
+        }
+
+
+        listDiv.innerHTML = jobs.map(job => `
+
+            <div class="job-card">
+
+                <div class="job-header">
+
+                    <div>
+
+                        <h3 class="job-title">
+                            ${job.title || 'Untitled Job'}
+                        </h3>
+
+                        <div class="job-company">
+                            ${job.company || 'Company not specified'}
+                        </div>
+
+                    </div>
+
+                    <span class="badge badge-primary">
+                        ${job.employmentType || 'Full-time'}
+                    </span>
+
+                </div>
+
+
+                <div class="job-details">
+
+                    <span>
+                        &#128205;
+                        ${job.location || 'Location not specified'}
+                    </span>
+
+                    <span>
+                        &#128197;
+                        ${
+                            job.postedDate
+                            ? new Date(job.postedDate)
+                                .toLocaleDateString()
+                            : 'Recently'
+                        }
+                    </span>
+
+                </div>
+
+
+                <p style="margin-top: 1rem; color: #555;">
+                    ${job.description || ''}
+                </p>
+
+
+                <p style="margin-top: 0.5rem; color: #777;">
+                    <strong>Requirements:</strong>
+                    ${job.requirements || 'Not specified'}
+                </p>
+
+
+                <div style="margin-top: 1.5rem; text-align: right;">
+
+                    <button
+                        class="btn btn-sm btn-primary"
+                        onclick="applyForJob(${job.id})">
+
+                        Apply Now
+
+                    </button>
+
+                </div>
+
+            </div>
+
+        `).join('');
+
+
+    } catch (error) {
+
+        console.error('Load jobs error:', error);
+
+        listDiv.innerHTML =
+            '<div class="alert alert-error">' +
+            'Failed to connect to the server.' +
+            '</div>';
+    }
+}
+
+
+/* =====================================================
+   APPLY FOR JOB
+   ===================================================== */
+
+async function applyForJob(jobId) {
+
+    const candidateId =
+        localStorage.getItem('candidateId');
+
+
+    if (!candidateId) {
+
+        alert('Please login first.');
+
+        window.location.href = 'index.html';
+
+        return;
+    }
+
+
+    const coverLetter = prompt(
+        'Enter your cover letter:'
+    );
+
+
+    if (coverLetter === null) {
+        return;
+    }
+
+
+    try {
+
+        const params = new URLSearchParams();
+
+        params.append(
+            'candidateId',
+            candidateId
+        );
+
+        params.append(
+            'jobId',
+            jobId
+        );
+
+        params.append(
+            'coverLetter',
+            coverLetter
+        );
+
+
+        console.log(
+            'Submitting application:',
+            {
+                candidateId: candidateId,
+                jobId: jobId
+            }
+        );
+
+
+        const response = await fetch(
+            '/api/applications',
+            {
+                method: 'POST',
+
+                headers: {
+                    'Content-Type':
+                        'application/x-www-form-urlencoded'
+                },
+
+                body: params.toString()
+            }
+        );
+
+
+        const responseText =
+            await response.text();
+
+
+        console.log(
+            'Application response:',
+            response.status,
+            responseText
+        );
+
+
+        if (response.ok) {
+
+            alert(
+                'Application submitted successfully!'
+            );
+
+        } else {
+
+            let message =
+                'Failed to submit application.';
+
+            try {
+
+                const data =
+                    JSON.parse(responseText);
+
+                if (data.message) {
+                    message = data.message;
+                }
+
+            } catch (e) {
+
+                console.error(
+                    'Could not parse error:',
+                    e
+                );
+            }
+
+            alert(message);
+        }
+
+
+    } catch (error) {
+
+        console.error(
+            'Application error:',
+            error
+        );
+
+        alert(
+            'Could not connect to the server.'
+        );
+    }
+}
+
+</script>
 </body>
 </html>

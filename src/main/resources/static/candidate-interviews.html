@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>My Interviews - CareerX</title>
+
+    <link rel="stylesheet" href="css/style.css">
+
+    <style>
+        .interview-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 18px;
+            padding: 24px;
+            margin-bottom: 20px;
+            transition: 0.3s ease;
+        }
+
+        .interview-card:hover {
+            border-color: var(--border-bright);
+            transform: translateY(-2px);
+        }
+
+        .interview-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .job-title {
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--text);
+            margin-bottom: 7px;
+        }
+
+        .company-name {
+            color: var(--cyan);
+            font-size: 15px;
+        }
+
+        .interview-status {
+            padding: 7px 14px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+
+        .status-scheduled {
+            background: rgba(0, 200, 255, 0.12);
+            color: var(--cyan);
+            border: 1px solid rgba(0, 200, 255, 0.3);
+        }
+
+        .status-completed {
+            background: rgba(34, 197, 94, 0.12);
+            color: var(--success);
+            border: 1px solid rgba(34, 197, 94, 0.3);
+        }
+
+        .status-cancelled {
+            background: rgba(239, 68, 68, 0.12);
+            color: var(--danger);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+        }
+
+        .interview-details {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-top: 18px;
+        }
+
+        .detail-box {
+            background: var(--card-light);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 15px;
+        }
+
+        .detail-label {
+            display: block;
+            color: var(--text-muted);
+            font-size: 12px;
+            margin-bottom: 6px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .detail-value {
+            color: var(--text);
+            font-size: 15px;
+            font-weight: 500;
+        }
+
+        .meeting-link {
+            display: inline-block;
+            margin-top: 18px;
+            padding: 10px 16px;
+            border-radius: 10px;
+            background: var(--primary);
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            transition: 0.2s ease;
+        }
+
+        .meeting-link:hover {
+            opacity: 0.9;
+            transform: translateY(-1px);
+        }
+
+        .notes-box {
+            margin-top: 18px;
+            padding: 15px;
+            border-left: 3px solid var(--purple);
+            background: var(--card-light);
+            border-radius: 8px;
+        }
+
+        .notes-box strong {
+            display: block;
+            margin-bottom: 7px;
+            color: var(--text);
+        }
+
+        .notes-box p {
+            margin: 0;
+            color: var(--text-muted);
+            line-height: 1.5;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: var(--text-muted);
+        }
+
+        .empty-icon {
+            font-size: 50px;
+            margin-bottom: 15px;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 50px;
+            color: var(--text-muted);
+        }
+
+        .error-message {
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            color: var(--danger);
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            display: none;
+        }
+
+        @media (max-width: 700px) {
+            .interview-details {
+                grid-template-columns: 1fr;
+            }
+
+            .interview-header {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+
+        <div class="sidebar-logo">
+            <h2>Career<span>X</span></h2>
+        </div>
+
+        <ul class="sidebar-menu">
+
+            <li>
+                <a href="dashboard.html">
+                    🏠 Dashboard
+                </a>
+            </li>
+
+            <li>
+                <a href="profile.html">
+                    👤 Profile Settings
+                </a>
+            </li>
+
+            <li>
+                <a href="jobs.html">
+                    💼 Browse Jobs
+                </a>
+            </li>
+
+            <li>
+                <a href="candidate-applications.html">
+                    📄 My Applications
+                </a>
+            </li>
+
+            <li>
+                <a href="candidate-interviews.html" class="active">
+                    📅 My Interviews
+                </a>
+            </li>
+
+            <li>
+                <a href="#" id="logoutBtn">
+                    🚪 Logout
+                </a>
+            </li>
+
+        </ul>
+
+    </aside>
+
+
+    <!-- Main Content -->
+    <main class="main-content">
+
+        <header class="header">
+
+            <div>
+                <h1 class="page-title">My Interviews</h1>
+                <p class="text-muted">
+                    View your scheduled interviews and interview details.
+                </p>
+            </div>
+
+            <div>
+                <span class="user-name-display"></span>
+            </div>
+
+        </header>
+
+
+        <div class="content-card">
+
+            <div id="errorMessage" class="error-message"></div>
+
+            <div id="loadingMessage" class="loading">
+                Loading your interviews...
+            </div>
+
+            <div id="interviewsContainer"></div>
+
+        </div>
+
+    </main>
+
+
+    <script src="js/app.js"></script>
+
+    <script>
+
+        async function loadInterviews() {
+
+            const container =
+                document.getElementById("interviewsContainer");
+
+            const loading =
+                document.getElementById("loadingMessage");
+
+            const errorMessage =
+                document.getElementById("errorMessage");
+
+            const candidateId =
+                localStorage.getItem("candidateId");
+
+            if (!candidateId) {
+
+                window.location.href = "index.html";
+                return;
+
+            }
+
+            try {
+
+                const response = await fetch(
+                    `/api/interviews/candidate/${candidateId}`
+                );
+
+                if (!response.ok) {
+
+                    let errorText =
+                        "Unable to load interviews.";
+
+                    try {
+
+                        const errorData =
+                            await response.json();
+
+                        errorText =
+                            errorData.message || errorText;
+
+                    } catch (e) {}
+
+                    throw new Error(errorText);
+
+                }
+
+                const interviews =
+                    await response.json();
+
+                loading.style.display = "none";
+
+                if (
+                    !interviews ||
+                    interviews.length === 0
+                ) {
+
+                    container.innerHTML = `
+
+                        <div class="empty-state">
+
+                            <div class="empty-icon">
+                                📅
+                            </div>
+
+                            <h2>No Interviews Yet</h2>
+
+                            <p>
+                                You don't have any scheduled
+                                interviews at the moment.
+                            </p>
+
+                        </div>
+
+                    `;
+
+                    return;
+                }
+
+
+                /*
+                 * Sort interviews by interview date.
+                 * Upcoming interviews appear first.
+                 */
+                interviews.sort(function(a, b) {
+
+                    return new Date(a.interviewDate)
+                         - new Date(b.interviewDate);
+
+                });
+
+
+                container.innerHTML =
+                    interviews.map(
+                        createInterviewCard
+                    ).join("");
+
+
+            } catch (error) {
+
+                console.error(
+                    "Error loading interviews:",
+                    error
+                );
+
+                loading.style.display = "none";
+
+                errorMessage.textContent =
+                    error.message ||
+                    "Unable to load interviews.";
+
+                errorMessage.style.display = "block";
+
+            }
+
+        }
+        function createInterviewCard(interview) {
+
+    const status =
+        interview.status || "Scheduled";
+
+
+    let statusClass =
+        "status-scheduled";
+
+    if (status === "Completed") {
+
+        statusClass =
+            "status-completed";
+
+    } else if (status === "Cancelled") {
+
+        statusClass =
+            "status-cancelled";
+
+    }
+
+
+    const interviewDate =
+        formatDateTime(
+            interview.interviewDate
+        );
+
+
+    const appliedDate =
+        interview.appliedDate
+            ? formatDate(
+                interview.appliedDate
+              )
+            : "Not available";
+
+
+    /*
+     * Show Online or Offline mode
+     */
+    let modeText = "";
+
+    if (
+        interview.mode &&
+        interview.mode.toLowerCase() ===
+        "online"
+    ) {
+
+        modeText = "💻 Online";
+
+    } else {
+
+        modeText = "🏢 Offline";
+
+    }
+
+
+    /*
+     * Show location only when available
+     */
+    let locationDetails = "";
+
+    if (interview.location) {
+
+        locationDetails = `
+
+            <div class="detail-box">
+
+                <span class="detail-label">
+                    Location
+                </span>
+
+                <span class="detail-value">
+                    ${escapeHtml(
+                        interview.location
+                    )}
+                </span>
+
+            </div>
+
+        `;
+
+    }
+
+
+    /*
+     * Show meeting link for online interviews
+     */
+    let meetingLink = "";
+
+    if (
+        interview.meetingLink &&
+        interview.mode &&
+        interview.mode.toLowerCase() ===
+        "online"
+    ) {
+
+        meetingLink = `
+
+            <a
+                href="${escapeAttribute(
+                    interview.meetingLink
+                )}"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="meeting-link">
+
+                🔗 Join Interview
+
+            </a>
+
+        `;
+
+    }
+
+
+    /*
+     * Show recruiter notes when available
+     */
+    let notes = "";
+
+    if (interview.notes) {
+
+        notes = `
+
+            <div class="notes-box">
+
+                <strong>
+                    📝 Interview Notes
+                </strong>
+
+                <p>
+                    ${escapeHtml(
+                        interview.notes
+                    )}
+                </p>
+
+            </div>
+
+        `;
+
+    }
+
+
+    return `
+
+        <div class="interview-card">
+
+            <div class="interview-header">
+
+                <div>
+
+                    <div class="job-title">
+                        ${escapeHtml(
+                            interview.jobTitle ||
+                            "Job Position"
+                        )}
+                    </div>
+
+                    <div class="company-name">
+                        ${escapeHtml(
+                            interview.companyName ||
+                            "Company"
+                        )}
+                    </div>
+
+                </div>
+
+
+                <span
+                    class="interview-status ${statusClass}">
+
+                    ${escapeHtml(status)}
+
+                </span>
+
+            </div>
+
+
+            <div class="interview-details">
+
+
+                <!-- Interview Date -->
+
+                <div class="detail-box">
+
+                    <span class="detail-label">
+                        Interview Date & Time
+                    </span>
+
+                    <span class="detail-value">
+                        📅 ${interviewDate}
+                    </span>
+
+                </div>
+
+
+                <!-- Interview Mode -->
+
+                <div class="detail-box">
+
+                    <span class="detail-label">
+                        Mode
+                    </span>
+
+                    <span class="detail-value">
+                        ${modeText}
+                    </span>
+
+                </div>
+
+
+                ${locationDetails}
+
+
+                <!-- Application ID -->
+
+                <div class="detail-box">
+
+                    <span class="detail-label">
+                        Application ID
+                    </span>
+
+                    <span class="detail-value">
+                        #${interview.applicationId || "N/A"}
+                    </span>
+
+                </div>
+
+
+                <!-- Applied Date -->
+
+                <div class="detail-box">
+
+                    <span class="detail-label">
+                        Applied Date
+                    </span>
+
+                    <span class="detail-value">
+                        ${appliedDate}
+                    </span>
+
+                </div>
+
+
+            </div>
+
+
+            ${meetingLink}
+
+
+            ${notes}
+
+
+        </div>
+
+    `;
+
+}
+
+
+       
+
+        function formatDateTime(dateString) {
+
+            if (!dateString) {
+                return "Not available";
+            }
+
+            const date =
+                new Date(dateString);
+
+            if (isNaN(date.getTime())) {
+                return dateString;
+            }
+
+            return date.toLocaleString(
+                "en-IN",
+                {
+                    day: "2-digit",
+                    month: "short",
+                    year: "numeric",
+                    hour: "2-digit",
+                    minute: "2-digit"
+                }
+            );
+
+        }
+
+
+        function formatDate(dateString) {
+
+            if (!dateString) {
+                return "Not available";
+            }
+
+            const date =
+                new Date(dateString);
+
+            if (isNaN(date.getTime())) {
+                return dateString;
+            }
+
+            return date.toLocaleDateString(
+                "en-IN",
+                {
+                    day: "2-digit",
+                    month: "short",
+                    year: "numeric"
+                }
+            );
+
+        }
+
+
+        function escapeHtml(value) {
+
+            if (value === null ||
+                value === undefined) {
+
+                return "";
+
+            }
+
+            return String(value)
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;");
+
+        }
+
+
+        function escapeAttribute(value) {
+
+            if (!value) {
+                return "";
+            }
+
+            return String(value)
+                .replace(/&/g, "&amp;")
+                .replace(/"/g, "&quot;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;");
+
+        }
+
+
+        document.addEventListener(
+            "DOMContentLoaded",
+            async function() {
+
+                /*
+                 * Make sure the candidate is logged in.
+                 * app.js will also update the candidate name.
+                 */
+                await checkAuth();
+
+                loadInterviews();
+
+            }
+        );
+
+    </script>
+
+</body>
+</html>

@@ -37,10 +37,14 @@ public class GlobalExceptionHandler {
         return buildErrorResponse(HttpStatus.BAD_REQUEST, "Validation Failed: " + errors);
     }
 
-    @ExceptionHandler(Exception.class)
-    public ResponseEntity<Object> handleGlobalException(Exception ex) {
-        return buildErrorResponse(HttpStatus.INTERNAL_SERVER_ERROR, "An unexpected error occurred. Please try again later.");
-    }
+
+@ExceptionHandler(Exception.class)
+public ResponseEntity<Object> handleGlobalException(Exception ex) {
+    return buildErrorResponse(
+        HttpStatus.INTERNAL_SERVER_ERROR,
+        "An unexpected error occurred. Please try again later."
+    );
+}
 
     private ResponseEntity<Object> buildErrorResponse(HttpStatus status, String message) {
         Map<String, Object> body = new HashMap<>();

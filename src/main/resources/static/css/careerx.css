@@ -1,0 +1,972 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    min-height: 100vh;
+    color: #ffffff;
+    background: #050510;
+    overflow-x: hidden;
+}
+
+
+/* ========================================
+   BACKGROUND
+======================================== */
+
+.background {
+    position: fixed;
+    inset: 0;
+    overflow: hidden;
+    z-index: -5;
+    background:
+        radial-gradient(
+            circle at 50% 10%,
+            #17104a 0%,
+            #09091b 38%,
+            #050510 75%
+        );
+}
+
+
+/* Grid */
+
+.grid {
+    position: absolute;
+    inset: -50%;
+    width: 200%;
+    height: 200%;
+
+    background-image:
+        linear-gradient(
+            rgba(126, 93, 255, 0.08) 1px,
+            transparent 1px
+        ),
+        linear-gradient(
+            90deg,
+            rgba(126, 93, 255, 0.08) 1px,
+            transparent 1px
+        );
+
+    background-size: 55px 55px;
+
+    transform: perspective(600px)
+               rotateX(60deg)
+               translateY(80px);
+
+    animation: gridMove 18s linear infinite;
+
+    mask-image:
+        linear-gradient(
+            to bottom,
+            transparent,
+            black 25%,
+            black 70%,
+            transparent
+        );
+}
+
+@keyframes gridMove {
+
+    from {
+        transform:
+            perspective(600px)
+            rotateX(60deg)
+            translateY(0);
+    }
+
+    to {
+        transform:
+            perspective(600px)
+            rotateX(60deg)
+            translateY(55px);
+    }
+}
+
+
+/* Glowing orbs */
+
+.orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    opacity: 0.35;
+    animation: floatOrb 12s ease-in-out infinite;
+}
+
+.orb-one {
+    width: 450px;
+    height: 450px;
+    background: #663cff;
+    top: -180px;
+    left: -150px;
+}
+
+.orb-two {
+    width: 400px;
+    height: 400px;
+    background: #008cff;
+    right: -160px;
+    top: 25%;
+    animation-delay: -4s;
+}
+
+.orb-three {
+    width: 350px;
+    height: 350px;
+    background: #c72cff;
+    bottom: -150px;
+    left: 35%;
+    animation-delay: -8s;
+}
+
+@keyframes floatOrb {
+
+    0%,
+    100% {
+        transform: translate(0, 0) scale(1);
+    }
+
+    50% {
+        transform: translate(40px, -30px) scale(1.12);
+    }
+}
+
+
+/* Stars */
+
+.stars span {
+    position: absolute;
+    width: 3px;
+    height: 3px;
+    border-radius: 50%;
+    background: white;
+    opacity: 0.5;
+    animation: twinkle 3s ease-in-out infinite;
+}
+
+.stars span:nth-child(1) {
+    top: 15%;
+    left: 12%;
+}
+
+.stars span:nth-child(2) {
+    top: 24%;
+    left: 82%;
+    animation-delay: .4s;
+}
+
+.stars span:nth-child(3) {
+    top: 65%;
+    left: 8%;
+    animation-delay: 1s;
+}
+
+.stars span:nth-child(4) {
+    top: 74%;
+    left: 90%;
+    animation-delay: 1.4s;
+}
+
+.stars span:nth-child(5) {
+    top: 38%;
+    left: 25%;
+    animation-delay: 1.8s;
+}
+
+.stars span:nth-child(6) {
+    top: 55%;
+    left: 72%;
+    animation-delay: .8s;
+}
+
+.stars span:nth-child(7) {
+    top: 12%;
+    left: 55%;
+    animation-delay: 2s;
+}
+
+.stars span:nth-child(8) {
+    top: 85%;
+    left: 45%;
+    animation-delay: 1.2s;
+}
+
+.stars span:nth-child(9) {
+    top: 42%;
+    left: 93%;
+    animation-delay: .6s;
+}
+
+.stars span:nth-child(10) {
+    top: 78%;
+    left: 20%;
+    animation-delay: 2.2s;
+}
+
+.stars span:nth-child(11) {
+    top: 32%;
+    left: 63%;
+    animation-delay: 1.5s;
+}
+
+.stars span:nth-child(12) {
+    top: 92%;
+    left: 75%;
+    animation-delay: .3s;
+}
+
+@keyframes twinkle {
+
+    0%,
+    100% {
+        opacity: .15;
+        transform: scale(.7);
+    }
+
+    50% {
+        opacity: .9;
+        transform: scale(1.5);
+    }
+}
+
+
+/* ========================================
+   NAVBAR
+======================================== */
+
+.navbar {
+    width: 100%;
+    height: 82px;
+
+    padding: 0 7%;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    border-bottom: 1px solid rgba(255, 255, 255, .07);
+
+    background: rgba(5, 5, 16, .35);
+
+    backdrop-filter: blur(20px);
+
+    animation: navAppear .8s ease forwards;
+}
+
+@keyframes navAppear {
+
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+/* Brand */
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+
+    color: white;
+    text-decoration: none;
+
+    font-size: 24px;
+    font-weight: 800;
+    letter-spacing: -1px;
+}
+
+.brand-icon {
+    width: 36px;
+    height: 36px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 10px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #8d5cff,
+            #3d8bff
+        );
+
+    box-shadow:
+        0 0 25px rgba(111, 83, 255, .5);
+
+    font-size: 19px;
+    font-weight: 800;
+
+    transform: rotate(-8deg);
+
+    transition: .3s ease;
+}
+
+.brand:hover .brand-icon {
+    transform:
+        rotate(0deg)
+        scale(1.08);
+}
+
+.brand-x {
+    background:
+        linear-gradient(
+            90deg,
+            #a76bff,
+            #45a4ff
+        );
+
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+
+/* Status */
+
+.nav-status {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+
+    font-size: 12px;
+    color: rgba(255, 255, 255, .55);
+
+    letter-spacing: .4px;
+}
+
+.status-dot {
+    width: 7px;
+    height: 7px;
+
+    border-radius: 50%;
+
+    background: #5dffb1;
+
+    box-shadow:
+        0 0 12px #5dffb1;
+
+    animation: statusPulse 2s infinite;
+}
+
+@keyframes statusPulse {
+
+    0%,
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    50% {
+        opacity: .4;
+        transform: scale(.7);
+    }
+}
+
+
+/* ========================================
+   HERO
+======================================== */
+
+.hero {
+    min-height: calc(100vh - 82px);
+
+    display: flex;
+    justify-content: center;
+
+    padding:
+        75px
+        25px
+        55px;
+}
+
+.hero-content {
+    width: 100%;
+    max-width: 1050px;
+
+    text-align: center;
+}
+
+
+/* Eyebrow */
+
+.eyebrow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 13px;
+
+    color: #9e8bff;
+
+    font-size: 10px;
+    font-weight: 700;
+
+    letter-spacing: 3px;
+
+    margin-bottom: 25px;
+
+    animation: fadeUp .8s ease .15s both;
+}
+
+.eyebrow-line {
+    width: 35px;
+    height: 1px;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            #8065ff
+        );
+}
+
+.eyebrow-line:last-child {
+    background:
+        linear-gradient(
+            90deg,
+            #8065ff,
+            transparent
+        );
+}
+
+
+/* Main heading */
+
+.hero h1 {
+    font-size: clamp(42px, 6vw, 76px);
+
+    line-height: 1.03;
+
+    letter-spacing: -4px;
+
+    font-weight: 800;
+
+    margin-bottom: 25px;
+
+    animation: fadeUp .8s ease .25s both;
+}
+
+.gradient-text {
+    background:
+        linear-gradient(
+            90deg,
+            #9d6cff,
+            #4e9dff,
+            #cb72ff,
+            #9d6cff
+        );
+
+    background-size: 300% auto;
+
+    -webkit-background-clip: text;
+    background-clip: text;
+
+    color: transparent;
+
+    animation: gradientFlow 5s linear infinite;
+}
+
+@keyframes gradientFlow {
+
+    to {
+        background-position: 300% center;
+    }
+}
+
+
+/* Description */
+
+.hero-description {
+    max-width: 650px;
+
+    margin: auto;
+
+    color: rgba(255, 255, 255, .58);
+
+    font-size: 15px;
+
+    line-height: 1.8;
+
+    animation: fadeUp .8s ease .35s both;
+}
+
+
+/* ========================================
+   PORTAL SECTION
+======================================== */
+
+.portal-section {
+    margin-top: 55px;
+}
+
+.section-title {
+    font-size: 10px;
+
+    font-weight: 700;
+
+    letter-spacing: 3px;
+
+    color: rgba(255, 255, 255, .35);
+
+    margin-bottom: 18px;
+
+    animation: fadeUp .8s ease .45s both;
+}
+
+
+/* Cards */
+
+.portal-container {
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, 1fr);
+
+    gap: 20px;
+}
+
+
+.portal-card {
+    position: relative;
+
+    min-height: 310px;
+
+    padding: 28px;
+
+    border-radius: 22px;
+
+    overflow: hidden;
+
+    text-align: left;
+
+    text-decoration: none;
+
+    color: white;
+
+    border: 1px solid rgba(255, 255, 255, .1);
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255,255,255,.095),
+            rgba(255,255,255,.025)
+        );
+
+    backdrop-filter: blur(18px);
+
+    box-shadow:
+        inset 0 1px 0 rgba(255,255,255,.08),
+        0 20px 70px rgba(0,0,0,.2);
+
+    transition:
+        transform .4s ease,
+        border-color .4s ease,
+        box-shadow .4s ease;
+
+    animation: cardAppear .9s ease both;
+}
+
+.candidate-card {
+    animation-delay: .5s;
+}
+
+.recruiter-card {
+    animation-delay: .65s;
+}
+
+
+@keyframes cardAppear {
+
+    from {
+        opacity: 0;
+        transform:
+            translateY(35px)
+            scale(.97);
+    }
+
+    to {
+        opacity: 1;
+        transform:
+            translateY(0)
+            scale(1);
+    }
+}
+
+
+/* Card glow */
+
+.card-glow {
+    position: absolute;
+
+    width: 250px;
+    height: 250px;
+
+    border-radius: 50%;
+
+    filter: blur(70px);
+
+    opacity: 0;
+
+    transition: opacity .5s ease;
+
+    pointer-events: none;
+}
+
+.candidate-card .card-glow {
+    background: #744cff;
+    top: -150px;
+    right: -80px;
+}
+
+.recruiter-card .card-glow {
+    background: #168cff;
+    top: -150px;
+    right: -80px;
+}
+
+.portal-card:hover .card-glow {
+    opacity: .35;
+}
+
+.portal-card:hover {
+    transform: translateY(-8px);
+
+    border-color:
+        rgba(143, 112, 255, .45);
+
+    box-shadow:
+        inset 0 1px 0 rgba(255,255,255,.12),
+        0 25px 80px rgba(55,35,150,.25);
+}
+
+
+/* Card top */
+
+.card-top {
+    display: flex;
+
+    justify-content: space-between;
+    align-items: center;
+
+    margin-bottom: 35px;
+}
+
+.portal-icon {
+    width: 58px;
+    height: 58px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 16px;
+
+    transition: .4s ease;
+}
+
+.portal-icon svg {
+    width: 29px;
+    height: 29px;
+}
+
+.candidate-icon {
+    background:
+        rgba(130, 88, 255, .15);
+
+    color: #a884ff;
+
+    border: 1px solid
+        rgba(150, 110, 255, .2);
+}
+
+.recruiter-icon {
+    background:
+        rgba(53, 147, 255, .13);
+
+    color: #62aeff;
+
+    border: 1px solid
+        rgba(70, 150, 255, .2);
+}
+
+.portal-card:hover .portal-icon {
+    transform: scale(1.08) rotate(-4deg);
+}
+
+.arrow {
+    font-size: 27px;
+
+    color: rgba(255,255,255,.35);
+
+    transition: .3s ease;
+}
+
+.portal-card:hover .arrow {
+    color: white;
+
+    transform:
+        translate(3px,-3px);
+}
+
+
+/* Card content */
+
+.card-label {
+    font-size: 9px;
+
+    font-weight: 700;
+
+    letter-spacing: 2px;
+
+    color: rgba(255,255,255,.4);
+}
+
+.card-content h2 {
+    font-size: 30px;
+
+    letter-spacing: -1px;
+
+    margin:
+        8px
+        0
+        10px;
+}
+
+.card-content p {
+    color: rgba(255,255,255,.52);
+
+    font-size: 13px;
+
+    line-height: 1.7;
+
+    max-width: 390px;
+}
+
+
+/* Card footer */
+
+.card-footer {
+    position: absolute;
+
+    bottom: 25px;
+    left: 28px;
+    right: 28px;
+
+    display: flex;
+
+    justify-content: space-between;
+    align-items: center;
+
+    padding-top: 18px;
+
+    border-top:
+        1px solid
+        rgba(255,255,255,.08);
+
+    font-size: 9px;
+
+    font-weight: 700;
+
+    letter-spacing: 1.5px;
+
+    color: rgba(255,255,255,.45);
+}
+
+.footer-arrow {
+    font-size: 17px;
+
+    color: rgba(255,255,255,.55);
+
+    transition: .3s ease;
+}
+
+.portal-card:hover .footer-arrow {
+    transform: translateX(6px);
+
+    color: white;
+}
+
+
+/* ========================================
+   FEATURES
+======================================== */
+
+.features {
+    display: flex;
+
+    justify-content: center;
+
+    gap: 35px;
+
+    margin-top: 38px;
+
+    animation:
+        fadeUp .8s ease .8s both;
+}
+
+.feature {
+    display: flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    color: rgba(255,255,255,.35);
+
+    font-size: 10px;
+
+    letter-spacing: .5px;
+}
+
+.feature-icon {
+    color: #9274ff;
+
+    font-size: 15px;
+}
+
+
+/* ========================================
+   FOOTER
+======================================== */
+
+footer {
+    position: relative;
+
+    width: 100%;
+
+    display: flex;
+
+    justify-content: center;
+
+    gap: 10px;
+
+    padding: 20px;
+
+    color: rgba(255,255,255,.22);
+
+    font-size: 8px;
+
+    font-weight: 600;
+
+    letter-spacing: 1.5px;
+}
+
+.footer-separator {
+    color: #765aff;
+}
+
+
+/* ========================================
+   ANIMATIONS
+======================================== */
+
+@keyframes fadeUp {
+
+    from {
+        opacity: 0;
+
+        transform:
+            translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+
+        transform:
+            translateY(0);
+    }
+}
+
+
+/* ========================================
+   RESPONSIVE
+======================================== */
+
+@media (max-width: 750px) {
+
+    .navbar {
+        padding: 0 25px;
+    }
+
+    .nav-status {
+        display: none;
+    }
+
+    .hero {
+        padding-top: 55px;
+    }
+
+    .hero h1 {
+        letter-spacing: -2px;
+    }
+
+    .portal-container {
+        grid-template-columns: 1fr;
+    }
+
+    .portal-card {
+        min-height: 285px;
+    }
+
+    .features {
+        flex-direction: column;
+
+        align-items: center;
+
+        gap: 12px;
+    }
+
+    footer {
+        text-align: center;
+
+        flex-wrap: wrap;
+    }
+}
+
+
+@media (max-width: 450px) {
+
+    .hero {
+        padding-left: 18px;
+        padding-right: 18px;
+    }
+
+    .eyebrow {
+        font-size: 8px;
+
+        letter-spacing: 2px;
+    }
+
+    .hero h1 {
+        font-size: 40px;
+    }
+
+    .hero-description {
+        font-size: 13px;
+    }
+
+    .portal-card {
+        padding: 23px;
+    }
+
+    .card-footer {
+        left: 23px;
+        right: 23px;
+    }
+}

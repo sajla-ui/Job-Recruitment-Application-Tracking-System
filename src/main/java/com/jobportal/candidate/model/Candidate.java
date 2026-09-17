@@ -1,6 +1,7 @@
 package com.jobportal.candidate.model;
 
 import com.jobportal.shared.model.User;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -25,20 +26,26 @@ public class Candidate extends User {
     private String profileSummary;
 
     // Composition: Candidate 'has-a' list of Education records
-    @OneToMany(mappedBy = "candidate", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Education> educations = new ArrayList<>();
+    @JsonIgnore
+@OneToMany(mappedBy = "candidate", cascade = CascadeType.ALL, orphanRemoval = true)
+private List<Education> educations = new ArrayList<>();
 
     // Composition: Candidate 'has-a' list of Experience records
-    @OneToMany(mappedBy = "candidate", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Experience> experiences = new ArrayList<>();
+    
+    @JsonIgnore
+@OneToMany(mappedBy = "candidate", cascade = CascadeType.ALL, orphanRemoval = true)
+private List<Experience> experiences = new ArrayList<>();
 
-    // Composition: Candidate 'has-a' list of Resumes
-    @OneToMany(mappedBy = "candidate", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Resume> resumes = new ArrayList<>();
+    // Composition: Candidate 'has-a' list of Resume
+    @JsonIgnore
+@OneToMany(mappedBy = "candidate", cascade = CascadeType.ALL, orphanRemoval = true)
+private List<Resume> resumes = new ArrayList<>();
 
     // Composition: Candidate 'has-a' list of Skills (with level)
-    @OneToMany(mappedBy = "candidate", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<CandidateSkill> candidateSkills = new ArrayList<>();
+    
+    @JsonIgnore
+@OneToMany(mappedBy = "candidate", cascade = CascadeType.ALL, orphanRemoval = true)
+private List<CandidateSkill> candidateSkills = new ArrayList<>();
 
     // Demonstrating OOP Constructors
     public Candidate() {

@@ -33,10 +33,11 @@ public class Job {
     private LocalDateTime postedDate;
 
     // Link job to the recruiter who posted it
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "recruiter_id", nullable = false)
-    private Recruiter recruiter;
-
+    
+@ManyToOne(fetch = FetchType.LAZY)
+@JoinColumn(name = "recruiter_id", nullable = false)
+@JsonIgnore
+private Recruiter recruiter;
     // Default constructor
     public Job() {
     }

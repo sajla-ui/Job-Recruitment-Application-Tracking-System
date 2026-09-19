@@ -7,24 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>My Interviews - Career X</title>
-    <script>
-(function () {
-    const theme = localStorage.getItem("careerx-theme") || "system";
-
-    const actualTheme =
-        theme === "system"
-            ? (
-                window.matchMedia("(prefers-color-scheme: dark)").matches
-                    ? "dark"
-                    : "light"
-            )
-            : theme;
-
-    document.documentElement.setAttribute("data-theme", actualTheme);
-    document.documentElement.setAttribute("data-theme-setting", theme);
-})();
-</script>
-
+    
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/careerx.css">
 
@@ -734,25 +717,25 @@
 
             <li>
                 <a href="dashboard.html">
-                    🏠 Dashboard
+                     Dashboard
                 </a>
             </li>
 
             <li>
                 <a href="profile.html">
-                    👤 Profile Settings
+                     Profile Settings
                 </a>
             </li>
 
             <li>
                 <a href="jobs.html">
-                    💼 Browse Jobs
+                     Browse Jobs
                 </a>
             </li>
 
             <li>
                 <a href="candidate-applications.html">
-                    📄 My Applications
+                     My Applications
                 </a>
             </li>
 
@@ -761,7 +744,7 @@
                     href="candidate-interviews.html"
                     class="active">
 
-                    📅 My Interviews
+                     My Interviews
 
                 </a>
             </li>
@@ -770,7 +753,7 @@
 
                 <a href="#" id="logoutBtn">
 
-                    🚪 Logout
+                     Logout
 
                 </a>
 
@@ -1523,7 +1506,7 @@
         );
 
     </script>
-    <script src="js/theme.js"></script>
+    
 
 </body>
 

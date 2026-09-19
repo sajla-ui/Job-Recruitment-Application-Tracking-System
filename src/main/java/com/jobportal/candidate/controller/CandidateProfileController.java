@@ -1,6 +1,7 @@
 package com.jobportal.candidate.controller;
 
 import com.jobportal.candidate.model.Candidate;
+import com.jobportal.candidate.model.CandidateSkill;
 import com.jobportal.candidate.model.Education;
 import com.jobportal.candidate.model.Experience;
 import com.jobportal.candidate.model.Resume;
@@ -25,77 +26,264 @@ public class CandidateProfileController {
     }
 
     private boolean isAuthorized(Long pathId, HttpSession session) {
-        Long loggedInId = (Long) session.getAttribute("candidateId");
+        Long loggedInId =
+                (Long) session.getAttribute("candidateId");
+
         return loggedInId != null && loggedInId.equals(pathId);
     }
 
-    // --- SKILLS ---
+    // =====================================================
+    // SKILLS
+    // =====================================================
+
     @PostMapping("/skills")
-    public ResponseEntity<?> addSkill(@PathVariable Long candidateId, @RequestBody Map<String, String> payload, HttpSession session) {
-        if (!isAuthorized(candidateId, session)) return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
-        
+    public ResponseEntity<?> addSkill(
+            @PathVariable Long candidateId,
+            @RequestBody Map<String, String> payload,
+            HttpSession session) {
+
+        if (!isAuthorized(candidateId, session)) {
+            return ResponseEntity
+                    .status(HttpStatus.UNAUTHORIZED)
+                    .build();
+        }
+
         String skillName = payload.get("skillName");
         String skillLevel = payload.get("skillLevel");
-        Candidate updated = candidateService.addSkill(candidateId, skillName, skillLevel);
-        return ResponseEntity.ok(updated.getCandidateSkills());
+
+        Candidate updated =
+                candidateService.addSkill(
+                        candidateId,
+                        skillName,
+                        skillLevel
+                );
+
+        return ResponseEntity.ok(
+                updated.getCandidateSkills()
+        );
     }
 
+    // GET ALL SKILLS
+    @GetMapping("/skills")
+    public ResponseEntity<List<CandidateSkill>> getSkills(
+            @PathVariable Long candidateId,
+            HttpSession session) {
+
+        if (!isAuthorized(candidateId, session)) {
+            return ResponseEntity
+                    .status(HttpStatus.UNAUTHORIZED)
+                    .build();
+        }
+
+        return ResponseEntity.ok(
+                candidateService.getSkills(candidateId)
+        );
+    }
+
+    // DELETE SKILL
     @DeleteMapping("/skills/{skillId}")
-    public ResponseEntity<?> removeSkill(@PathVariable Long candidateId, @PathVariable Long skillId, HttpSession session) {
-        if (!isAuthorized(candidateId, session)) return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
-        candidateService.removeSkill(candidateId, skillId);
+    public ResponseEntity<?> removeSkill(
+            @PathVariable Long candidateId,
+            @PathVariable Long skillId,
+            HttpSession session) {
+
+        if (!isAuthorized(candidateId, session)) {
+            return ResponseEntity
+                    .status(HttpStatus.UNAUTHORIZED)
+                    .build();
+        }
+
+        candidateService.removeSkill(
+                candidateId,
+                skillId
+        );
+
         return ResponseEntity.ok().build();
     }
 
-    // --- EDUCATION ---
+    // =====================================================
+    // EDUCATION
+    // =====================================================
+
     @PostMapping("/education")
-    public ResponseEntity<Education> addEducation(@PathVariable Long candidateId, @RequestBody Education education, HttpSession session) {
-        if (!isAuthorized(candidateId, session)) return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
-        return ResponseEntity.status(HttpStatus.CREATED).body(candidateService.addEducation(candidateId, education));
+    public ResponseEntity<Education> addEducation(
+            @PathVariable Long candidateId,
+            @RequestBody Education education,
+            HttpSession session) {
+
+        if (!isAuthorized(candidateId, session)) {
+            return ResponseEntity
+                    .status(HttpStatus.UNAUTHORIZED)
+                    .build();
+        }
+
+        return ResponseEntity
+                .status(HttpStatus.CREATED)
+                .body(
+                        candidateService.addEducation(
+                                candidateId,
+                                education
+                        )
+                );
+    }
+
+    @GetMapping("/education")
+    public ResponseEntity<List<Education>> getEducation(
+            @PathVariable Long candidateId,
+            HttpSession session) {
+
+        if (!isAuthorized(candidateId, session)) {
+            return ResponseEntity
+                    .status(HttpStatus.UNAUTHORIZED)
+                    .build();
+        }
+
+        return ResponseEntity.ok(
+                candidateService.getEducation(candidateId)
+        );
     }
 
     @DeleteMapping("/education/{educationId}")
-    public ResponseEntity<?> deleteEducation(@PathVariable Long candidateId, @PathVariable Long educationId, HttpSession session) {
-        if (!isAuthorized(candidateId, session)) return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
-        candidateService.deleteEducation(candidateId, educationId);
+    public ResponseEntity<?> deleteEducation(
+            @PathVariable Long candidateId,
+            @PathVariable Long educationId,
+            HttpSession session) {
+
+        if (!isAuthorized(candidateId, session)) {
+            return ResponseEntity
+                    .status(HttpStatus.UNAUTHORIZED)
+                    .build();
+        }
+
+        candidateService.deleteEducation(
+                candidateId,
+                educationId
+        );
+
         return ResponseEntity.ok().build();
     }
 
-    // --- EXPERIENCE ---
+    // =====================================================
+    // EXPERIENCE
+    // =====================================================
+
     @PostMapping("/experience")
-    public ResponseEntity<Experience> addExperience(@PathVariable Long candidateId, @RequestBody Experience experience, HttpSession session) {
-        if (!isAuthorized(candidateId, session)) return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
-        return ResponseEntity.status(HttpStatus.CREATED).body(candidateService.addExperience(candidateId, experience));
+    public ResponseEntity<Experience> addExperience(
+            @PathVariable Long candidateId,
+            @RequestBody Experience experience,
+            HttpSession session) {
+
+        if (!isAuthorized(candidateId, session)) {
+            return ResponseEntity
+                    .status(HttpStatus.UNAUTHORIZED)
+                    .build();
+        }
+
+        return ResponseEntity
+                .status(HttpStatus.CREATED)
+                .body(
+                        candidateService.addExperience(
+                                candidateId,
+                                experience
+                        )
+                );
+    }
+
+    @GetMapping("/experience")
+    public ResponseEntity<List<Experience>> getExperiences(
+            @PathVariable Long candidateId,
+            HttpSession session) {
+
+        if (!isAuthorized(candidateId, session)) {
+            return ResponseEntity
+                    .status(HttpStatus.UNAUTHORIZED)
+                    .build();
+        }
+
+        return ResponseEntity.ok(
+                candidateService.getExperiences(candidateId)
+        );
     }
 
     @DeleteMapping("/experience/{experienceId}")
-    public ResponseEntity<?> deleteExperience(@PathVariable Long candidateId, @PathVariable Long experienceId, HttpSession session) {
-        if (!isAuthorized(candidateId, session)) return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
-        candidateService.deleteExperience(candidateId, experienceId);
+    public ResponseEntity<?> deleteExperience(
+            @PathVariable Long candidateId,
+            @PathVariable Long experienceId,
+            HttpSession session) {
+
+        if (!isAuthorized(candidateId, session)) {
+            return ResponseEntity
+                    .status(HttpStatus.UNAUTHORIZED)
+                    .build();
+        }
+
+        candidateService.deleteExperience(
+                candidateId,
+                experienceId
+        );
+
         return ResponseEntity.ok().build();
     }
-@GetMapping("/resume")
-public ResponseEntity<List<Resume>> getResumes(
-        @PathVariable Long candidateId,
-        HttpSession session) {
 
-    if (!isAuthorized(candidateId, session)) {
-        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+    // =====================================================
+    // RESUME
+    // =====================================================
+
+    @GetMapping("/resume")
+    public ResponseEntity<List<Resume>> getResumes(
+            @PathVariable Long candidateId,
+            HttpSession session) {
+
+        if (!isAuthorized(candidateId, session)) {
+            return ResponseEntity
+                    .status(HttpStatus.UNAUTHORIZED)
+                    .build();
+        }
+
+        return ResponseEntity.ok(
+                candidateService.getResumes(candidateId)
+        );
     }
 
-    return ResponseEntity.ok(candidateService.getResumes(candidateId));
-}
-    // --- RESUME ---
     @PostMapping("/resume")
-    public ResponseEntity<Resume> uploadResume(@PathVariable Long candidateId, @RequestParam("file") MultipartFile file, HttpSession session) {
-        if (!isAuthorized(candidateId, session)) return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
-        return ResponseEntity.status(HttpStatus.CREATED).body(candidateService.uploadResume(candidateId, file));
+    public ResponseEntity<Resume> uploadResume(
+            @PathVariable Long candidateId,
+            @RequestParam("file") MultipartFile file,
+            HttpSession session) {
+
+        if (!isAuthorized(candidateId, session)) {
+            return ResponseEntity
+                    .status(HttpStatus.UNAUTHORIZED)
+                    .build();
+        }
+
+        return ResponseEntity
+                .status(HttpStatus.CREATED)
+                .body(
+                        candidateService.uploadResume(
+                                candidateId,
+                                file
+                        )
+                );
     }
 
     @DeleteMapping("/resume/{resumeId}")
-    public ResponseEntity<?> deleteResume(@PathVariable Long candidateId, @PathVariable Long resumeId, HttpSession session) {
-        if (!isAuthorized(candidateId, session)) return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
-        candidateService.deleteResume(candidateId, resumeId);
+    public ResponseEntity<?> deleteResume(
+            @PathVariable Long candidateId,
+            @PathVariable Long resumeId,
+            HttpSession session) {
+
+        if (!isAuthorized(candidateId, session)) {
+            return ResponseEntity
+                    .status(HttpStatus.UNAUTHORIZED)
+                    .build();
+        }
+
+        candidateService.deleteResume(
+                candidateId,
+                resumeId
+        );
+
         return ResponseEntity.ok().build();
     }
 }

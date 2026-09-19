@@ -10,8 +10,6 @@
         content="width=device-width, initial-scale=1.0">
 
     <title>My Applications - Career X</title>
-    
-
 
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/careerx.css">
@@ -65,22 +63,16 @@
 
         .careerx-logo-text {
             color: #f8fafc;
-
             font-size: 1.8rem;
-
             font-weight: 900;
-
             letter-spacing: -0.045em;
-
             white-space: nowrap;
         }
 
         .careerx-logo-text span {
             color: #22d3ee;
-
             font-weight: 900;
         }
-
 
         /* =====================================================
            BACKGROUND
@@ -146,7 +138,6 @@
             left: -130px;
         }
 
-
         /* =====================================================
            MAIN PAGE
            ===================================================== */
@@ -162,7 +153,6 @@
             font-size: 0.88rem;
         }
 
-
         /* =====================================================
            SUMMARY
            ===================================================== */
@@ -173,7 +163,7 @@
             grid-template-columns:
                 repeat(
                     auto-fit,
-                    minmax(180px, 1fr)
+                    minmax(160px, 1fr)
                 );
 
             gap: 16px;
@@ -302,19 +292,15 @@
             font-weight: 600;
         }
 
-
         /* =====================================================
            APPLICATION LIST
            ===================================================== */
 
         .applications-list {
             display: flex;
-
             flex-direction: column;
-
             gap: 17px;
         }
-
 
         /* =====================================================
            APPLICATION CARD
@@ -385,7 +371,6 @@
                 rgba(0, 0, 0, 0.28);
         }
 
-
         /* =====================================================
            APPLICATION HEADER
            ===================================================== */
@@ -421,7 +406,6 @@
 
             font-weight: 600;
         }
-
 
         /* =====================================================
            STATUS
@@ -570,7 +554,6 @@
                 rgba(239, 68, 68, 0.7);
         }
 
-
         /* =====================================================
            DETAILS
            ===================================================== */
@@ -623,7 +606,6 @@
             word-break: break-word;
         }
 
-
         /* =====================================================
            COVER LETTER
            ===================================================== */
@@ -657,7 +639,6 @@
 
             word-break: break-word;
         }
-
 
         /* =====================================================
            RECRUITER REMARKS
@@ -713,7 +694,6 @@
 
             word-break: break-word;
         }
-
 
         /* =====================================================
            EMPTY STATE
@@ -833,7 +813,6 @@
                 rgba(6, 182, 212, 0.22);
         }
 
-
         /* =====================================================
            LOADING / ERROR
            ===================================================== */
@@ -890,7 +869,6 @@
             font-size: 0.82rem;
         }
 
-
         /* =====================================================
            RESPONSIVE
            ===================================================== */
@@ -919,13 +897,9 @@
 
 </head>
 
-
 <body>
 
-
-    <!-- =====================================================
-         BACKGROUND
-         ===================================================== -->
+    <!-- BACKGROUND -->
 
     <div class="applications-background">
 
@@ -937,22 +911,13 @@
 
     </div>
 
-
-    <!-- =====================================================
-         APP CONTAINER
-         ===================================================== -->
+    <!-- APP CONTAINER -->
 
     <div class="app-container">
 
-
-        <!-- =================================================
-             SIDEBAR
-             ================================================= -->
+        <!-- SIDEBAR -->
 
         <aside class="sidebar">
-
-
-            <!-- CAREER X LOGO -->
 
             <div class="careerx-logo">
 
@@ -966,126 +931,80 @@
 
             </div>
 
-
-            <!-- NAVIGATION -->
-
             <ul class="sidebar-menu">
 
-
                 <li>
-
                     <a href="dashboard.html">
-
-                        🏠 Dashboard
-
+                         Dashboard
                     </a>
-
                 </li>
 
-
                 <li>
-
                     <a href="profile.html">
-
-                        👤 Profile Settings
-
+                         Profile Settings
                     </a>
-
                 </li>
 
-
                 <li>
-
                     <a href="jobs.html">
-
-                        💼 Browse Jobs
-
+                         Browse Jobs
                     </a>
-
                 </li>
 
-
                 <li>
-
                     <a
                         href="candidate-applications.html"
                         class="active">
-
-                        📄 My Applications
-
+                         My Applications
                     </a>
-
                 </li>
 
-
                 <li>
-
                     <a href="candidate-interviews.html">
-
-                        📅 My Interviews
-
+                         My Interviews
                     </a>
-
                 </li>
 
-
                 <li>
-
                     <a
                         href="#"
                         id="logoutBtn">
-
-                        🚪 Logout
-
+                         Logout
                     </a>
-
                 </li>
-
 
             </ul>
 
-
         </aside>
 
-
-        <!-- =================================================
-             MAIN CONTENT
-             ================================================= -->
+        <!-- MAIN CONTENT -->
 
         <main class="main-content">
-
 
             <header class="header">
 
                 <div>
 
                     <h1 class="page-title">
-
                         My Applications
-
                     </h1>
 
                     <p class="page-subtitle">
-
                         Track your job applications
                         and recruitment progress.
-
                     </p>
 
                 </div>
 
             </header>
 
-
             <div class="applications-page">
-
 
                 <!-- =================================================
                      SUMMARY
                      ================================================= -->
 
                 <div class="applications-summary">
-
 
                     <div class="application-stat">
 
@@ -1096,19 +1015,14 @@
                         <div
                             class="application-stat-number"
                             id="totalApplications">
-
                             0
-
                         </div>
 
                         <div class="application-stat-label">
-
                             Total Applications
-
                         </div>
 
                     </div>
-
 
                     <div class="application-stat">
 
@@ -1119,19 +1033,14 @@
                         <div
                             class="application-stat-number"
                             id="appliedCount">
-
                             0
-
                         </div>
 
                         <div class="application-stat-label">
-
                             Applied
-
                         </div>
 
                     </div>
-
 
                     <div class="application-stat">
 
@@ -1142,19 +1051,54 @@
                         <div
                             class="application-stat-number"
                             id="shortlistedCount">
-
                             0
-
                         </div>
 
                         <div class="application-stat-label">
-
                             Shortlisted
-
                         </div>
 
                     </div>
 
+                    <!-- NEW: INTERVIEW COMPLETED -->
+
+                    <div class="application-stat">
+
+                        <div class="application-stat-icon">
+                            🎯
+                        </div>
+
+                        <div
+                            class="application-stat-number"
+                            id="interviewCount">
+                            0
+                        </div>
+
+                        <div class="application-stat-label">
+                            Interview Completed
+                        </div>
+
+                    </div>
+
+                    <!-- NEW: SELECTED -->
+
+                    <div class="application-stat">
+
+                        <div class="application-stat-icon">
+                            ✅
+                        </div>
+
+                        <div
+                            class="application-stat-number"
+                            id="selectedCount">
+                            0
+                        </div>
+
+                        <div class="application-stat-label">
+                            Selected
+                        </div>
+
+                    </div>
 
                     <div class="application-stat">
 
@@ -1165,26 +1109,18 @@
                         <div
                             class="application-stat-number"
                             id="rejectedCount">
-
                             0
-
                         </div>
 
                         <div class="application-stat-label">
-
                             Rejected
-
                         </div>
 
                     </div>
 
-
                 </div>
 
-
-                <!-- =================================================
-                     APPLICATIONS
-                     ================================================= -->
+                <!-- APPLICATIONS -->
 
                 <div
                     id="applicationsContainer"
@@ -1202,21 +1138,15 @@
 
                 </div>
 
-
             </div>
-
 
         </main>
 
-
     </div>
-
 
     <script src="js/app.js"></script>
 
-
     <script>
-
 
         // =====================================================
         // INITIAL LOAD
@@ -1231,13 +1161,12 @@
 
                 if (user) {
 
-                    loadApplications();
+                    await loadApplications();
 
                 }
 
             }
         );
-
 
         // =====================================================
         // LOAD APPLICATIONS
@@ -1245,12 +1174,10 @@
 
         async function loadApplications() {
 
-
             const candidateId =
                 localStorage.getItem(
                     "candidateId"
                 );
-
 
             if (!candidateId) {
 
@@ -1273,14 +1200,12 @@
 
             }
 
-
             try {
 
                 const response =
                     await fetch(
                         `/api/applications/candidate/${candidateId}`
                     );
-
 
                 if (!response.ok) {
 
@@ -1290,20 +1215,16 @@
 
                 }
 
-
                 const applications =
                     await response.json();
-
 
                 updateSummary(
                     applications
                 );
 
-
                 displayApplications(
                     applications
                 );
-
 
             }
 
@@ -1313,7 +1234,6 @@
                     "Application loading error:",
                     error
                 );
-
 
                 document
                     .getElementById(
@@ -1335,7 +1255,6 @@
 
         }
 
-
         // =====================================================
         // UPDATE SUMMARY
         // =====================================================
@@ -1345,39 +1264,51 @@
         ) {
 
             let applied = 0;
-
             let shortlisted = 0;
-
+            let interviewCompleted = 0;
+            let selected = 0;
             let rejected = 0;
-
 
             applications.forEach(
                 function(application) {
 
+                    const status =
+                        application.status;
 
                     if (
-                        application.status ===
-                        "Applied"
+                        status === "Applied"
                     ) {
 
                         applied++;
 
                     }
 
-
                     else if (
-                        application.status ===
-                        "Shortlisted"
+                        status === "Shortlisted"
                     ) {
 
                         shortlisted++;
 
                     }
 
+                    else if (
+                        status === "Interview Completed"
+                    ) {
+
+                        interviewCompleted++;
+
+                    }
 
                     else if (
-                        application.status ===
-                        "Rejected"
+                        status === "Selected"
+                    ) {
+
+                        selected++;
+
+                    }
+
+                    else if (
+                        status === "Rejected"
                     ) {
 
                         rejected++;
@@ -1387,14 +1318,12 @@
                 }
             );
 
-
             document
                 .getElementById(
                     "totalApplications"
                 )
                 .textContent =
                 applications.length;
-
 
             document
                 .getElementById(
@@ -1403,7 +1332,6 @@
                 .textContent =
                 applied;
 
-
             document
                 .getElementById(
                     "shortlistedCount"
@@ -1411,6 +1339,19 @@
                 .textContent =
                 shortlisted;
 
+            document
+                .getElementById(
+                    "interviewCount"
+                )
+                .textContent =
+                interviewCompleted;
+
+            document
+                .getElementById(
+                    "selectedCount"
+                )
+                .textContent =
+                selected;
 
             document
                 .getElementById(
@@ -1421,7 +1362,6 @@
 
         }
 
-
         // =====================================================
         // DISPLAY APPLICATIONS
         // =====================================================
@@ -1430,12 +1370,10 @@
             applications
         ) {
 
-
             const container =
                 document.getElementById(
                     "applicationsContainer"
                 );
-
 
             if (
                 !applications ||
@@ -1463,7 +1401,7 @@
                             href="jobs.html"
                             class="browse-jobs-btn">
 
-                            💼 Browse Jobs
+                             Browse Jobs
 
                         </a>
 
@@ -1474,7 +1412,6 @@
                 return;
 
             }
-
 
             container.innerHTML =
                 applications
@@ -1491,7 +1428,6 @@
 
         }
 
-
         // =====================================================
         // CREATE APPLICATION CARD
         // =====================================================
@@ -1500,19 +1436,15 @@
             application
         ) {
 
-
             const job =
                 application.job || {};
-
 
             const status =
                 application.status ||
                 "Applied";
 
-
             let statusClass =
                 "status-applied";
-
 
             if (
                 status === "Shortlisted"
@@ -1523,7 +1455,6 @@
 
             }
 
-
             else if (
                 status === "Rejected"
             ) {
@@ -1532,7 +1463,6 @@
                     "status-rejected";
 
             }
-
 
             else if (
                 status === "Interview Completed"
@@ -1543,7 +1473,6 @@
 
             }
 
-
             else if (
                 status === "Selected"
             ) {
@@ -1552,7 +1481,6 @@
                     "status-selected";
 
             }
-
 
             else if (
                 status === "Not Selected"
@@ -1563,14 +1491,12 @@
 
             }
 
-
             const coverLetter =
                 application.coverLetter
                     ? escapeHtml(
                         application.coverLetter
                     )
                     : "No cover letter provided.";
-
 
             const resultRemarks =
                 application.resultRemarks
@@ -1579,16 +1505,11 @@
                     )
                     : "";
 
-
             return `
 
                 <div class="application-card">
 
-
-                    <!-- APPLICATION HEADER -->
-
                     <div class="application-header">
-
 
                         <div>
 
@@ -1602,7 +1523,6 @@
 
                             </h2>
 
-
                             <div
                                 class="application-company">
 
@@ -1614,7 +1534,6 @@
                             </div>
 
                         </div>
-
 
                         <span
                             class="
@@ -1628,15 +1547,10 @@
 
                         </span>
 
-
                     </div>
-
-
-                    <!-- APPLICATION DETAILS -->
 
                     <div
                         class="application-details">
-
 
                         <div
                             class="application-detail">
@@ -1649,7 +1563,6 @@
                                 Location
 
                             </div>
-
 
                             <div
                                 class="
@@ -1665,7 +1578,6 @@
 
                         </div>
 
-
                         <div
                             class="application-detail">
 
@@ -1677,7 +1589,6 @@
                                 Employment Type
 
                             </div>
-
 
                             <div
                                 class="
@@ -1693,7 +1604,6 @@
 
                         </div>
 
-
                         <div
                             class="application-detail">
 
@@ -1705,7 +1615,6 @@
                                 Applied On
 
                             </div>
-
 
                             <div
                                 class="
@@ -1720,7 +1629,6 @@
 
                         </div>
 
-
                         <div
                             class="application-detail">
 
@@ -1733,7 +1641,6 @@
 
                             </div>
 
-
                             <div
                                 class="
                                     application-detail-value
@@ -1745,14 +1652,9 @@
 
                         </div>
 
-
                     </div>
 
-
-                    <!-- COVER LETTER -->
-
                     <div class="cover-letter">
-
 
                         <div
                             class="cover-letter-title">
@@ -1761,7 +1663,6 @@
 
                         </div>
 
-
                         <div
                             class="cover-letter-text">
 
@@ -1769,11 +1670,7 @@
 
                         </div>
 
-
                     </div>
-
-
-                    <!-- RECRUITER REMARKS -->
 
                     ${
                         resultRemarks
@@ -1791,7 +1688,6 @@
 
                                     </div>
 
-
                                     <div
                                         class="
                                             result-remarks-text
@@ -1807,13 +1703,11 @@
                             : ""
                     }
 
-
                 </div>
 
             `;
 
         }
-
 
         // =====================================================
         // FORMAT DATE
@@ -1823,19 +1717,16 @@
             dateString
         ) {
 
-
             if (!dateString) {
 
                 return "Not available";
 
             }
 
-
             const date =
                 new Date(
                     dateString
                 );
-
 
             if (
                 isNaN(
@@ -1846,7 +1737,6 @@
                 return dateString;
 
             }
-
 
             return date.toLocaleDateString(
                 "en-IN",
@@ -1859,7 +1749,6 @@
 
         }
 
-
         // =====================================================
         // ESCAPE HTML
         // =====================================================
@@ -1867,7 +1756,6 @@
         function escapeHtml(
             value
         ) {
-
 
             if (
                 value === null ||
@@ -1877,7 +1765,6 @@
                 return "";
 
             }
-
 
             return String(value)
 
@@ -1909,6 +1796,7 @@
         }
 
     </script>
+
 </body>
 
 </html>

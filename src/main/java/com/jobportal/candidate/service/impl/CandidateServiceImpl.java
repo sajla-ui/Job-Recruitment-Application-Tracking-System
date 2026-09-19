@@ -12,7 +12,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
-import com.jobportal.candidate.model.Resume;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -110,7 +109,12 @@ public class CandidateServiceImpl implements CandidateService {
         // Refresh candidate to reflect new skill in collection
         return getCandidateById(candidateId);
     }
-
+@Override
+@Transactional(readOnly = true)
+public List<CandidateSkill> getSkills(Long candidateId) {
+    getCandidateById(candidateId);
+    return candidateSkillRepository.findByCandidateId(candidateId);
+}
     @Override
     @Transactional
     public void removeSkill(Long candidateId, Long skillId) {
@@ -124,6 +128,12 @@ public class CandidateServiceImpl implements CandidateService {
         education.setCandidate(candidate);
         return educationRepository.save(education);
     }
+    @Override
+@Transactional(readOnly = true)
+public List<Education> getEducation(Long candidateId) {
+    getCandidateById(candidateId);
+    return educationRepository.findByCandidateId(candidateId);
+}
 
     @Override
     public void deleteEducation(Long candidateId, Long educationId) {
@@ -141,6 +151,12 @@ public class CandidateServiceImpl implements CandidateService {
         experience.setCandidate(candidate);
         return experienceRepository.save(experience);
     }
+    @Override
+@Transactional(readOnly = true)
+public List<Experience> getExperiences(Long candidateId) {
+    getCandidateById(candidateId);
+    return experienceRepository.findByCandidateId(candidateId);
+}
 
     @Override
     public void deleteExperience(Long candidateId, Long experienceId) {

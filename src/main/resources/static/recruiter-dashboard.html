@@ -9,23 +9,7 @@
         content="width=device-width, initial-scale=1.0">
 
     <title>Recruiter Dashboard | CareerX</title>
-<script>
-(function () {
-    const theme = localStorage.getItem("careerx-theme") || "system";
 
-    const actualTheme =
-        theme === "system"
-            ? (
-                window.matchMedia("(prefers-color-scheme: dark)").matches
-                    ? "dark"
-                    : "light"
-            )
-            : theme;
-
-    document.documentElement.setAttribute("data-theme", actualTheme);
-    document.documentElement.setAttribute("data-theme-setting", theme);
-})();
-</script>
     <!-- Existing styles -->
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/careerx.css">
@@ -1413,7 +1397,7 @@
                     class="active">
 
                     <span class="menu-icon">
-                        ⌂
+                        
                     </span>
 
                     Dashboard
@@ -1428,7 +1412,7 @@
                 <a href="#profile">
 
                     <span class="menu-icon">
-                        ◉
+                        
                     </span>
 
                     Company Profile
@@ -1443,7 +1427,7 @@
                 <a href="#postJob">
 
                     <span class="menu-icon">
-                        ＋
+                        
                     </span>
 
                     Post a Job
@@ -1458,7 +1442,7 @@
                 <a href="recruiter-jobs.html">
 
                     <span class="menu-icon">
-                        ▤
+                        
                     </span>
 
                     My Jobs
@@ -1473,7 +1457,7 @@
                 <a href="recruiter-applications.html">
 
                     <span class="menu-icon">
-                        ◎
+                        
                     </span>
 
                     Applications
@@ -1488,7 +1472,7 @@
                 <a href="recruiter-interviews.html">
 
                     <span class="menu-icon">
-                        ◷
+                        
                     </span>
 
                     My Interviews
@@ -3087,7 +3071,7 @@ loadProfile();
 loadJobs();
 
 </script>
-<script src="js/theme.js"></script>
+
 
 </body>
 

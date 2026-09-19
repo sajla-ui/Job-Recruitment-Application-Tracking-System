@@ -7,23 +7,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Education History - Career X</title>
-    <script>
-(function () {
-    const theme = localStorage.getItem("careerx-theme") || "system";
-
-    const actualTheme =
-        theme === "system"
-            ? (
-                window.matchMedia("(prefers-color-scheme: dark)").matches
-                    ? "dark"
-                    : "light"
-            )
-            : theme;
-
-    document.documentElement.setAttribute("data-theme", actualTheme);
-    document.documentElement.setAttribute("data-theme-setting", theme);
-})();
-</script>
 
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/careerx.css">
@@ -794,7 +777,6 @@
 
 <body>
 
-
     <!-- =====================================================
          BACKGROUND
          ===================================================== -->
@@ -816,7 +798,6 @@
 
     <aside class="sidebar">
 
-
         <!-- CAREER X LOGO -->
 
         <div class="careerx-logo">
@@ -835,72 +816,43 @@
         <ul class="sidebar-menu">
 
             <li>
-
                 <a href="dashboard.html">
-
-                    🏠 Dashboard
-
+                     Dashboard
                 </a>
-
             </li>
 
-
             <li>
-
                 <a
                     href="profile.html"
                     class="active">
-
-                    👤 Profile Settings
-
+                     Profile Settings
                 </a>
-
             </li>
 
-
             <li>
-
                 <a href="jobs.html">
-
-                    💼 Browse Jobs
-
+                     Browse Jobs
                 </a>
-
             </li>
 
-
             <li>
-
                 <a href="candidate-applications.html">
-
-                    📄 My Applications
-
+                     My Applications
                 </a>
-
             </li>
 
-
             <li>
-
                 <a href="candidate-interviews.html">
-
-                    📅 My Interviews
-
+                     My Interviews
                 </a>
-
             </li>
 
-
             <li>
-
                 <a
                     href="#"
                     id="logoutBtn">
-
-                    🚪 Logout
-
+                     Logout
                 </a>
-
             </li>
 
         </ul>
@@ -914,37 +866,28 @@
 
     <main class="main-content">
 
-
         <header class="header">
 
             <div>
 
                 <h1 class="page-title">
-
                     Education History
-
                 </h1>
 
                 <p class="page-subtitle">
-
                     Add and manage your academic qualifications.
-
                 </p>
 
             </div>
 
-
             <div>
-
                 <span class="user-name-display"></span>
-
             </div>
 
         </header>
 
 
         <div class="education-page-content">
-
 
             <!-- =================================================
                  ALERT
@@ -963,39 +906,25 @@
             <div class="profile-nav">
 
                 <a href="profile.html">
-
                     Basic Info
-
                 </a>
-
 
                 <a href="skills.html">
-
                     Skills
-
                 </a>
-
 
                 <a
                     href="education.html"
                     class="active">
-
                     Education
-
                 </a>
-
 
                 <a href="experience.html">
-
                     Experience
-
                 </a>
 
-
                 <a href="resume.html">
-
                     Resume
-
                 </a>
 
             </div>
@@ -1007,31 +936,23 @@
 
             <div class="education-card">
 
-
                 <div class="education-card-header">
 
                     <div>
 
                         <h3 class="education-card-title">
-
                             Add Education
-
                         </h3>
 
                         <p class="education-card-description">
-
                             Add your academic qualifications
                             and achievements.
-
                         </p>
 
                     </div>
 
-
                     <div class="education-header-icon">
-
                         🎓
-
                     </div>
 
                 </div>
@@ -1041,13 +962,10 @@
                     id="eduForm"
                     class="education-form">
 
-
                     <div class="education-form-group">
 
                         <label for="institution">
-
                             Institution / University Name
-
                         </label>
 
                         <input
@@ -1063,9 +981,7 @@
                     <div class="education-form-group">
 
                         <label for="degree">
-
                             Degree
-
                         </label>
 
                         <input
@@ -1081,9 +997,7 @@
                     <div class="education-form-group">
 
                         <label for="fieldOfStudy">
-
                             Field of Study
-
                         </label>
 
                         <input
@@ -1098,9 +1012,7 @@
                     <div class="education-form-group">
 
                         <label for="grade">
-
                             Grade / Percentage
-
                         </label>
 
                         <input
@@ -1115,9 +1027,7 @@
                     <div class="education-form-group">
 
                         <label for="startYear">
-
                             Start Year
-
                         </label>
 
                         <input
@@ -1135,9 +1045,7 @@
                     <div class="education-form-group">
 
                         <label for="endYear">
-
                             End Year
-
                         </label>
 
                         <input
@@ -1171,30 +1079,22 @@
 
             <div class="education-card">
 
-
                 <div class="education-card-header">
 
                     <div>
 
                         <h3 class="education-card-title">
-
                             Your Education
-
                         </h3>
 
                         <p class="education-card-description">
-
                             Your academic history and qualifications.
-
                         </p>
 
                     </div>
 
-
                     <div class="education-header-icon">
-
                         📚
-
                     </div>
 
                 </div>
@@ -1207,15 +1107,11 @@
                     <div class="education-empty-state">
 
                         <div class="education-empty-icon">
-
                             ⏳
-
                         </div>
 
                         <h3>
-
                             Loading education...
-
                         </h3>
 
                     </div>
@@ -1244,17 +1140,13 @@
 
         document.addEventListener(
             "DOMContentLoaded",
-            async function() {
+            async function () {
 
-                currentUser =
-                    await checkAuth();
-
+                currentUser = await checkAuth();
 
                 if (currentUser) {
 
-                    renderEducation(
-                        currentUser.educations
-                    );
+                    await loadEducation();
 
                 }
 
@@ -1263,17 +1155,100 @@
 
 
         // =====================================================
+        // LOAD EDUCATION DIRECTLY FROM BACKEND
+        // =====================================================
+
+        async function loadEducation() {
+
+            const container =
+                document.getElementById("eduList");
+
+
+            container.innerHTML = `
+                <div class="education-empty-state">
+
+                    <div class="education-empty-icon">
+                        ⏳
+                    </div>
+
+                    <h3>
+                        Loading education...
+                    </h3>
+
+                </div>
+            `;
+
+
+            try {
+
+                const response =
+                    await fetch(
+                        `/api/candidates/${currentUser.id}/education`
+                    );
+
+
+                if (!response.ok) {
+
+                    throw new Error(
+                        `Failed to load education. Status: ${response.status}`
+                    );
+
+                }
+
+
+                const educations =
+                    await response.json();
+
+
+                console.log(
+                    "Education records loaded:",
+                    educations
+                );
+
+
+                renderEducation(educations);
+
+            }
+
+            catch (error) {
+
+                console.error(
+                    "Error loading education:",
+                    error
+                );
+
+
+                container.innerHTML = `
+                    <div class="education-empty-state">
+
+                        <div class="education-empty-icon">
+                            ⚠️
+                        </div>
+
+                        <h3>
+                            Unable to load education
+                        </h3>
+
+                        <p>
+                            Please refresh the page and try again.
+                        </p>
+
+                    </div>
+                `;
+
+            }
+
+        }
+
+
+        // =====================================================
         // RENDER EDUCATION
         // =====================================================
 
-        function renderEducation(
-            educations
-        ) {
+        function renderEducation(educations) {
 
             const container =
-                document.getElementById(
-                    "eduList"
-                );
+                document.getElementById("eduList");
 
 
             if (
@@ -1286,22 +1261,16 @@
                     <div class="education-empty-state">
 
                         <div class="education-empty-icon">
-
                             🎓
-
                         </div>
 
                         <h3>
-
                             No Education Records
-
                         </h3>
 
                         <p>
-
                             Add your first academic qualification
                             using the form above.
-
                         </p>
 
                     </div>
@@ -1316,14 +1285,13 @@
             container.innerHTML =
                 educations
                     .map(
-                        function(edu) {
+                        function (edu) {
 
                             return `
 
                                 <div class="timeline-item">
 
                                     <div class="education-item-header">
-
 
                                         <div>
 
@@ -1374,6 +1342,7 @@
                                         <span>
 
                                             📅
+
                                             ${escapeHtml(
                                                 edu.startYear
                                             )}
@@ -1391,6 +1360,7 @@
                                         <span>
 
                                             📊 Grade:
+
                                             ${escapeHtml(
                                                 edu.grade ||
                                                 "N/A"
@@ -1419,7 +1389,7 @@
             .getElementById("eduForm")
             .addEventListener(
                 "submit",
-                async function(e) {
+                async function (e) {
 
                     e.preventDefault();
 
@@ -1428,48 +1398,41 @@
 
                         institution:
                             document
-                                .getElementById(
-                                    "institution"
-                                )
+                                .getElementById("institution")
                                 .value
                                 .trim(),
+
 
                         degree:
                             document
-                                .getElementById(
-                                    "degree"
-                                )
+                                .getElementById("degree")
                                 .value
                                 .trim(),
+
 
                         fieldOfStudy:
                             document
-                                .getElementById(
-                                    "fieldOfStudy"
-                                )
+                                .getElementById("fieldOfStudy")
                                 .value
                                 .trim(),
+
 
                         grade:
                             document
-                                .getElementById(
-                                    "grade"
-                                )
+                                .getElementById("grade")
                                 .value
                                 .trim(),
 
+
                         startYear:
                             document
-                                .getElementById(
-                                    "startYear"
-                                )
+                                .getElementById("startYear")
                                 .value,
+
 
                         endYear:
                             document
-                                .getElementById(
-                                    "endYear"
-                                )
+                                .getElementById("endYear")
                                 .value ||
                             null
 
@@ -1510,9 +1473,7 @@
                         if (response.ok) {
 
                             document
-                                .getElementById(
-                                    "eduForm"
-                                )
+                                .getElementById("eduForm")
                                 .reset();
 
 
@@ -1522,17 +1483,10 @@
                             );
 
 
-                            /*
-                             * Refresh candidate data.
-                             */
+                            // Reload education directly
+                            // from the backend.
 
-                            currentUser =
-                                await checkAuth();
-
-
-                            renderEducation(
-                                currentUser.educations
-                            );
+                            await loadEducation();
 
                         }
 
@@ -1547,6 +1501,7 @@
                                 const errorData =
                                     await response.json();
 
+
                                 message =
                                     errorData.message ||
                                     message;
@@ -1560,9 +1515,7 @@
                             }
 
 
-                            showAlert(
-                                message
-                            );
+                            showAlert(message);
 
                         }
 
@@ -1599,9 +1552,7 @@
         // DELETE EDUCATION
         // =====================================================
 
-        async function deleteEdu(
-            id
-        ) {
+        async function deleteEdu(id) {
 
             const confirmed =
                 confirm(
@@ -1635,17 +1586,10 @@
                     );
 
 
-                    /*
-                     * Refresh candidate data.
-                     */
+                    // Reload education directly
+                    // from the backend.
 
-                    currentUser =
-                        await checkAuth();
-
-
-                    renderEducation(
-                        currentUser.educations
-                    );
+                    await loadEducation();
 
                 }
 
@@ -1660,6 +1604,7 @@
                         const errorData =
                             await response.json();
 
+
                         message =
                             errorData.message ||
                             message;
@@ -1673,9 +1618,7 @@
                     }
 
 
-                    showAlert(
-                        message
-                    );
+                    showAlert(message);
 
                 }
 
@@ -1702,14 +1645,10 @@
         // HTML ESCAPING
         // =====================================================
 
-        function escapeHtml(
-            value
-        ) {
+        function escapeHtml(value) {
 
             const div =
-                document.createElement(
-                    "div"
-                );
+                document.createElement("div");
 
 
             div.textContent =
@@ -1721,7 +1660,7 @@
         }
 
     </script>
-<script src="js/theme.js"></script>
+
 </body>
 
 </html>

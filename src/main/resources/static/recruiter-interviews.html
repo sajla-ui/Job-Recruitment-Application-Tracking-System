@@ -10,23 +10,7 @@
         content="width=device-width, initial-scale=1.0">
 
     <title>My Interviews | CareerX</title>
-<script>
-(function () {
-    const theme = localStorage.getItem("careerx-theme") || "system";
 
-    const actualTheme =
-        theme === "system"
-            ? (
-                window.matchMedia("(prefers-color-scheme: dark)").matches
-                    ? "dark"
-                    : "light"
-            )
-            : theme;
-
-    document.documentElement.setAttribute("data-theme", actualTheme);
-    document.documentElement.setAttribute("data-theme-setting", theme);
-})();
-</script>
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/careerx.css">
 
@@ -1168,7 +1152,7 @@
 
                 <a href="recruiter-dashboard.html">
 
-                    🏠
+                    
                     Dashboard
 
                 </a>
@@ -1180,7 +1164,7 @@
 
                 <a href="recruiter-jobs.html">
 
-                    💼
+                    
                     Manage Jobs
 
                 </a>
@@ -1192,7 +1176,7 @@
 
                 <a href="recruiter-applications.html">
 
-                    📄
+                    
                     Applications
 
                 </a>
@@ -1206,7 +1190,7 @@
                     href="recruiter-interviews.html"
                     class="active">
 
-                    📅
+                    
                     My Interviews
 
                 </a>
@@ -1221,7 +1205,7 @@
                     id="logoutBtn"
                     class="logout-link">
 
-                    🚪
+                    
                     Logout
 
                 </a>
@@ -1767,7 +1751,7 @@ function createInterviewCard(
 
                     <div class="candidate-name">
 
-                        👤
+                        
                         ${escapeHtml(
                             interview.candidateName ||
                             "Candidate"
@@ -1778,7 +1762,7 @@ function createInterviewCard(
 
                     <div class="job-name">
 
-                        💼
+                        
                         ${escapeHtml(
                             interview.jobTitle ||
                             "Job Position"
@@ -1821,7 +1805,7 @@ function createInterviewCard(
 
                     <span class="detail-value">
 
-                        📅
+                        
                         ${formatDateTime(
                             interview.interviewDate
                         )}
@@ -2381,7 +2365,7 @@ document.addEventListener(
 
 </script>
 
-<script src="js/theme.js"></script>
+
 </body>
 
 </html>

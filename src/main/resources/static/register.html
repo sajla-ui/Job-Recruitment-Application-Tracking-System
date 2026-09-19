@@ -4,13 +4,13 @@
 <head>
 
     <meta charset="UTF-8">
+
     <meta
         name="viewport"
         content="width=device-width, initial-scale=1.0"
     >
 
     <title>CareerX - Create Account</title>
-    
 
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/careerx.css">
@@ -104,7 +104,6 @@
            ===================================================== */
 
         .register-page {
-
             position: relative;
             z-index: 1;
 
@@ -121,11 +120,8 @@
         }
 
         .register-wrapper {
-
             width: 100%;
-
             max-width: 560px;
-
         }
 
 
@@ -134,15 +130,11 @@
            ===================================================== */
 
         .careerx-brand {
-
             text-align: center;
-
             margin-bottom: 22px;
-
         }
 
         .careerx-logo {
-
             margin: 0;
 
             color: #f8fafc;
@@ -155,7 +147,6 @@
         }
 
         .careerx-logo span {
-
             background:
                 linear-gradient(
                     135deg,
@@ -171,7 +162,6 @@
         }
 
         .careerx-tagline {
-
             margin: 7px 0 0;
 
             color: #64748b;
@@ -189,7 +179,6 @@
            ===================================================== */
 
         .register-card {
-
             position: relative;
 
             background:
@@ -219,7 +208,6 @@
         }
 
         .register-card::before {
-
             content: "";
 
             position: absolute;
@@ -242,7 +230,6 @@
         }
 
         .register-card::after {
-
             content: "";
 
             position: absolute;
@@ -269,14 +256,11 @@
            ===================================================== */
 
         .register-heading {
-
             margin-bottom: 27px;
-
             text-align: center;
         }
 
         .register-heading h1 {
-
             margin: 0;
 
             color: #f8fafc;
@@ -289,7 +273,6 @@
         }
 
         .register-heading p {
-
             margin: 8px 0 0;
 
             color: #64748b;
@@ -305,7 +288,6 @@
            ===================================================== */
 
         .register-form {
-
             display: flex;
 
             flex-direction: column;
@@ -314,12 +296,10 @@
         }
 
         .register-form .form-group {
-
             margin: 0;
         }
 
         .register-form label {
-
             display: block;
 
             margin-bottom: 8px;
@@ -332,7 +312,6 @@
         }
 
         .register-form input {
-
             width: 100%;
 
             box-sizing: border-box;
@@ -363,13 +342,11 @@
         }
 
         .register-form input::placeholder {
-
             color:
                 rgba(148, 163, 184, 0.45);
         }
 
         .register-form input:focus {
-
             border-color:
                 rgba(6, 182, 212, 0.48);
 
@@ -384,7 +361,6 @@
         }
 
         .password-grid {
-
             display: grid;
 
             grid-template-columns:
@@ -399,7 +375,6 @@
            ===================================================== */
 
         .register-button {
-
             width: 100%;
 
             margin-top: 4px;
@@ -438,7 +413,6 @@
         }
 
         .register-button:hover {
-
             transform: translateY(-2px);
 
             box-shadow:
@@ -447,7 +421,6 @@
         }
 
         .register-button:disabled {
-
             opacity: 0.55;
 
             cursor: not-allowed;
@@ -463,7 +436,6 @@
            ===================================================== */
 
         .register-footer {
-
             margin-top: 23px;
 
             padding-top: 20px;
@@ -476,7 +448,6 @@
         }
 
         .register-footer p {
-
             margin: 0;
 
             color: #64748b;
@@ -485,7 +456,6 @@
         }
 
         .register-footer a {
-
             color: #67e8f9;
 
             font-weight: 650;
@@ -497,7 +467,6 @@
         }
 
         .register-footer a:hover {
-
             color: #a5f3fc;
 
             text-decoration: underline;
@@ -509,7 +478,6 @@
            ===================================================== */
 
         #alertMessage {
-
             margin-bottom: 17px;
 
             border-radius: 10px;
@@ -521,7 +489,6 @@
            ===================================================== */
 
         .register-note {
-
             display: flex;
 
             align-items: center;
@@ -545,31 +512,23 @@
         @media (max-width: 600px) {
 
             .register-page {
-
                 padding: 25px 14px;
-
             }
 
             .register-card {
-
                 padding: 25px 20px;
 
                 border-radius: 18px;
-
             }
 
             .careerx-logo {
-
                 font-size: 1.9rem;
-
             }
 
             .password-grid {
-
                 grid-template-columns: 1fr;
 
                 gap: 17px;
-
             }
 
         }
@@ -785,9 +744,7 @@
                         class="register-button"
                         id="registerBtn"
                     >
-
                         Create Account
-
                     </button>
 
 
@@ -802,7 +759,7 @@
 
                         Already have an account?
 
-                        <a href="index.html">
+                        <a href="candidate-login.html">
                             Login here
                         </a>
 
@@ -945,8 +902,14 @@
 
                         if (response.ok) {
 
+                            /*
+                             * Registration successful.
+                             * Redirect candidate to the
+                             * dedicated candidate login page.
+                             */
+
                             window.location.href =
-                                "index.html?registered=true";
+                                "candidate-login.html";
 
                         }
 
@@ -954,7 +917,6 @@
 
                             const err =
                                 await response.json();
-
 
                             showAlert(
                                 err.message ||
@@ -971,7 +933,6 @@
                             "Registration error:",
                             error
                         );
-
 
                         showAlert(
                             "An error occurred connecting to the server."

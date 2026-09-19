@@ -1,112 +1,834 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
-    <title>Company Registration - Job Portal</title>
+    <title>CareerX - Company Registration</title>
+    
 
-    <link rel="stylesheet" href="css/recruiter.css"></head>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/careerx.css">
+    <link rel="stylesheet" href="css/recruiter.css">
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;750&display=swap"
+        rel="stylesheet"
+    >
+
+    <style>
+
+        /* =====================================================
+           BACKGROUND
+           ===================================================== */
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            overflow-x: hidden;
+            background: #050b18;
+        }
+
+        .company-register-background {
+            position: fixed;
+            inset: 0;
+            overflow: hidden;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .company-register-grid {
+            position: absolute;
+            inset: 0;
+
+            background-image:
+                linear-gradient(
+                    rgba(56, 189, 248, 0.035) 1px,
+                    transparent 1px
+                ),
+                linear-gradient(
+                    90deg,
+                    rgba(56, 189, 248, 0.035) 1px,
+                    transparent 1px
+                );
+
+            background-size: 55px 55px;
+
+            mask-image:
+                linear-gradient(
+                    to bottom,
+                    black,
+                    transparent 95%
+                );
+        }
+
+        .company-register-orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(105px);
+            opacity: 0.16;
+        }
+
+        .company-register-orb-one {
+            width: 420px;
+            height: 420px;
+            background: #06b6d4;
+            top: -170px;
+            right: -130px;
+        }
+
+        .company-register-orb-two {
+            width: 400px;
+            height: 400px;
+            background: #7c3aed;
+            bottom: -180px;
+            left: -150px;
+        }
+
+        .company-register-orb-three {
+            width: 240px;
+            height: 240px;
+            background: #2563eb;
+            top: 40%;
+            left: 40%;
+            opacity: 0.06;
+        }
+
+
+        /* =====================================================
+           PAGE
+           ===================================================== */
+
+        .company-register-page {
+
+            position: relative;
+            z-index: 1;
+
+            min-height: 100vh;
+
+            display: flex;
+
+            justify-content: center;
+            align-items: center;
+
+            padding: 35px 20px;
+
+            box-sizing: border-box;
+        }
+
+        .company-register-wrapper {
+
+            width: 100%;
+
+            max-width: 600px;
+
+        }
+
+
+        /* =====================================================
+           BRAND
+           ===================================================== */
+
+        .careerx-brand {
+
+            text-align: center;
+
+            margin-bottom: 22px;
+        }
+
+        .careerx-logo {
+
+            margin: 0;
+
+            color: #f8fafc;
+
+            font-size: 2.15rem;
+
+            font-weight: 750;
+
+            letter-spacing: -1.5px;
+        }
+
+        .careerx-logo span {
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #22d3ee,
+                    #3b82f6,
+                    #8b5cf6
+                );
+
+            -webkit-background-clip: text;
+            background-clip: text;
+
+            color: transparent;
+        }
+
+        .careerx-tagline {
+
+            margin: 7px 0 0;
+
+            color: #64748b;
+
+            font-size: 0.76rem;
+
+            letter-spacing: 1.4px;
+
+            text-transform: uppercase;
+        }
+
+
+        /* =====================================================
+           REGISTER CARD
+           ===================================================== */
+
+        .company-register-card {
+
+            position: relative;
+
+            padding: 34px;
+
+            border:
+                1px solid
+                rgba(148, 163, 184, 0.14);
+
+            border-radius: 22px;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    rgba(15, 23, 42, 0.95),
+                    rgba(7, 14, 29, 0.92)
+                );
+
+            box-shadow:
+                0 30px 80px
+                rgba(0, 0, 0, 0.35),
+                0 0 50px
+                rgba(6, 182, 212, 0.035);
+
+            backdrop-filter: blur(18px);
+
+            overflow: hidden;
+        }
+
+        .company-register-card::before {
+
+            content: "";
+
+            position: absolute;
+
+            top: 0;
+            left: 0;
+
+            width: 100%;
+            height: 2px;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    transparent,
+                    #06b6d4,
+                    #3b82f6,
+                    #8b5cf6,
+                    transparent
+                );
+        }
+
+
+        /* =====================================================
+           HEADER
+           ===================================================== */
+
+        .company-register-heading {
+
+            text-align: center;
+
+            margin-bottom: 28px;
+        }
+
+        .company-register-icon {
+
+            width: 52px;
+            height: 52px;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            margin: 0 auto 15px;
+
+            border-radius: 15px;
+
+            background:
+                rgba(6, 182, 212, 0.08);
+
+            border:
+                1px solid
+                rgba(6, 182, 212, 0.17);
+
+            box-shadow:
+                0 0 25px
+                rgba(6, 182, 212, 0.05);
+
+            font-size: 24px;
+        }
+
+        .company-register-heading h1 {
+
+            margin: 0;
+
+            color: #f8fafc;
+
+            font-size: 1.55rem;
+
+            font-weight: 750;
+
+            letter-spacing: -0.5px;
+        }
+
+        .company-register-heading p {
+
+            margin: 8px 0 0;
+
+            color: #64748b;
+
+            font-size: 0.84rem;
+        }
+
+
+        /* =====================================================
+           FORM
+           ===================================================== */
+
+        .company-register-form {
+
+            display: flex;
+
+            flex-direction: column;
+
+            gap: 16px;
+        }
+
+        .company-form-group {
+
+            margin: 0;
+        }
+
+        .company-form-group label {
+
+            display: block;
+
+            margin-bottom: 8px;
+
+            color: #94a3b8;
+
+            font-size: 0.77rem;
+
+            font-weight: 650;
+        }
+
+        .company-form-group input,
+        .company-form-group textarea {
+
+            width: 100%;
+
+            box-sizing: border-box;
+
+            padding: 12px 14px;
+
+            border:
+                1px solid
+                rgba(148, 163, 184, 0.16);
+
+            border-radius: 10px;
+
+            background:
+                rgba(15, 23, 42, 0.72);
+
+            color: #f8fafc;
+
+            font-family: inherit;
+
+            font-size: 0.85rem;
+
+            outline: none;
+
+            transition:
+                border-color 0.2s ease,
+                box-shadow 0.2s ease,
+                background 0.2s ease;
+        }
+
+        .company-form-group textarea {
+
+            min-height: 95px;
+
+            resize: vertical;
+
+            line-height: 1.55;
+        }
+
+        .company-form-group input::placeholder,
+        .company-form-group textarea::placeholder {
+
+            color:
+                rgba(148, 163, 184, 0.45);
+        }
+
+        .company-form-group input:focus,
+        .company-form-group textarea:focus {
+
+            border-color:
+                rgba(6, 182, 212, 0.48);
+
+            background:
+                rgba(15, 23, 42, 0.88);
+
+            box-shadow:
+                0 0 0 3px
+                rgba(6, 182, 212, 0.07),
+                0 0 20px
+                rgba(6, 182, 212, 0.04);
+        }
+
+
+        /* =====================================================
+           REGISTER BUTTON
+           ===================================================== */
+
+        .company-register-button {
+
+            width: 100%;
+
+            margin-top: 5px;
+
+            padding: 12px 18px;
+
+            border: none;
+
+            border-radius: 10px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #06b6d4,
+                    #2563eb
+                );
+
+            color: white;
+
+            font-family: inherit;
+
+            font-size: 0.86rem;
+
+            font-weight: 700;
+
+            cursor: pointer;
+
+            box-shadow:
+                0 10px 28px
+                rgba(6, 182, 212, 0.14);
+
+            transition:
+                transform 0.2s ease,
+                box-shadow 0.2s ease,
+                opacity 0.2s ease;
+        }
+
+        .company-register-button:hover {
+
+            transform: translateY(-2px);
+
+            box-shadow:
+                0 14px 32px
+                rgba(6, 182, 212, 0.23);
+        }
+
+        .company-register-button:disabled {
+
+            opacity: 0.55;
+
+            cursor: not-allowed;
+
+            transform: none;
+
+            box-shadow: none;
+        }
+
+
+        /* =====================================================
+           FOOTER LINKS
+           ===================================================== */
+
+        .company-register-footer {
+
+            margin-top: 22px;
+
+            padding-top: 19px;
+
+            border-top:
+                1px solid
+                rgba(148, 163, 184, 0.09);
+
+            text-align: center;
+        }
+
+        .company-register-footer p {
+
+            margin: 8px 0;
+
+            color: #64748b;
+
+            font-size: 0.79rem;
+
+        }
+
+        .company-register-footer a {
+
+            color: #67e8f9;
+
+            font-weight: 650;
+
+            text-decoration: none;
+
+            transition: color 0.2s ease;
+        }
+
+        .company-register-footer a:hover {
+
+            color: #a5f3fc;
+
+            text-decoration: underline;
+        }
+
+
+        /* =====================================================
+           MESSAGE
+           ===================================================== */
+
+        #message {
+
+            margin-bottom: 17px;
+
+            border-radius: 10px;
+        }
+
+
+        /* =====================================================
+           RESPONSIVE
+           ===================================================== */
+
+        @media (max-width: 600px) {
+
+            .company-register-page {
+
+                padding: 25px 14px;
+
+            }
+
+            .company-register-card {
+
+                padding: 25px 20px;
+
+                border-radius: 18px;
+
+            }
+
+            .careerx-logo {
+
+                font-size: 1.9rem;
+
+            }
+
+        }
+
+    </style>
+
+</head>
+
 
 <body>
 
-<div class="recruiter-container">
 
-    <div class="recruiter-card">
+    <!-- =====================================================
+         BACKGROUND
+         ===================================================== -->
 
-        <h1>Company Registration</h1>
-        <p class="subtitle">Create your company account</p>
+    <div class="company-register-background">
 
-        <div id="message"></div>
+        <div class="company-register-grid"></div>
 
-        <form id="companyRegisterForm">
+        <div class="company-register-orb company-register-orb-one"></div>
 
-            <div class="form-group">
-                <label for="companyName">Company Name</label>
-                <input
-                    type="text"
-                    id="companyName"
-                    placeholder="Enter company name"
-                    required>
-            </div>
+        <div class="company-register-orb company-register-orb-two"></div>
 
-            <div class="form-group">
-                <label for="companyDescription">Company Description</label>
-                <textarea
-                    id="companyDescription"
-                    placeholder="Describe your company"
-                    rows="4"></textarea>
-            </div>
-
-            <div class="form-group">
-                <label for="website">Website</label>
-                <input
-                    type="text"
-                    id="website"
-                    placeholder="https://example.com">
-            </div>
-
-            <div class="form-group">
-                <label for="companyLocation">Company Location</label>
-                <input
-                    type="text"
-                    id="companyLocation"
-                    placeholder="Enter company location">
-            </div>
-
-            <div class="form-group">
-                <label for="contactPerson">Contact Person</label>
-                <input
-                    type="text"
-                    id="contactPerson"
-                    placeholder="Enter contact person's name">
-            </div>
-
-            <div class="form-group">
-                <label for="phone">Phone</label>
-                <input
-                    type="tel"
-                    id="phone"
-                    placeholder="Enter phone number">
-            </div>
-
-            <div class="form-group">
-                <label for="email">Company Email</label>
-                <input
-                    type="email"
-                    id="email"
-                    placeholder="Enter company email"
-                    required>
-            </div>
-
-            <div class="form-group">
-                <label for="password">Password</label>
-                <input
-                    type="password"
-                    id="password"
-                    placeholder="Create a password"
-                    required>
-            </div>
-
-            <button type="submit" id="registerBtn">
-                Register Company
-            </button>
-
-        </form>
-
-        <p class="bottom-text">
-            Already have a company account?
-            <a href="recruiter-login.html">Login here</a>
-        </p>
-
-        <p class="bottom-text">
-            <a href="index.html">← Back to Home</a>
-        </p>
+        <div class="company-register-orb company-register-orb-three"></div>
 
     </div>
 
-</div>
 
-<script src="js/recruiter.js"></script>
+    <!-- =====================================================
+         PAGE
+         ===================================================== -->
+
+    <main class="company-register-page">
+
+        <div class="company-register-wrapper">
+
+
+            <!-- BRAND -->
+
+            <div class="careerx-brand">
+
+                <h2 class="careerx-logo">
+                    Career<span>X</span>
+                </h2>
+
+                <p class="careerx-tagline">
+                    Connect talent with opportunity.
+                </p>
+
+            </div>
+
+
+            <!-- CARD -->
+
+            <div class="company-register-card">
+
+
+                <!-- HEADER -->
+
+                <div class="company-register-heading">
+
+                    <div class="company-register-icon">
+                        🏢
+                    </div>
+
+                    <h1>
+                        Company Registration
+                    </h1>
+
+                    <p>
+                        Create your company account and start
+                        recruiting talented candidates.
+                    </p>
+
+                </div>
+
+
+                <!-- MESSAGE -->
+
+                <div id="message"></div>
+
+
+                <!-- FORM -->
+
+                <form
+                    id="companyRegisterForm"
+                    class="company-register-form"
+                >
+
+
+                    <!-- COMPANY NAME -->
+
+                    <div class="company-form-group">
+
+                        <label for="companyName">
+                            Company Name
+                        </label>
+
+                        <input
+                            type="text"
+                            id="companyName"
+                            placeholder="Enter company name"
+                            required
+                        >
+
+                    </div>
+
+
+                    <!-- DESCRIPTION -->
+
+                    <div class="company-form-group">
+
+                        <label for="companyDescription">
+                            Company Description
+                        </label>
+
+                        <textarea
+                            id="companyDescription"
+                            placeholder="Describe your company"
+                            rows="4"
+                        ></textarea>
+
+                    </div>
+
+
+                    <!-- WEBSITE -->
+
+                    <div class="company-form-group">
+
+                        <label for="website">
+                            Website
+                        </label>
+
+                        <input
+                            type="text"
+                            id="website"
+                            placeholder="https://example.com"
+                        >
+
+                    </div>
+
+
+                    <!-- LOCATION -->
+
+                    <div class="company-form-group">
+
+                        <label for="companyLocation">
+                            Company Location
+                        </label>
+
+                        <input
+                            type="text"
+                            id="companyLocation"
+                            placeholder="Enter company location"
+                        >
+
+                    </div>
+
+
+                    <!-- CONTACT PERSON -->
+
+                    <div class="company-form-group">
+
+                        <label for="contactPerson">
+                            Contact Person
+                        </label>
+
+                        <input
+                            type="text"
+                            id="contactPerson"
+                            placeholder="Enter contact person's name"
+                        >
+
+                    </div>
+
+
+                    <!-- PHONE -->
+
+                    <div class="company-form-group">
+
+                        <label for="phone">
+                            Phone
+                        </label>
+
+                        <input
+                            type="tel"
+                            id="phone"
+                            placeholder="Enter phone number"
+                        >
+
+                    </div>
+
+
+                    <!-- EMAIL -->
+
+                    <div class="company-form-group">
+
+                        <label for="email">
+                            Company Email
+                        </label>
+
+                        <input
+                            type="email"
+                            id="email"
+                            placeholder="Enter company email"
+                            required
+                        >
+
+                    </div>
+
+
+                    <!-- PASSWORD -->
+
+                    <div class="company-form-group">
+
+                        <label for="password">
+                            Password
+                        </label>
+
+                        <input
+                            type="password"
+                            id="password"
+                            placeholder="Create a password"
+                            required
+                        >
+
+                    </div>
+
+
+                    <!-- REGISTER -->
+
+                    <button
+                        type="submit"
+                        id="registerBtn"
+                        class="company-register-button"
+                    >
+
+                        🏢 Register Company
+
+                    </button>
+
+
+                </form>
+
+
+                <!-- FOOTER -->
+
+                <div class="company-register-footer">
+
+                    <p>
+
+                        Already have a company account?
+
+                        <a href="recruiter-login.html">
+                            Login here
+                        </a>
+
+                    </p>
+
+
+                    <p>
+
+                        <a href="index.html">
+                            ← Back to Home
+                        </a>
+
+                    </p>
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+    </main>
+
+
+    <!-- EXISTING RECRUITER JAVASCRIPT -->
+
+    <script src="js/recruiter.js"></script>
+
 </body>
+
 </html>

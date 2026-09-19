@@ -1,639 +1,1642 @@
-```html
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>My Jobs - Job Portal</title>
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0">
 
-    <link rel="stylesheet" href="css/recruiter.css">
+    <title>My Jobs | CareerX</title>
+    <script>
+(function () {
+    const theme = localStorage.getItem("careerx-theme") || "system";
+
+    const actualTheme =
+        theme === "system"
+            ? (
+                window.matchMedia("(prefers-color-scheme: dark)").matches
+                    ? "dark"
+                    : "light"
+            )
+            : theme;
+
+    document.documentElement.setAttribute("data-theme", actualTheme);
+    document.documentElement.setAttribute("data-theme-setting", theme);
+})();
+</script>
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/careerx.css">
 
     <style>
+
         /* =====================================================
-           RECRUITER JOBS PAGE
+           CAREERX RECRUITER JOBS
            ===================================================== */
 
-        .jobs-page {
-            min-height: 100vh;
-            padding: 35px;
+        * {
+            box-sizing: border-box;
         }
 
-        /* ================= HEADER ================= */
-
-        .jobs-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 20px;
-            margin-bottom: 30px;
-            padding-bottom: 20px;
-            border-bottom: 1px solid rgba(56, 189, 248, 0.22);
-        }
-
-        .jobs-header h1 {
+        body {
             margin: 0;
-            font-size: 2rem;
-            font-weight: 800;
-            background: linear-gradient(
-                90deg,
-                #38bdf8,
-                #22d3ee,
-                #8b5cf6
-            );
+            min-height: 100vh;
 
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            font-family: Inter, Arial, sans-serif;
+
+            color: #e2e8f0;
+
+            background:
+                radial-gradient(
+                    circle at 10% 10%,
+                    rgba(34, 211, 238, 0.09),
+                    transparent 30%
+                ),
+                radial-gradient(
+                    circle at 90% 15%,
+                    rgba(139, 92, 246, 0.10),
+                    transparent 30%
+                ),
+                #020617;
         }
 
-        .jobs-header p {
-            margin: 8px 0 0;
-            color: #94a3b8;
-            font-size: 0.95rem;
-        }
 
-        .header-actions {
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-        }
-
-        .tech-btn {
-            padding: 11px 18px;
-            border: 1px solid rgba(56, 189, 248, 0.35);
-            border-radius: 10px;
-            background: rgba(14, 165, 233, 0.10);
-            color: #22d3ee;
-            font-weight: 700;
-            cursor: pointer;
-            text-decoration: none;
-            transition: 0.25s ease;
-        }
-
-        .tech-btn:hover {
-            transform: translateY(-2px);
-            background: rgba(34, 211, 238, 0.16);
-            box-shadow: 0 0 20px rgba(34, 211, 238, 0.18);
-        }
-
-        /* ================= SEARCH ================= */
-
-        .search-panel {
-            display: flex;
-            gap: 12px;
-            margin-bottom: 25px;
-            padding: 18px;
-            border-radius: 16px;
-            background: rgba(14, 29, 52, 0.75);
-            border: 1px solid rgba(56, 189, 248, 0.18);
-            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.20);
-        }
-
-        .search-box {
-            flex: 1;
-            padding: 13px 15px;
-            border: 1px solid rgba(148, 163, 184, 0.22);
-            border-radius: 10px;
-            background: rgba(5, 15, 30, 0.75);
-            color: #f1f5f9;
-            font-family: inherit;
-            font-size: 0.94rem;
-            outline: none;
-            transition: 0.25s ease;
-        }
-
-        .search-box::placeholder {
-            color: #64748b;
-        }
-
-        .search-box:focus {
-            border-color: #22d3ee;
-            box-shadow:
-                0 0 0 3px rgba(34, 211, 238, 0.10),
-                0 0 20px rgba(34, 211, 238, 0.08);
-        }
-
-        /* ================= COUNT ================= */
-
-        .job-count {
-            margin-bottom: 20px;
-            color: #94a3b8;
-            font-size: 0.95rem;
-        }
-
-        .job-count strong {
-            color: #22d3ee;
-        }
-
-        /* ================= JOB GRID ================= */
-
-        .jobs-grid {
-            display: grid;
-            grid-template-columns:
-                repeat(auto-fit, minmax(320px, 1fr));
-            gap: 22px;
-        }
-
-        /* ================= JOB CARD ================= */
-
-        .job-card {
-            position: relative;
-            padding: 25px;
-            border-radius: 18px;
-            background: rgba(14, 29, 52, 0.88);
-            border: 1px solid rgba(56, 189, 248, 0.20);
-            box-shadow:
-                0 15px 40px rgba(0, 0, 0, 0.30);
-            overflow: hidden;
-            transition: 0.3s ease;
-        }
-
-        .job-card::before {
+        body::before {
             content: "";
-            position: absolute;
+
+            position: fixed;
+
+            inset: 0;
+
+            pointer-events: none;
+
+            background-image:
+                linear-gradient(
+                    rgba(56, 189, 248, 0.025) 1px,
+                    transparent 1px
+                ),
+                linear-gradient(
+                    90deg,
+                    rgba(56, 189, 248, 0.025) 1px,
+                    transparent 1px
+                );
+
+            background-size: 55px 55px;
+
+            mask-image:
+                linear-gradient(
+                    to bottom,
+                    black,
+                    transparent
+                );
+
+            z-index: -1;
+        }
+
+
+        /* =====================================================
+           APP
+           ===================================================== */
+
+        .app-container {
+            min-height: 100vh;
+        }
+
+
+        /* =====================================================
+           SIDEBAR
+           ===================================================== */
+
+        .sidebar {
+            position: fixed;
+
             top: 0;
             left: 0;
-            width: 100%;
-            height: 3px;
-            background: linear-gradient(
-                90deg,
-                #38bdf8,
-                #22d3ee,
-                #8b5cf6
-            );
-        }
+            bottom: 0;
 
-        .job-card:hover {
-            transform: translateY(-5px);
-            border-color: rgba(34, 211, 238, 0.45);
+            width: 250px;
+
+            padding: 25px 16px;
+
+            background:
+                linear-gradient(
+                    180deg,
+                    rgba(7, 18, 36, 0.97),
+                    rgba(2, 8, 23, 0.97)
+                );
+
+            border-right:
+                1px solid rgba(56, 189, 248, 0.13);
+
             box-shadow:
-                0 20px 45px rgba(0, 0, 0, 0.40),
-                0 0 25px rgba(14, 165, 233, 0.10);
+                10px 0 40px rgba(0, 0, 0, 0.22);
+
+            z-index: 1000;
+
+            overflow-y: auto;
         }
 
-        /* ================= JOB TOP ================= */
 
-        .job-top {
+        /* =====================================================
+           CAREER X LOGO
+           ===================================================== */
+
+        .careerx-logo {
             display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            gap: 15px;
+
+            align-items: center;
+
+            gap: 16px;
+
+            padding: 8px 10px 28px;
         }
 
-        .job-title {
-            margin: 0 0 7px;
-            color: #38bdf8;
-            font-size: 1.25rem;
-            font-weight: 750;
+
+        .careerx-logo-icon {
+            width: 54px;
+            height: 54px;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            flex-shrink: 0;
+
+            border-radius: 15px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #22d3ee 0%,
+                    #38bdf8 45%,
+                    #6366f1 100%
+                );
+
+            color: #020617;
+
+            font-size: 25px;
+
+            font-weight: 950;
+
+            box-shadow:
+                0 0 25px rgba(34, 211, 238, 0.22),
+                0 8px 25px rgba(37, 99, 235, 0.18);
         }
 
-        .job-company {
-            color: #cbd5e1;
-            font-weight: 600;
-        }
 
-        .job-badge {
-            padding: 6px 10px;
-            border-radius: 20px;
-            color: #67e8f9;
-            background: rgba(34, 211, 238, 0.10);
-            border: 1px solid rgba(34, 211, 238, 0.25);
-            font-size: 0.75rem;
-            font-weight: 700;
+        .careerx-logo-text {
+            color: #f8fafc;
+
+            font-size: 1.8rem;
+
+            font-weight: 900;
+
+            letter-spacing: -0.045em;
+
             white-space: nowrap;
         }
 
-        /* ================= JOB INFO ================= */
 
-        .job-info {
-            margin: 18px 0;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
-
-        .job-info span {
-            padding: 6px 9px;
-            border-radius: 8px;
-            color: #94a3b8;
-            background: rgba(5, 15, 30, 0.60);
-            border: 1px solid rgba(148, 163, 184, 0.10);
-            font-size: 0.82rem;
-        }
-
-        /* ================= DESCRIPTION ================= */
-
-        .job-description {
-            color: #cbd5e1;
-            line-height: 1.6;
-            font-size: 0.9rem;
-            margin: 15px 0;
-        }
-
-        /* ================= REQUIREMENTS ================= */
-
-        .requirements-title {
-            margin: 15px 0 7px;
+        .careerx-logo-text span {
             color: #22d3ee;
-            font-size: 0.88rem;
-            font-weight: 700;
+
+            font-weight: 900;
         }
 
-        .job-requirements {
-            color: #94a3b8;
-            line-height: 1.6;
-            font-size: 0.86rem;
-            white-space: pre-line;
+
+        /* =====================================================
+           SIDEBAR MENU
+           ===================================================== */
+
+        .sidebar-menu {
+            list-style: none;
+
+            padding: 0;
+            margin: 0;
         }
 
-        /* ================= ACTIONS ================= */
 
-        .job-actions {
+        .sidebar-menu li {
+            margin-bottom: 6px;
+        }
+
+
+        .sidebar-menu a {
+            position: relative;
+
             display: flex;
+
+            align-items: center;
+
             gap: 10px;
-            margin-top: 20px;
-            padding-top: 18px;
-            border-top: 1px solid rgba(56, 189, 248, 0.12);
-        }
 
-        .action-btn {
-            flex: 1;
-            padding: 10px 14px;
-            border-radius: 9px;
-            font-family: inherit;
+            padding: 12px 13px;
+
+            border-radius: 11px;
+
+            color: #64748b;
+
+            text-decoration: none;
+
+            font-size: 0.82rem;
+
             font-weight: 700;
-            font-size: 0.83rem;
-            cursor: pointer;
-            transition: 0.25s ease;
+
+            transition: all 0.22s ease;
         }
 
-        .edit-btn {
+
+        .sidebar-menu a:hover {
+            color: #cbd5e1;
+
+            background:
+                rgba(34, 211, 238, 0.06);
+
+            transform: translateX(2px);
+        }
+
+
+        .sidebar-menu a.active {
             color: #67e8f9;
-            background: rgba(34, 211, 238, 0.08);
-            border: 1px solid rgba(34, 211, 238, 0.28);
+
+            background:
+                linear-gradient(
+                    90deg,
+                    rgba(34, 211, 238, 0.11),
+                    rgba(139, 92, 246, 0.06)
+                );
+
+            border:
+                1px solid rgba(34, 211, 238, 0.12);
+
+            box-shadow:
+                inset 3px 0 0 #22d3ee;
         }
 
-        .edit-btn:hover {
-            background: rgba(34, 211, 238, 0.16);
-            box-shadow: 0 0 18px rgba(34, 211, 238, 0.12);
+
+        .logout-link {
+            color: #f87171 !important;
+        }
+
+
+        .logout-link:hover {
+            color: #fca5a5 !important;
+
+            background:
+                rgba(239, 68, 68, 0.07) !important;
+        }
+
+
+        /* =====================================================
+           MAIN CONTENT
+           ===================================================== */
+
+        .main-content {
+            width: calc(100% - 250px);
+
+            margin-left: 250px;
+
+            min-height: 100vh;
+
+            padding: 35px;
+
+            max-width: 1700px;
+        }
+
+
+        /* =====================================================
+           HEADER
+           ===================================================== */
+
+        .header {
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: flex-end;
+
+            gap: 20px;
+
+            margin-bottom: 28px;
+
+            padding-bottom: 24px;
+
+            border-bottom:
+                1px solid rgba(56, 189, 248, 0.13);
+        }
+
+
+        .header-eyebrow {
+            display: inline-flex;
+
+            align-items: center;
+
+            gap: 7px;
+
+            margin-bottom: 9px;
+
+            color: #67e8f9;
+
+            font-size: 0.7rem;
+
+            font-weight: 850;
+
+            letter-spacing: 0.15em;
+
+            text-transform: uppercase;
+        }
+
+
+        .header-eyebrow::before {
+            content: "";
+
+            width: 7px;
+            height: 7px;
+
+            border-radius: 50%;
+
+            background: #22d3ee;
+
+            box-shadow:
+                0 0 12px #22d3ee;
+        }
+
+
+        .page-title {
+            margin: 0;
+
+            font-size: clamp(2rem, 4vw, 2.8rem);
+
+            font-weight: 900;
+
+            letter-spacing: -0.045em;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    #f8fafc,
+                    #67e8f9,
+                    #a78bfa
+                );
+
+            -webkit-background-clip: text;
+
+            -webkit-text-fill-color: transparent;
+        }
+
+
+        .header-description {
+            margin: 9px 0 0;
+
+            color: #64748b;
+
+            font-size: 0.88rem;
+        }
+
+
+        .header-actions {
+            display: flex;
+
+            gap: 9px;
+
+            flex-wrap: wrap;
+
+            justify-content: flex-end;
+        }
+
+
+        .tech-btn {
+            display: inline-flex;
+
+            align-items: center;
+            justify-content: center;
+
+            min-height: 39px;
+
+            padding: 9px 14px;
+
+            border-radius: 10px;
+
+            color: #67e8f9;
+
+            background:
+                rgba(34, 211, 238, 0.06);
+
+            border:
+                1px solid rgba(34, 211, 238, 0.18);
+
+            font-family: inherit;
+
+            font-size: 0.73rem;
+
+            font-weight: 800;
+
+            cursor: pointer;
+
+            text-decoration: none;
+
+            transition: all 0.22s ease;
+        }
+
+
+        .tech-btn:hover {
             transform: translateY(-2px);
+
+            color: #a5f3fc;
+
+            background:
+                rgba(34, 211, 238, 0.11);
+
+            border-color:
+                rgba(34, 211, 238, 0.35);
+
+            box-shadow:
+                0 0 20px rgba(34, 211, 238, 0.10);
         }
 
-        .delete-btn {
-            color: #fca5a5;
-            background: rgba(239, 68, 68, 0.08);
-            border: 1px solid rgba(239, 68, 68, 0.28);
+
+        .tech-btn.primary {
+            color: #03121d;
+
+            background:
+                linear-gradient(
+                    100deg,
+                    #67e8f9,
+                    #22d3ee
+                );
+
+            border-color: transparent;
         }
 
-        .delete-btn:hover {
-            background: rgba(239, 68, 68, 0.15);
-            box-shadow: 0 0 18px rgba(239, 68, 68, 0.10);
-            transform: translateY(-2px);
+
+        .tech-btn.primary:hover {
+            color: #03121d;
+
+            box-shadow:
+                0 0 25px rgba(34, 211, 238, 0.20);
         }
 
-        /* ================= EMPTY STATE ================= */
 
-        .empty-state {
-            grid-column: 1 / -1;
-            text-align: center;
-            padding: 65px 25px;
-            border-radius: 18px;
-            background: rgba(14, 29, 52, 0.70);
-            border: 1px dashed rgba(56, 189, 248, 0.28);
-            color: #94a3b8;
-        }
-
-        .empty-state h2 {
-            margin: 0 0 10px;
-            color: #38bdf8;
-            font-size: 1.35rem;
-        }
-
-        .empty-state p {
-            margin: 0 0 20px;
-        }
-
-        /* ================= ALERT ================= */
+        /* =====================================================
+           ALERT
+           ===================================================== */
 
         .page-alert {
             display: none;
+
             margin-bottom: 20px;
-            padding: 13px 15px;
+
+            padding: 12px 14px;
+
             border-radius: 10px;
-            font-size: 0.9rem;
-            font-weight: 600;
+
+            font-size: 0.78rem;
+
+            font-weight: 700;
         }
+
 
         .page-alert.success {
             display: block;
+
             color: #86efac;
-            background: rgba(34, 197, 94, 0.10);
-            border: 1px solid rgba(34, 197, 94, 0.30);
+
+            background:
+                rgba(34, 197, 94, 0.08);
+
+            border:
+                1px solid rgba(34, 197, 94, 0.22);
         }
+
 
         .page-alert.error {
             display: block;
+
             color: #fca5a5;
-            background: rgba(239, 68, 68, 0.10);
-            border: 1px solid rgba(239, 68, 68, 0.30);
+
+            background:
+                rgba(239, 68, 68, 0.08);
+
+            border:
+                1px solid rgba(239, 68, 68, 0.22);
         }
 
-        /* ================= RESPONSIVE ================= */
 
-        @media (max-width: 700px) {
+        /* =====================================================
+           SEARCH PANEL
+           ===================================================== */
 
-            .jobs-page {
+        .search-panel {
+            position: relative;
+
+            display: flex;
+
+            gap: 12px;
+
+            margin-bottom: 18px;
+
+            padding: 17px;
+
+            border-radius: 16px;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    rgba(15, 23, 42, 0.88),
+                    rgba(8, 18, 35, 0.78)
+                );
+
+            border:
+                1px solid rgba(56, 189, 248, 0.12);
+
+            box-shadow:
+                0 12px 35px rgba(0, 0, 0, 0.18);
+        }
+
+
+        .search-box {
+            width: 100%;
+
+            padding: 12px 14px;
+
+            border-radius: 10px;
+
+            color: #f1f5f9;
+
+            background:
+                rgba(2, 6, 23, 0.65);
+
+            border:
+                1px solid rgba(148, 163, 184, 0.13);
+
+            outline: none;
+
+            font-family: inherit;
+
+            font-size: 0.8rem;
+
+            transition: all 0.22s ease;
+        }
+
+
+        .search-box::placeholder {
+            color: #475569;
+        }
+
+
+        .search-box:focus {
+            border-color:
+                rgba(34, 211, 238, 0.45);
+
+            box-shadow:
+                0 0 0 3px
+                rgba(34, 211, 238, 0.06);
+        }
+
+
+        /* =====================================================
+           JOB COUNT
+           ===================================================== */
+
+        .job-count {
+            margin-bottom: 17px;
+
+            color: #64748b;
+
+            font-size: 0.76rem;
+
+            font-weight: 650;
+        }
+
+
+        .job-count strong {
+            color: #67e8f9;
+
+            font-weight: 850;
+        }
+
+
+        /* =====================================================
+           JOB GRID
+           ===================================================== */
+
+        .jobs-grid {
+            display: grid;
+
+            grid-template-columns:
+                repeat(
+                    auto-fit,
+                    minmax(320px, 1fr)
+                );
+
+            gap: 18px;
+        }
+
+
+        /* =====================================================
+           JOB CARD
+           ===================================================== */
+
+        .job-card {
+            position: relative;
+
+            padding: 22px;
+
+            border-radius: 18px;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    rgba(15, 23, 42, 0.93),
+                    rgba(8, 18, 35, 0.85)
+                );
+
+            border:
+                1px solid rgba(56, 189, 248, 0.12);
+
+            box-shadow:
+                0 15px 40px rgba(0, 0, 0, 0.22);
+
+            overflow: hidden;
+
+            transition:
+                transform 0.25s ease,
+                border-color 0.25s ease,
+                box-shadow 0.25s ease;
+        }
+
+
+        .job-card::before {
+            content: "";
+
+            position: absolute;
+
+            top: 0;
+            left: 0;
+            right: 0;
+
+            height: 2px;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    #22d3ee,
+                    #38bdf8,
+                    #8b5cf6
+                );
+
+            opacity: 0.8;
+        }
+
+
+        .job-card:hover {
+            transform: translateY(-4px);
+
+            border-color:
+                rgba(34, 211, 238, 0.27);
+
+            box-shadow:
+                0 20px 45px rgba(0, 0, 0, 0.28),
+                0 0 25px rgba(34, 211, 238, 0.04);
+        }
+
+
+        /* =====================================================
+           JOB TOP
+           ===================================================== */
+
+        .job-top {
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: flex-start;
+
+            gap: 15px;
+        }
+
+
+        .job-title {
+            margin: 0 0 7px;
+
+            color: #f1f5f9;
+
+            font-size: 1.05rem;
+
+            font-weight: 850;
+
+            line-height: 1.35;
+        }
+
+
+        .job-company {
+            color: #67e8f9;
+
+            font-size: 0.76rem;
+
+            font-weight: 700;
+        }
+
+
+        .job-badge {
+            flex-shrink: 0;
+
+            padding: 6px 9px;
+
+            border-radius: 999px;
+
+            color: #67e8f9;
+
+            background:
+                rgba(34, 211, 238, 0.07);
+
+            border:
+                1px solid rgba(34, 211, 238, 0.18);
+
+            font-size: 0.65rem;
+
+            font-weight: 850;
+
+            white-space: nowrap;
+        }
+
+
+        /* =====================================================
+           JOB INFO
+           ===================================================== */
+
+        .job-info {
+            display: flex;
+
+            flex-wrap: wrap;
+
+            gap: 8px;
+
+            margin: 17px 0;
+        }
+
+
+        .job-info span {
+            padding: 6px 9px;
+
+            border-radius: 8px;
+
+            color: #94a3b8;
+
+            background:
+                rgba(2, 6, 23, 0.55);
+
+            border:
+                1px solid rgba(148, 163, 184, 0.08);
+
+            font-size: 0.7rem;
+
+            font-weight: 650;
+        }
+
+
+        /* =====================================================
+           DESCRIPTION
+           ===================================================== */
+
+        .job-description {
+            margin: 0 0 16px;
+
+            color: #94a3b8;
+
+            font-size: 0.77rem;
+
+            line-height: 1.65;
+        }
+
+
+        /* =====================================================
+           REQUIREMENTS
+           ===================================================== */
+
+        .requirements-title {
+            margin-bottom: 7px;
+
+            color: #67e8f9;
+
+            font-size: 0.7rem;
+
+            font-weight: 850;
+
+            text-transform: uppercase;
+
+            letter-spacing: 0.08em;
+        }
+
+
+        .job-requirements {
+            color: #64748b;
+
+            font-size: 0.74rem;
+
+            line-height: 1.65;
+
+            white-space: pre-line;
+
+            word-break: break-word;
+        }
+
+
+        /* =====================================================
+           ACTIONS
+           ===================================================== */
+
+        .job-actions {
+            display: flex;
+
+            gap: 9px;
+
+            margin-top: 19px;
+
+            padding-top: 16px;
+
+            border-top:
+                1px solid rgba(148, 163, 184, 0.07);
+        }
+
+
+        .action-btn {
+            flex: 1;
+
+            min-height: 38px;
+
+            padding: 9px 12px;
+
+            border-radius: 9px;
+
+            font-family: inherit;
+
+            font-size: 0.7rem;
+
+            font-weight: 800;
+
+            cursor: pointer;
+
+            transition: all 0.22s ease;
+        }
+
+
+        .edit-btn {
+            color: #67e8f9;
+
+            background:
+                rgba(34, 211, 238, 0.06);
+
+            border:
+                1px solid rgba(34, 211, 238, 0.18);
+        }
+
+
+        .edit-btn:hover {
+            transform: translateY(-2px);
+
+            background:
+                rgba(34, 211, 238, 0.12);
+
+            border-color:
+                rgba(34, 211, 238, 0.35);
+        }
+
+
+        .delete-btn {
+            color: #fca5a5;
+
+            background:
+                rgba(239, 68, 68, 0.06);
+
+            border:
+                1px solid rgba(239, 68, 68, 0.18);
+        }
+
+
+        .delete-btn:hover {
+            transform: translateY(-2px);
+
+            background:
+                rgba(239, 68, 68, 0.12);
+
+            border-color:
+                rgba(239, 68, 68, 0.35);
+        }
+
+
+        /* =====================================================
+           EMPTY STATE
+           ===================================================== */
+
+        .empty-state {
+            grid-column: 1 / -1;
+
+            display: flex;
+
+            flex-direction: column;
+
+            align-items: center;
+
+            justify-content: center;
+
+            min-height: 280px;
+
+            padding: 45px 20px;
+
+            border-radius: 18px;
+
+            background:
+                rgba(15, 23, 42, 0.70);
+
+            border:
+                1px dashed rgba(56, 189, 248, 0.18);
+
+            text-align: center;
+        }
+
+
+        .empty-icon {
+            width: 65px;
+            height: 65px;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            margin-bottom: 17px;
+
+            border-radius: 17px;
+
+            color: #67e8f9;
+
+            background:
+                rgba(34, 211, 238, 0.06);
+
+            border:
+                1px solid rgba(34, 211, 238, 0.15);
+
+            font-size: 1.6rem;
+        }
+
+
+        .empty-state h2 {
+            margin: 0 0 8px;
+
+            color: #cbd5e1;
+
+            font-size: 1.05rem;
+        }
+
+
+        .empty-state p {
+            margin: 0 0 18px;
+
+            color: #64748b;
+
+            font-size: 0.77rem;
+        }
+
+
+        /* =====================================================
+           RESPONSIVE
+           ===================================================== */
+
+        @media (max-width: 900px) {
+
+            .sidebar {
+                width: 220px;
+            }
+
+
+            .main-content {
+                width: calc(100% - 220px);
+
+                margin-left: 220px;
+
+                padding: 28px;
+            }
+
+        }
+
+
+        @media (max-width: 800px) {
+
+            .sidebar {
+                position: relative;
+
+                width: 100%;
+
+                height: auto;
+
+                border-right: none;
+
+                border-bottom:
+                    1px solid rgba(56, 189, 248, 0.13);
+            }
+
+
+            .sidebar-menu {
+                display: flex;
+
+                gap: 6px;
+
+                overflow-x: auto;
+
+                padding-bottom: 5px;
+            }
+
+
+            .sidebar-menu li {
+                flex-shrink: 0;
+
+                margin: 0;
+            }
+
+
+            .sidebar-menu a {
+                white-space: nowrap;
+            }
+
+
+            .main-content {
+                width: 100%;
+
+                margin-left: 0;
+
                 padding: 25px 18px;
             }
 
-            .jobs-header {
-                flex-direction: column;
+        }
+
+
+        @media (max-width: 650px) {
+
+            .header {
                 align-items: flex-start;
+
+                flex-direction: column;
             }
+
 
             .header-actions {
                 width: 100%;
+
+                justify-content: flex-start;
             }
+
 
             .tech-btn {
                 flex: 1;
-                text-align: center;
             }
 
-            .search-panel {
-                flex-direction: column;
-            }
 
             .jobs-grid {
                 grid-template-columns: 1fr;
             }
+
         }
+
 
         @media (max-width: 450px) {
 
-            .jobs-page {
+            .main-content {
                 padding: 18px 12px;
             }
 
-            .jobs-header h1 {
-                font-size: 1.6rem;
+
+            .page-title {
+                font-size: 1.8rem;
             }
 
-            .job-card {
-                padding: 20px;
+
+            .header-actions {
+                flex-direction: column;
             }
+
+
+            .tech-btn {
+                width: 100%;
+            }
+
+
+            .job-card {
+                padding: 18px;
+            }
+
 
             .job-top {
                 flex-direction: column;
             }
 
+
+            .job-badge {
+                align-self: flex-start;
+            }
+
+
             .job-actions {
                 flex-direction: column;
             }
 
+
             .action-btn {
                 width: 100%;
             }
+
         }
+
     </style>
+
 </head>
+
 
 <body>
 
-<div class="jobs-page">
+
+<div class="app-container">
+
 
     <!-- =====================================================
-         HEADER
+         SIDEBAR
          ===================================================== -->
 
-    <div class="jobs-header">
+    <aside class="sidebar">
 
-        <div>
-            <h1>My Jobs</h1>
-            <p>Manage the jobs posted by your company.</p>
-        </div>
 
-        <div class="header-actions">
+        <div class="careerx-logo">
 
-            <a href="recruiter-dashboard.html" class="tech-btn">
-                ← Dashboard
-            </a>
+            <div class="careerx-logo-icon">
+                X
+            </div>
 
-            <a href="recruiter-dashboard.html#postJob" class="tech-btn">
-                + Post New Job
-            </a>
-
-            <button
-                type="button"
-                class="tech-btn"
-                onclick="loadJobs()">
-                ↻ Refresh
-            </button>
+            <div class="careerx-logo-text">
+                Career <span>X</span>
+            </div>
 
         </div>
 
-    </div>
+
+        <ul class="sidebar-menu">
+
+
+            <li>
+
+                <a href="recruiter-dashboard.html">
+
+                    🏠
+                    Dashboard
+
+                </a>
+
+            </li>
+
+
+            <li>
+
+                <a
+                    href="recruiter-jobs.html"
+                    class="active">
+
+                    💼
+                    Manage Jobs
+
+                </a>
+
+            </li>
+
+
+            <li>
+
+                <a href="recruiter-applications.html">
+
+                    📄
+                    Applications
+
+                </a>
+
+            </li>
+
+
+            <li>
+
+                <a href="recruiter-interviews.html">
+
+                    📅
+                    My Interviews
+
+                </a>
+
+            </li>
+
+
+            <li>
+
+                <a
+                    href="#"
+                    id="logoutBtn"
+                    class="logout-link">
+
+                    🚪
+                    Logout
+
+                </a>
+
+            </li>
+
+
+        </ul>
+
+    </aside>
 
 
     <!-- =====================================================
-         ALERT
+         MAIN
          ===================================================== -->
 
-    <div id="pageAlert" class="page-alert"></div>
+    <main class="main-content">
 
 
-    <!-- =====================================================
-         SEARCH
-         ===================================================== -->
-
-    <div class="search-panel">
-
-        <input
-            type="text"
-            id="searchInput"
-            class="search-box"
-            placeholder="Search by job title, location, employment type..."
-            autocomplete="off">
-
-    </div>
+        <header class="header">
 
 
-    <!-- =====================================================
-         JOB COUNT
-         ===================================================== -->
+            <div>
 
-    <div class="job-count">
-        Showing <strong id="jobCount">0</strong> jobs
-    </div>
+                <div class="header-eyebrow">
+                    Recruiter Workspace
+                </div>
 
 
-    <!-- =====================================================
-         JOBS
-         ===================================================== -->
+                <h1 class="page-title">
+                    My Jobs
+                </h1>
 
-    <div id="jobsContainer" class="jobs-grid">
 
-        <div class="empty-state">
-            <h2>Loading Jobs...</h2>
-            <p>Please wait while your jobs are loaded.</p>
+                <p class="header-description">
+                    Manage the jobs posted by your company.
+                </p>
+
+            </div>
+
+
+            <div class="header-actions">
+
+
+                <a
+                    href="recruiter-dashboard.html#postJob"
+                    class="tech-btn primary">
+
+                    ＋ Post New Job
+
+                </a>
+
+
+                <button
+                    type="button"
+                    class="tech-btn"
+                    onclick="loadJobs()">
+
+                    ↻ Refresh
+
+                </button>
+
+
+            </div>
+
+
+        </header>
+
+
+        <!-- =================================================
+             ALERT
+             ================================================= -->
+
+        <div
+            id="pageAlert"
+            class="page-alert">
         </div>
 
-    </div>
+
+        <!-- =================================================
+             SEARCH
+             ================================================= -->
+
+        <div class="search-panel">
+
+            <input
+                type="text"
+                id="searchInput"
+                class="search-box"
+                placeholder="Search by job title, location, employment type..."
+                autocomplete="off">
+
+        </div>
+
+
+        <!-- =================================================
+             COUNT
+             ================================================= -->
+
+        <div class="job-count">
+
+            Showing
+            <strong id="jobCount">0</strong>
+            jobs
+
+        </div>
+
+
+        <!-- =================================================
+             JOBS
+             ================================================= -->
+
+        <div
+            id="jobsContainer"
+            class="jobs-grid">
+
+            <div class="empty-state">
+
+                <div class="empty-icon">
+                    ⏳
+                </div>
+
+                <h2>
+                    Loading Jobs...
+                </h2>
+
+                <p>
+                    Please wait while your jobs are loaded.
+                </p>
+
+            </div>
+
+        </div>
+
+
+    </main>
+
 
 </div>
 
 
 <script>
 
-    // =========================================================
-    // RECRUITER LOGIN
-    // =========================================================
 
-    const recruiterId = localStorage.getItem("recruiterId");
+/* =========================================================
+   AUTHENTICATION
+   ========================================================= */
 
-
-    if (!recruiterId) {
-
-        alert("Please login first.");
-
-        window.location.href = "recruiter-login.html";
-    }
+const recruiterId =
+    localStorage.getItem(
+        "recruiterId"
+    );
 
 
-    // =========================================================
-    // GLOBAL JOB DATA
-    // =========================================================
+if (!recruiterId) {
 
-    let allJobs = [];
+    alert(
+        "Please login first."
+    );
+
+    window.location.href =
+        "recruiter-login.html";
+
+}
 
 
-    // =========================================================
-    // LOAD JOBS
-    // =========================================================
+/* =========================================================
+   JOB DATA
+   ========================================================= */
 
-    async function loadJobs() {
+let allJobs = [];
 
-        const container =
-            document.getElementById("jobsContainer");
 
-        container.innerHTML = `
-            <div class="empty-state">
-                <h2>Loading Jobs...</h2>
-                <p>Please wait while your jobs are loaded.</p>
+/* =========================================================
+   LOAD JOBS
+   ========================================================= */
+
+async function loadJobs() {
+
+
+    const container =
+        document.getElementById(
+            "jobsContainer"
+        );
+
+
+    container.innerHTML = `
+
+        <div class="empty-state">
+
+            <div class="empty-icon">
+                ⏳
             </div>
-        `;
 
-        try {
+            <h2>
+                Loading Jobs...
+            </h2>
 
-            const response = await fetch(
+            <p>
+                Please wait while your jobs are loaded.
+            </p>
+
+        </div>
+
+    `;
+
+
+    try {
+
+        const response =
+            await fetch(
                 `/api/recruiter/jobs/recruiter/${recruiterId}`
             );
 
 
-            if (!response.ok) {
+        if (!response.ok) {
 
-                let errorMessage = "Unable to load jobs.";
+            let errorMessage =
+                "Unable to load jobs.";
 
-                try {
 
-                    const errorData =
-                        await response.json();
+            try {
 
-                    errorMessage =
-                        errorData.message || errorMessage;
+                const errorData =
+                    await response.json();
 
-                } catch (e) {
-                    // Ignore JSON parsing error
-                }
 
-                throw new Error(errorMessage);
+                errorMessage =
+                    errorData.message ||
+                    errorMessage;
+
+            }
+
+            catch (e) {
+
+                // Ignore JSON parsing error
+
             }
 
 
-            const jobs = await response.json();
+            throw new Error(
+                errorMessage
+            );
+
+        }
 
 
-            allJobs = Array.isArray(jobs)
+        const jobs =
+            await response.json();
+
+
+        allJobs =
+            Array.isArray(jobs)
                 ? jobs
                 : [];
 
 
-            displayJobs(allJobs);
+        displayJobs(
+            allJobs
+        );
 
 
-        } catch (error) {
+    }
 
-            console.error("Load jobs error:", error);
+    catch (error) {
 
-            document.getElementById("jobCount")
-                .textContent = "0";
+        console.error(
+            "Load jobs error:",
+            error
+        );
 
-            container.innerHTML = `
-                <div class="empty-state">
-                    <h2>Unable to Load Jobs</h2>
-                    <p>${escapeHtml(error.message)}</p>
-                    <button
-                        class="tech-btn"
-                        onclick="loadJobs()">
-                        Try Again
-                    </button>
+
+        document.getElementById(
+            "jobCount"
+        ).textContent = "0";
+
+
+        container.innerHTML = `
+
+            <div class="empty-state">
+
+                <div class="empty-icon">
+                    ⚠
                 </div>
-            `;
-        }
+
+                <h2>
+                    Unable to Load Jobs
+                </h2>
+
+                <p>
+                    ${escapeHtml(
+                        error.message
+                    )}
+                </p>
+
+                <button
+                    type="button"
+                    class="tech-btn"
+                    onclick="loadJobs()">
+
+                    Try Again
+
+                </button>
+
+            </div>
+
+        `;
+
+    }
+
+}
+
+
+/* =========================================================
+   DISPLAY JOBS
+   ========================================================= */
+
+function displayJobs(
+    jobs
+) {
+
+
+    const container =
+        document.getElementById(
+            "jobsContainer"
+        );
+
+
+    document.getElementById(
+        "jobCount"
+    ).textContent =
+        jobs.length;
+
+
+    if (
+        jobs.length === 0
+    ) {
+
+        container.innerHTML = `
+
+            <div class="empty-state">
+
+                <div class="empty-icon">
+                    💼
+                </div>
+
+                <h2>
+                    No Jobs Found
+                </h2>
+
+                <p>
+                    No jobs match your current search.
+                </p>
+
+                <a
+                    href="recruiter-dashboard.html#postJob"
+                    class="tech-btn primary">
+
+                    ＋ Post New Job
+
+                </a>
+
+            </div>
+
+        `;
+
+        return;
+
     }
 
 
-    // =========================================================
-    // DISPLAY JOBS
-    // =========================================================
-
-    function displayJobs(jobs) {
-
-        const container =
-            document.getElementById("jobsContainer");
+    container.innerHTML = "";
 
 
-        document.getElementById("jobCount")
-            .textContent = jobs.length;
+    jobs.forEach(
+        function(job) {
 
-
-        if (jobs.length === 0) {
-
-            container.innerHTML = `
-                <div class="empty-state">
-
-                    <h2>No Jobs Posted Yet</h2>
-
-                    <p>
-                        Your company has not posted any jobs.
-                    </p>
-
-                    <a
-                        href="recruiter-dashboard.html#postJob"
-                        class="tech-btn">
-                        + Post Your First Job
-                    </a>
-
-                </div>
-            `;
-
-            return;
-        }
-
-
-        container.innerHTML = "";
-
-
-        jobs.forEach(function(job) {
 
             const card =
-                document.createElement("div");
+                document.createElement(
+                    "div"
+                );
 
-            card.className = "job-card";
+
+            card.className =
+                "job-card";
 
 
             const title =
-                escapeHtml(job.title || "Untitled Job");
+                escapeHtml(
+                    job.title ||
+                    "Untitled Job"
+                );
+
 
             const company =
                 escapeHtml(
@@ -642,10 +1645,13 @@
                     "Your Company"
                 );
 
+
             const location =
                 escapeHtml(
-                    job.location || "Location not specified"
+                    job.location ||
+                    "Location not specified"
                 );
+
 
             const employmentType =
                 escapeHtml(
@@ -653,11 +1659,13 @@
                     "Not specified"
                 );
 
+
             const description =
                 escapeHtml(
                     job.description ||
                     "No description provided."
                 );
+
 
             const requirements =
                 escapeHtml(
@@ -682,6 +1690,7 @@
 
                     </div>
 
+
                     <span class="job-badge">
                         ${employmentType}
                     </span>
@@ -692,11 +1701,14 @@
                 <div class="job-info">
 
                     <span>
-                        📍 ${location}
+                        📍
+                        ${location}
                     </span>
 
+
                     <span>
-                        💼 ${employmentType}
+                        💼
+                        ${employmentType}
                     </span>
 
                 </div>
@@ -711,6 +1723,7 @@
                     Requirements
                 </div>
 
+
                 <div class="job-requirements">
                     ${requirements}
                 </div>
@@ -722,14 +1735,19 @@
                         type="button"
                         class="action-btn edit-btn"
                         onclick="editJob(${job.id})">
+
                         ✏ Edit
+
                     </button>
+
 
                     <button
                         type="button"
                         class="action-btn delete-btn"
                         onclick="deleteJob(${job.id})">
+
                         🗑 Delete
+
                     </button>
 
                 </div>
@@ -737,144 +1755,209 @@
             `;
 
 
-            container.appendChild(card);
+            container.appendChild(
+                card
+            );
 
-        });
-    }
+        }
+    );
 
-
-    // =========================================================
-    // SEARCH
-    // =========================================================
-
-    document.getElementById("searchInput")
-        .addEventListener("input", function() {
-
-            const searchText =
-                this.value.trim().toLowerCase();
+}
 
 
-            if (!searchText) {
+/* =========================================================
+   SEARCH
+   ========================================================= */
 
-                displayJobs(allJobs);
+document.getElementById(
+    "searchInput"
+).addEventListener(
+    "input",
+    function() {
 
-                return;
-            }
+
+        const searchText =
+            this.value
+                .trim()
+                .toLowerCase();
 
 
-            const filteredJobs =
-                allJobs.filter(function(job) {
+        if (!searchText) {
+
+            displayJobs(
+                allJobs
+            );
+
+            return;
+
+        }
+
+
+        const filteredJobs =
+            allJobs.filter(
+                function(job) {
+
 
                     const title =
-                        (job.title || "")
-                            .toLowerCase();
+                        (
+                            job.title ||
+                            ""
+                        ).toLowerCase();
+
 
                     const location =
-                        (job.location || "")
-                            .toLowerCase();
+                        (
+                            job.location ||
+                            ""
+                        ).toLowerCase();
+
 
                     const type =
-                        (job.employmentType || "")
-                            .toLowerCase();
+                        (
+                            job.employmentType ||
+                            ""
+                        ).toLowerCase();
+
 
                     const description =
-                        (job.description || "")
-                            .toLowerCase();
+                        (
+                            job.description ||
+                            ""
+                        ).toLowerCase();
+
 
                     const requirements =
-                        (job.requirements || "")
-                            .toLowerCase();
+                        (
+                            job.requirements ||
+                            ""
+                        ).toLowerCase();
 
 
                     return (
-                        title.includes(searchText) ||
-                        location.includes(searchText) ||
-                        type.includes(searchText) ||
-                        description.includes(searchText) ||
-                        requirements.includes(searchText)
+
+                        title.includes(
+                            searchText
+                        ) ||
+
+                        location.includes(
+                            searchText
+                        ) ||
+
+                        type.includes(
+                            searchText
+                        ) ||
+
+                        description.includes(
+                            searchText
+                        ) ||
+
+                        requirements.includes(
+                            searchText
+                        )
+
                     );
 
-                });
+                }
+            );
 
 
-            displayJobs(filteredJobs);
+        displayJobs(
+            filteredJobs
+        );
 
-        });
+    }
+);
 
 
-    // =========================================================
-    // EDIT JOB
-    // =========================================================
+/* =========================================================
+   EDIT JOB
+   ========================================================= */
 
-    async function editJob(jobId) {
+async function editJob(
+    jobId
+) {
 
-        try {
 
-            const response = await fetch(
+    try {
+
+        const response =
+            await fetch(
                 `/api/recruiter/jobs/${jobId}`
             );
 
 
-            if (!response.ok) {
+        if (!response.ok) {
 
-                throw new Error(
-                    "Unable to load job details."
-                );
-            }
-
-
-            const job =
-                await response.json();
-
-
-            /*
-             * Store the selected job in localStorage.
-             * The dashboard can use this information
-             * when opening the Post Job section.
-             */
-
-            localStorage.setItem(
-                "editingJob",
-                JSON.stringify(job)
+            throw new Error(
+                "Unable to load job details."
             );
 
-
-            window.location.href =
-                "recruiter-dashboard.html#postJob";
-
-
-        } catch (error) {
-
-            console.error(error);
-
-            showAlert(
-                error.message,
-                "error"
-            );
         }
+
+
+        const job =
+            await response.json();
+
+
+        localStorage.setItem(
+            "editingJob",
+            JSON.stringify(
+                job
+            )
+        );
+
+
+        window.location.href =
+            "recruiter-dashboard.html#postJob";
+
+
+    }
+
+    catch (error) {
+
+        console.error(
+            "Edit job error:",
+            error
+        );
+
+
+        showAlert(
+            error.message ||
+            "Unable to edit job.",
+            "error"
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   DELETE JOB
+   ========================================================= */
+
+async function deleteJob(
+    jobId
+) {
+
+
+    const confirmed =
+        confirm(
+            "Are you sure you want to delete this job?"
+        );
+
+
+    if (!confirmed) {
+
+        return;
+
     }
 
 
-    // =========================================================
-    // DELETE JOB
-    // =========================================================
+    try {
 
-    async function deleteJob(jobId) {
-
-        const confirmed =
-            confirm(
-                "Are you sure you want to delete this job?"
-            );
-
-
-        if (!confirmed) {
-            return;
-        }
-
-
-        try {
-
-            const response = await fetch(
+        const response =
+            await fetch(
                 `/api/recruiter/jobs/${jobId}?recruiterId=${recruiterId}`,
                 {
                     method: "DELETE"
@@ -882,100 +1965,178 @@
             );
 
 
-            if (!response.ok) {
+        if (!response.ok) {
 
-                let errorMessage =
-                    "Unable to delete job.";
+            let errorMessage =
+                "Unable to delete job.";
 
-                try {
 
-                    const errorData =
-                        await response.json();
+            try {
 
-                    errorMessage =
-                        errorData.message ||
-                        errorMessage;
+                const errorData =
+                    await response.json();
 
-                } catch (e) {
-                    // Ignore JSON parsing error
-                }
 
-                throw new Error(errorMessage);
+                errorMessage =
+                    errorData.message ||
+                    errorMessage;
+
+            }
+
+            catch (e) {
+
+                // Ignore JSON parsing error
+
             }
 
 
-            showAlert(
-                "Job deleted successfully!",
-                "success"
+            throw new Error(
+                errorMessage
             );
 
-
-            await loadJobs();
-
-
-        } catch (error) {
-
-            console.error("Delete job error:", error);
-
-            showAlert(
-                error.message,
-                "error"
-            );
         }
+
+
+        showAlert(
+            "Job deleted successfully!",
+            "success"
+        );
+
+
+        await loadJobs();
+
+
     }
 
+    catch (error) {
 
-    // =========================================================
-    // ALERT
-    // =========================================================
-
-    function showAlert(message, type) {
-
-        const alertBox =
-            document.getElementById("pageAlert");
+        console.error(
+            "Delete job error:",
+            error
+        );
 
 
-        alertBox.textContent = message;
+        showAlert(
+            error.message ||
+            "Unable to delete job.",
+            "error"
+        );
 
-        alertBox.className =
-            "page-alert " + type;
+    }
+
+}
 
 
-        setTimeout(function() {
+/* =========================================================
+   ALERT
+   ========================================================= */
+
+function showAlert(
+    message,
+    type
+) {
+
+
+    const alertBox =
+        document.getElementById(
+            "pageAlert"
+        );
+
+
+    alertBox.textContent =
+        message;
+
+
+    alertBox.className =
+        "page-alert " +
+        type;
+
+
+    setTimeout(
+        function() {
 
             alertBox.className =
                 "page-alert";
 
-            alertBox.textContent = "";
+            alertBox.textContent =
+                "";
 
-        }, 4000);
+        },
+        4000
+    );
+
+}
+
+
+/* =========================================================
+   HTML ESCAPING
+   ========================================================= */
+
+function escapeHtml(
+    value
+) {
+
+
+    const div =
+        document.createElement(
+            "div"
+        );
+
+
+    div.textContent =
+        value ?? "";
+
+
+    return div.innerHTML;
+
+}
+
+
+/* =========================================================
+   LOGOUT
+   ========================================================= */
+
+document.getElementById(
+    "logoutBtn"
+).addEventListener(
+    "click",
+    function(event) {
+
+
+        event.preventDefault();
+
+
+        localStorage.removeItem(
+            "recruiter"
+        );
+
+
+        localStorage.removeItem(
+            "recruiterId"
+        );
+
+
+        localStorage.removeItem(
+            "editingJob"
+        );
+
+
+        window.location.href =
+            "recruiter-login.html";
+
     }
+);
 
 
-    // =========================================================
-    // HTML ESCAPING
-    // =========================================================
+/* =========================================================
+   INITIAL LOAD
+   ========================================================= */
 
-    function escapeHtml(value) {
-
-        const div =
-            document.createElement("div");
-
-        div.textContent =
-            value ?? "";
-
-        return div.innerHTML;
-    }
-
-
-    // =========================================================
-    // INITIAL LOAD
-    // =========================================================
-
-    loadJobs();
+loadJobs();
 
 </script>
 
+<script src="js/theme.js"></script>
 </body>
+
 </html>
-```

@@ -2,6 +2,7 @@ package com.jobportal.application.controller;
 
 
 import com.jobportal.application.dto.InterviewResponse;
+import com.jobportal.application.dto.RecruiterInterviewResponse;
 import com.jobportal.application.model.Interview;
 import com.jobportal.application.service.InterviewService;
 
@@ -124,16 +125,46 @@ public ResponseEntity<List<InterviewResponse>> getCandidateInterviews(
     // GET RECRUITER INTERVIEWS
     // =====================================================
 
+    
     @GetMapping("/recruiter/{recruiterId}")
-    public ResponseEntity<List<Interview>> getRecruiterInterviews(
-            @PathVariable Long recruiterId) {
+public ResponseEntity<List<RecruiterInterviewResponse>> getRecruiterInterviews(
+        @PathVariable Long recruiterId) {
 
-        return ResponseEntity.ok(
-                interviewService.getRecruiterInterviews(
-                        recruiterId
-                )
-        );
-    }
+    List<Interview> interviews =
+            interviewService.getRecruiterInterviews(recruiterId);
+
+    List<RecruiterInterviewResponse> response =
+            interviews.stream()
+                    .map(interview -> {
+
+                        var application =
+                                interview.getApplication();
+
+                        var job =
+                                application.getJob();
+
+                        var candidate =
+                                application.getCandidate();
+
+                        return new RecruiterInterviewResponse(
+                                interview.getId(),
+                                application.getId(),
+                                candidate.getName(),
+                                job.getTitle(),
+                                job.getCompany(),
+                                interview.getInterviewDate(),
+                                interview.getMode(),
+                                interview.getLocation(),
+                                interview.getMeetingLink(),
+                                interview.getNotes(),
+                                interview.getStatus(),
+                                application.getAppliedDate()
+                        );
+                    })
+                    .toList();
+
+    return ResponseEntity.ok(response);
+}
 
 
     // =====================================================

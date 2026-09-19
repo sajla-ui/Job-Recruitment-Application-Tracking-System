@@ -206,49 +206,58 @@ public class InterviewServiceImpl implements InterviewService {
     // UPDATE INTERVIEW STATUS
     // =====================================================
 
-    @Override
-    @Transactional
-    public Interview updateInterviewStatus(
-            Long interviewId,
-            Long recruiterId,
-            String status) {
+@Override
+@Transactional
+public Interview updateInterviewStatus(
+        Long interviewId,
+        Long recruiterId,
+        String status) {
 
-        Interview interview =
-                getInterviewById(interviewId);
+    Interview interview =
+            getInterviewById(interviewId);
 
+    // Check recruiter
+    Long interviewRecruiterId =
+            interview
+                    .getApplication()
+                    .getJob()
+                    .getRecruiter()
+                    .getId();
 
-        // Check recruiter
-        Long interviewRecruiterId =
-                interview
-                        .getApplication()
-                        .getJob()
-                        .getRecruiter()
-                        .getId();
+    if (!interviewRecruiterId.equals(recruiterId)) {
 
-
-        if (!interviewRecruiterId.equals(recruiterId)) {
-
-            throw new RuntimeException(
-                    "You are not authorized to update this interview."
-            );
-        }
-
-
-        // Validate status
-        if (!"Scheduled".equals(status) &&
-                !"Completed".equals(status) &&
-                !"Cancelled".equals(status)) {
-
-            throw new RuntimeException(
-                    "Invalid interview status."
-            );
-        }
-
-
-        interview.setStatus(status);
-
-        return interviewRepository.save(interview);
+        throw new RuntimeException(
+                "You are not authorized to update this interview."
+        );
     }
+
+    // Validate status
+    if (!"Scheduled".equals(status) &&
+            !"Completed".equals(status) &&
+            !"Cancelled".equals(status)) {
+
+        throw new RuntimeException(
+                "Invalid interview status."
+        );
+    }
+
+    // Update interview status
+    
+    
+interview.setStatus(status);
+
+// When the interview is completed,
+// update the application status as well.
+if ("Completed".equals(status)) {
+    Application application = interview.getApplication();
+
+    application.setStatus("Interview Completed");
+
+    applicationRepository.save(application);
+}
+
+return interviewRepository.save(interview);
+}
 
 
     // =====================================================

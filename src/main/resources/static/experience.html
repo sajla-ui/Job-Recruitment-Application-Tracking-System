@@ -1,173 +1,1815 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Manage Experience</title>
+
+    <title>Work Experience - Career X</title>
+    <script>
+(function () {
+    const theme = localStorage.getItem("careerx-theme") || "system";
+
+    const actualTheme =
+        theme === "system"
+            ? (
+                window.matchMedia("(prefers-color-scheme: dark)").matches
+                    ? "dark"
+                    : "light"
+            )
+            : theme;
+
+    document.documentElement.setAttribute("data-theme", actualTheme);
+    document.documentElement.setAttribute("data-theme-setting", theme);
+})();
+</script>
+
     <link rel="stylesheet" href="css/style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/careerx.css">
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;750&display=swap"
+        rel="stylesheet"
+    >
+
     <style>
-        .profile-nav { display: flex; gap: 1rem; margin-bottom: 2rem; border-bottom: 1px solid var(--border-color); padding-bottom: 1rem; }
-        .profile-nav a { text-decoration: none; color: var(--text-muted); font-weight: 500; padding: 0.5rem 1rem; border-radius: 5px; }
-        .profile-nav a.active { background-color: rgba(67, 97, 238, 0.1); color: var(--primary-color); }
-        .timeline-item { border-left: 2px solid var(--success-color); padding-left: 1.5rem; margin-bottom: 1.5rem; position: relative; }
-        .timeline-item::before { content: ''; position: absolute; left: -6px; top: 0; width: 10px; height: 10px; border-radius: 50%; background: var(--success-color); }
-        .item-actions { float: right; }
+
+        /* =====================================================
+           CAREER X LOGO
+           ===================================================== */
+
+        .careerx-logo {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 8px 10px 28px;
+        }
+
+        .careerx-logo-icon {
+            width: 54px;
+            height: 54px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            flex-shrink: 0;
+
+            border-radius: 15px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #22d3ee 0%,
+                    #38bdf8 45%,
+                    #6366f1 100%
+                );
+
+            color: #020617;
+
+            font-size: 25px;
+            font-weight: 950;
+
+            box-shadow:
+                0 0 25px rgba(34, 211, 238, 0.22),
+                0 8px 25px rgba(37, 99, 235, 0.18);
+        }
+
+        .careerx-logo-text {
+            color: #f8fafc;
+            font-size: 1.8rem;
+            font-weight: 900;
+            letter-spacing: -0.045em;
+            white-space: nowrap;
+        }
+
+        .careerx-logo-text span {
+            color: #22d3ee;
+            font-weight: 900;
+        }
+
+
+        /* =====================================================
+           PAGE BACKGROUND
+           ===================================================== */
+
+        body {
+            overflow-x: hidden;
+        }
+
+        .experience-background {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            overflow: hidden;
+            z-index: -1;
+        }
+
+        .experience-grid {
+            position: absolute;
+            inset: 0;
+
+            background-image:
+                linear-gradient(
+                    rgba(56, 189, 248, 0.035) 1px,
+                    transparent 1px
+                ),
+                linear-gradient(
+                    90deg,
+                    rgba(56, 189, 248, 0.035) 1px,
+                    transparent 1px
+                );
+
+            background-size: 55px 55px;
+
+            mask-image:
+                linear-gradient(
+                    to bottom,
+                    black,
+                    transparent 90%
+                );
+        }
+
+        .experience-orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(90px);
+            opacity: 0.16;
+        }
+
+        .experience-orb-one {
+            width: 350px;
+            height: 350px;
+            background: #06b6d4;
+            top: -120px;
+            right: -100px;
+        }
+
+        .experience-orb-two {
+            width: 320px;
+            height: 320px;
+            background: #8b5cf6;
+            bottom: -120px;
+            left: -120px;
+        }
+
+
+        /* =====================================================
+           PAGE CONTENT
+           ===================================================== */
+
+        .experience-page-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .page-subtitle {
+            margin-top: 7px;
+            color: var(--text-muted);
+            font-size: 0.92rem;
+        }
+
+
+        /* =====================================================
+           PROFILE NAVIGATION
+           ===================================================== */
+
+        .profile-nav {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 24px;
+            padding: 7px;
+
+            border:
+                1px solid
+                rgba(148, 163, 184, 0.10);
+
+            border-radius: 14px;
+
+            background:
+                rgba(15, 23, 42, 0.55);
+
+            flex-wrap: wrap;
+
+            backdrop-filter: blur(12px);
+        }
+
+        .profile-nav a {
+            text-decoration: none;
+
+            color: var(--text-muted);
+
+            font-size: 0.84rem;
+
+            font-weight: 600;
+
+            padding: 9px 14px;
+
+            border-radius: 9px;
+
+            transition:
+                color 0.2s ease,
+                background 0.2s ease,
+                transform 0.2s ease;
+        }
+
+        .profile-nav a:hover {
+            color: var(--text);
+
+            background:
+                rgba(56, 189, 248, 0.06);
+
+            transform: translateY(-1px);
+        }
+
+        .profile-nav a.active {
+            color: #67e8f9;
+
+            background:
+                rgba(6, 182, 212, 0.10);
+
+            border:
+                1px solid
+                rgba(6, 182, 212, 0.18);
+
+            box-shadow:
+                0 0 18px
+                rgba(6, 182, 212, 0.05);
+        }
+
+
+        /* =====================================================
+           EXPERIENCE CARD
+           ===================================================== */
+
+        .experience-card {
+            position: relative;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    rgba(15, 23, 42, 0.90),
+                    rgba(8, 15, 30, 0.80)
+                );
+
+            border:
+                1px solid
+                rgba(148, 163, 184, 0.12);
+
+            border-radius: 18px;
+
+            padding: 25px;
+
+            margin-bottom: 22px;
+
+            overflow: hidden;
+        }
+
+        .experience-card::before {
+            content: "";
+
+            position: absolute;
+
+            top: 0;
+            left: 0;
+
+            width: 100%;
+            height: 2px;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    transparent,
+                    #06b6d4,
+                    #8b5cf6,
+                    transparent
+                );
+
+            opacity: 0.7;
+        }
+
+        .experience-card-header {
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: flex-start;
+
+            gap: 15px;
+
+            margin-bottom: 22px;
+        }
+
+        .experience-card-title {
+            margin: 0;
+
+            color: var(--text);
+
+            font-size: 1.12rem;
+
+            font-weight: 750;
+        }
+
+        .experience-card-description {
+            margin: 6px 0 0;
+
+            color: var(--text-muted);
+
+            font-size: 0.84rem;
+
+            line-height: 1.5;
+        }
+
+        .experience-header-icon {
+            width: 44px;
+            height: 44px;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 12px;
+
+            background:
+                rgba(6, 182, 212, 0.08);
+
+            border:
+                1px solid
+                rgba(6, 182, 212, 0.16);
+
+            font-size: 20px;
+        }
+
+
+        /* =====================================================
+           EXPERIENCE FORM
+           ===================================================== */
+
+        .experience-form {
+            display: grid;
+
+            grid-template-columns:
+                1fr 1fr;
+
+            gap: 17px;
+        }
+
+        .experience-form-group {
+            margin: 0;
+        }
+
+        .experience-form-group label {
+            display: block;
+
+            margin-bottom: 8px;
+
+            color: var(--text-muted);
+
+            font-size: 0.76rem;
+
+            font-weight: 650;
+
+            letter-spacing: 0.2px;
+        }
+
+        .experience-form-group input,
+        .experience-form-group textarea {
+            width: 100%;
+
+            box-sizing: border-box;
+
+            padding: 11px 13px;
+
+            border:
+                1px solid
+                rgba(148, 163, 184, 0.16);
+
+            border-radius: 10px;
+
+            background:
+                rgba(15, 23, 42, 0.70);
+
+            color: var(--text);
+
+            font-family: inherit;
+
+            font-size: 0.86rem;
+
+            outline: none;
+
+            transition:
+                border-color 0.2s ease,
+                box-shadow 0.2s ease,
+                background 0.2s ease;
+        }
+
+        .experience-form-group textarea {
+            min-height: 95px;
+
+            resize: vertical;
+
+            line-height: 1.55;
+        }
+
+        .experience-form-group input::placeholder,
+        .experience-form-group textarea::placeholder {
+            color:
+                rgba(148, 163, 184, 0.55);
+        }
+
+        .experience-form-group input:focus,
+        .experience-form-group textarea:focus {
+            border-color:
+                rgba(6, 182, 212, 0.45);
+
+            box-shadow:
+                0 0 0 3px
+                rgba(6, 182, 212, 0.07);
+
+            background:
+                rgba(15, 23, 42, 0.85);
+        }
+
+        .description-field {
+            grid-column: 1 / -1;
+        }
+
+
+        /* =====================================================
+           CURRENT JOB CHECKBOX
+           ===================================================== */
+
+        .current-job-option {
+            display: flex;
+
+            align-items: center;
+
+            gap: 8px;
+
+            margin-top: 9px;
+
+            color: var(--text-muted);
+
+            font-size: 0.76rem;
+
+            cursor: pointer;
+        }
+
+        .current-job-option input {
+            width: 15px;
+
+            height: 15px;
+
+            accent-color: #06b6d4;
+
+            cursor: pointer;
+        }
+
+
+        /* =====================================================
+           SAVE BUTTON
+           ===================================================== */
+
+        .save-experience-button {
+            grid-column: 1 / -1;
+
+            width: fit-content;
+
+            border: none;
+
+            cursor: pointer;
+
+            padding: 11px 20px;
+
+            border-radius: 10px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #06b6d4,
+                    #2563eb
+                );
+
+            color: white;
+
+            font-family: inherit;
+
+            font-size: 0.84rem;
+
+            font-weight: 700;
+
+            box-shadow:
+                0 8px 25px
+                rgba(6, 182, 212, 0.13);
+
+            transition:
+                transform 0.2s ease,
+                box-shadow 0.2s ease,
+                opacity 0.2s ease;
+        }
+
+        .save-experience-button:hover {
+            transform: translateY(-2px);
+
+            box-shadow:
+                0 12px 30px
+                rgba(6, 182, 212, 0.22);
+        }
+
+        .save-experience-button:disabled {
+            opacity: 0.55;
+
+            cursor: not-allowed;
+
+            transform: none;
+        }
+
+
+        /* =====================================================
+           EXPERIENCE LIST
+           ===================================================== */
+
+        .experience-list {
+            position: relative;
+
+            margin-top: 8px;
+
+            padding-left: 20px;
+        }
+
+        .experience-list::before {
+            content: "";
+
+            position: absolute;
+
+            left: 4px;
+
+            top: 5px;
+
+            bottom: 5px;
+
+            width: 2px;
+
+            background:
+                linear-gradient(
+                    to bottom,
+                    rgba(6, 182, 212, 0.55),
+                    rgba(139, 92, 246, 0.30),
+                    transparent
+                );
+        }
+
+
+        /* =====================================================
+           EXPERIENCE TIMELINE ITEM
+           ===================================================== */
+
+        .timeline-item {
+            position: relative;
+
+            padding: 18px 18px 18px 20px;
+
+            margin-bottom: 15px;
+
+            border:
+                1px solid
+                rgba(148, 163, 184, 0.10);
+
+            border-radius: 14px;
+
+            background:
+                rgba(15, 23, 42, 0.55);
+
+            transition:
+                transform 0.25s ease,
+                border-color 0.25s ease,
+                background 0.25s ease;
+        }
+
+        .timeline-item::before {
+            content: "";
+
+            position: absolute;
+
+            left: -22px;
+
+            top: 21px;
+
+            width: 10px;
+            height: 10px;
+
+            border-radius: 50%;
+
+            background: #8b5cf6;
+
+            border:
+                2px solid
+                #0f172a;
+
+            box-shadow:
+                0 0 12px
+                rgba(139, 92, 246, 0.45);
+        }
+
+        .timeline-item:hover {
+            transform: translateX(3px);
+
+            border-color:
+                rgba(56, 189, 248, 0.25);
+
+            background:
+                rgba(15, 23, 42, 0.72);
+        }
+
+
+        /* =====================================================
+           EXPERIENCE ITEM CONTENT
+           ===================================================== */
+
+        .experience-item-header {
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: flex-start;
+
+            gap: 15px;
+
+            margin-bottom: 8px;
+        }
+
+        .experience-job-title {
+            margin: 0;
+
+            color: var(--text);
+
+            font-size: 0.98rem;
+
+            font-weight: 750;
+
+            line-height: 1.4;
+        }
+
+        .experience-company {
+            margin: 4px 0 8px;
+
+            color: #67e8f9;
+
+            font-size: 0.84rem;
+
+            font-weight: 600;
+        }
+
+        .experience-meta {
+            display: flex;
+
+            flex-wrap: wrap;
+
+            gap: 8px;
+
+            align-items: center;
+
+            margin-bottom: 12px;
+        }
+
+        .experience-meta span {
+            padding: 5px 9px;
+
+            border-radius: 7px;
+
+            background:
+                rgba(148, 163, 184, 0.06);
+
+            border:
+                1px solid
+                rgba(148, 163, 184, 0.10);
+
+            color: var(--text-muted);
+
+            font-size: 0.72rem;
+        }
+
+        .current-badge {
+            color: #86efac !important;
+
+            background:
+                rgba(34, 197, 94, 0.08) !important;
+
+            border-color:
+                rgba(34, 197, 94, 0.18) !important;
+        }
+
+        .experience-description {
+            margin: 0;
+
+            color: var(--text-muted);
+
+            font-size: 0.82rem;
+
+            line-height: 1.65;
+
+            white-space: pre-wrap;
+
+            word-break: break-word;
+        }
+
+
+        /* =====================================================
+           DELETE BUTTON
+           ===================================================== */
+
+        .delete-experience-button {
+            flex-shrink: 0;
+
+            border:
+                1px solid
+                rgba(239, 68, 68, 0.25);
+
+            background:
+                rgba(239, 68, 68, 0.08);
+
+            color: #fca5a5;
+
+            padding: 8px 12px;
+
+            border-radius: 8px;
+
+            font-family: inherit;
+
+            font-size: 0.74rem;
+
+            font-weight: 650;
+
+            cursor: pointer;
+
+            transition:
+                background 0.2s ease,
+                border-color 0.2s ease,
+                transform 0.2s ease;
+        }
+
+        .delete-experience-button:hover {
+            background:
+                rgba(239, 68, 68, 0.15);
+
+            border-color:
+                rgba(239, 68, 68, 0.40);
+
+            transform: translateY(-1px);
+        }
+
+
+        /* =====================================================
+           EMPTY STATE
+           ===================================================== */
+
+        .experience-empty-state {
+            text-align: center;
+
+            padding: 55px 20px;
+
+            color: var(--text-muted);
+        }
+
+        .experience-empty-icon {
+            width: 65px;
+            height: 65px;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            margin: 0 auto 16px;
+
+            border-radius: 18px;
+
+            background:
+                rgba(139, 92, 246, 0.07);
+
+            border:
+                1px solid
+                rgba(139, 92, 246, 0.16);
+
+            font-size: 28px;
+        }
+
+        .experience-empty-state h3 {
+            color: var(--text);
+
+            margin: 0 0 7px;
+
+            font-size: 1rem;
+        }
+
+        .experience-empty-state p {
+            margin: 0;
+
+            font-size: 0.83rem;
+
+            line-height: 1.5;
+        }
+
+
+        /* =====================================================
+           RESPONSIVE
+           ===================================================== */
+
+        @media (max-width: 800px) {
+
+            .experience-form {
+                grid-template-columns: 1fr;
+            }
+
+            .description-field {
+                grid-column: auto;
+            }
+
+            .save-experience-button {
+                width: 100%;
+            }
+
+        }
+
+        @media (max-width: 600px) {
+
+            .profile-nav {
+                gap: 5px;
+            }
+
+            .profile-nav a {
+                padding: 8px 10px;
+
+                font-size: 0.78rem;
+            }
+
+            .experience-card {
+                padding: 20px;
+            }
+
+            .experience-item-header {
+                flex-direction: column;
+            }
+
+            .delete-experience-button {
+                align-self: flex-start;
+            }
+
+        }
+
     </style>
+
 </head>
+
+
 <body>
-    <div class="app-container">
-        <!-- Sidebar -->
-        <aside class="sidebar">
-            <div class="sidebar-brand">Job Portal</div>
-            <ul class="sidebar-menu">
-                <li><a href="dashboard.html">Dashboard</a></li>
-                <li><a href="profile.html" class="active">Profile Settings</a></li>
-                <li><a href="jobs.html">Browse Jobs</a></li>
-                <li><a href="#" id="logoutBtn">Logout</a></li>
-            </ul>
-        </aside>
 
-        <main class="main-content">
-            <header class="header">
-                <h1 class="page-title">Work Experience</h1>
-            </header>
-            
-            <div id="alertMessage" class="alert"></div>
 
-            <div class="profile-nav">
-                <a href="profile.html">Basic Info</a>
-                <a href="skills.html">Skills</a>
-                <a href="education.html">Education</a>
-                <a href="experience.html" class="active">Experience</a>
-                <a href="resume.html">Resume</a>
-            </div>
+    <!-- =====================================================
+         BACKGROUND
+         ===================================================== -->
 
-            <div class="content-card">
-                <div class="card-header">
-                    <h3>Add Experience</h3>
-                </div>
-                <form id="expForm">
-                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
-                        <div class="form-group">
-                            <label>Company Name</label>
-                            <input type="text" id="company" class="form-control" required>
-                        </div>
-                        <div class="form-group">
-                            <label>Job Title</label>
-                            <input type="text" id="jobTitle" class="form-control" required>
-                        </div>
-                        <div class="form-group">
-                            <label>Start Date</label>
-                            <input type="date" id="startDate" class="form-control" required>
-                        </div>
-                        <div class="form-group">
-                            <label>End Date</label>
-                            <input type="date" id="endDate" class="form-control">
-                            <div style="margin-top: 0.5rem;">
-                                <input type="checkbox" id="isCurrent"> <label for="isCurrent" style="display:inline; font-weight:normal;">I currently work here</label>
-                            </div>
-                        </div>
-                        <div class="form-group" style="grid-column: 1 / -1;">
-                            <label>Job Description</label>
-                            <textarea id="description" class="form-control" rows="3"></textarea>
-                        </div>
-                    </div>
-                    <button type="submit" class="btn btn-primary">Save Experience</button>
-                </form>
-            </div>
+    <div class="experience-background">
 
-            <div class="content-card">
-                <h3>Your Work Experience</h3>
-                <div id="expList" style="margin-top: 1.5rem;">
-                    <!-- Populated via JS -->
-                </div>
-            </div>
-        </main>
+        <div class="experience-grid"></div>
+
+        <div class="experience-orb experience-orb-one"></div>
+
+        <div class="experience-orb experience-orb-two"></div>
+
     </div>
 
-    <script src="js/app.js"></script>
-    <script>
-        let currentUser = null;
-        
-        document.addEventListener('DOMContentLoaded', async () => {
-            currentUser = await checkAuth();
-            if (currentUser) {
-                renderExperience(currentUser.experiences);
-            }
-        });
 
-        document.getElementById('isCurrent').addEventListener('change', function(e) {
-            document.getElementById('endDate').disabled = e.target.checked;
-            if(e.target.checked) document.getElementById('endDate').value = '';
-        });
+    <!-- =====================================================
+         SIDEBAR
+         ===================================================== -->
 
-        function renderExperience(experiences) {
-            const container = document.getElementById('expList');
-            if (!experiences || experiences.length === 0) {
-                container.innerHTML = '<div class="empty-state">No experience records found.</div>';
-                return;
-            }
-            container.innerHTML = experiences.map(exp => `
-                <div class="timeline-item">
-                    <div class="item-actions">
-                        <button onclick="deleteExp(${exp.id})" class="btn btn-sm btn-danger">Delete</button>
+    <aside class="sidebar">
+
+
+        <!-- CAREER X LOGO -->
+
+        <div class="careerx-logo">
+
+            <div class="careerx-logo-icon">
+                X
+            </div>
+
+            <div class="careerx-logo-text">
+                Career <span>X</span>
+            </div>
+
+        </div>
+
+
+        <ul class="sidebar-menu">
+
+            <li>
+                <a href="dashboard.html">
+                    🏠 Dashboard
+                </a>
+            </li>
+
+            <li>
+                <a
+                    href="profile.html"
+                    class="active">
+
+                    👤 Profile Settings
+
+                </a>
+            </li>
+
+            <li>
+                <a href="jobs.html">
+                    💼 Browse Jobs
+                </a>
+            </li>
+
+            <li>
+                <a href="candidate-applications.html">
+                    📄 My Applications
+                </a>
+            </li>
+
+            <li>
+                <a href="candidate-interviews.html">
+                    📅 My Interviews
+                </a>
+            </li>
+
+            <li>
+                <a href="#" id="logoutBtn">
+                    🚪 Logout
+                </a>
+            </li>
+
+        </ul>
+
+    </aside>
+
+
+    <!-- =====================================================
+         MAIN CONTENT
+         ===================================================== -->
+
+    <main class="main-content">
+
+
+        <header class="header">
+
+            <div>
+
+                <h1 class="page-title">
+                    Work Experience
+                </h1>
+
+                <p class="page-subtitle">
+                    Add your professional experience and career history.
+                </p>
+
+            </div>
+
+
+            <div>
+
+                <span class="user-name-display"></span>
+
+            </div>
+
+        </header>
+
+
+        <div class="experience-page-content">
+
+
+            <!-- =================================================
+                 ALERT
+                 ================================================= -->
+
+            <div
+                id="alertMessage"
+                class="alert">
+            </div>
+
+
+            <!-- =================================================
+                 PROFILE NAVIGATION
+                 ================================================= -->
+
+            <div class="profile-nav">
+
+                <a href="profile.html">
+                    Basic Info
+                </a>
+
+                <a href="skills.html">
+                    Skills
+                </a>
+
+                <a href="education.html">
+                    Education
+                </a>
+
+                <a
+                    href="experience.html"
+                    class="active">
+
+                    Experience
+
+                </a>
+
+                <a href="resume.html">
+                    Resume
+                </a>
+
+            </div>
+
+
+            <!-- =================================================
+                 ADD EXPERIENCE
+                 ================================================= -->
+
+            <div class="experience-card">
+
+
+                <div class="experience-card-header">
+
+                    <div>
+
+                        <h3 class="experience-card-title">
+                            Add Experience
+                        </h3>
+
+                        <p class="experience-card-description">
+                            Add your previous or current professional roles.
+                        </p>
+
                     </div>
-                    <h4 style="margin:0; color: var(--secondary-color);">${exp.jobTitle}</h4>
-                    <p style="margin: 0.2rem 0; font-weight: 500; color: var(--primary-color);">${exp.company}</p>
-                    <p class="text-muted" style="margin: 0; font-size: 0.9rem;">
-                        ${exp.startDate} to ${exp.isCurrent ? 'Present' : exp.endDate}
-                    </p>
-                    <p style="margin-top: 0.5rem; font-size: 0.9rem;">${exp.description || ''}</p>
+
+
+                    <div class="experience-header-icon">
+                        💼
+                    </div>
+
                 </div>
-            `).join('');
+
+
+                <form
+                    id="expForm"
+                    class="experience-form">
+
+
+                    <div class="experience-form-group">
+
+                        <label for="company">
+                            Company Name
+                        </label>
+
+                        <input
+                            type="text"
+                            id="company"
+                            placeholder="e.g. Google"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="experience-form-group">
+
+                        <label for="jobTitle">
+                            Job Title
+                        </label>
+
+                        <input
+                            type="text"
+                            id="jobTitle"
+                            placeholder="e.g. Software Developer"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="experience-form-group">
+
+                        <label for="startDate">
+                            Start Date
+                        </label>
+
+                        <input
+                            type="date"
+                            id="startDate"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="experience-form-group">
+
+                        <label for="endDate">
+                            End Date
+                        </label>
+
+                        <input
+                            type="date"
+                            id="endDate"
+                        >
+
+
+                        <label
+                            for="isCurrent"
+                            class="current-job-option">
+
+                            <input
+                                type="checkbox"
+                                id="isCurrent"
+                            >
+
+                            I currently work here
+
+                        </label>
+
+                    </div>
+
+
+                    <div
+                        class="experience-form-group description-field">
+
+                        <label for="description">
+                            Job Description
+                        </label>
+
+                        <textarea
+                            id="description"
+                            placeholder="Describe your responsibilities, achievements, and work..."
+                            rows="4"
+                        ></textarea>
+
+                    </div>
+
+
+                    <button
+                        type="submit"
+                        class="save-experience-button"
+                        id="saveExperienceButton">
+
+                        💼 Save Experience
+
+                    </button>
+
+                </form>
+
+            </div>
+
+
+            <!-- =================================================
+                 EXPERIENCE LIST
+                 ================================================= -->
+
+            <div class="experience-card">
+
+
+                <div class="experience-card-header">
+
+                    <div>
+
+                        <h3 class="experience-card-title">
+                            Your Work Experience
+                        </h3>
+
+                        <p class="experience-card-description">
+                            Your professional history and previous roles.
+                        </p>
+
+                    </div>
+
+
+                    <div class="experience-header-icon">
+                        📈
+                    </div>
+
+                </div>
+
+
+                <div
+                    id="expList"
+                    class="experience-list">
+
+                    <div class="experience-empty-state">
+
+                        <div class="experience-empty-icon">
+                            ⏳
+                        </div>
+
+                        <h3>
+                            Loading experience...
+                        </h3>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+    </main>
+
+
+    <script src="js/app.js"></script>
+
+
+    <script>
+
+        let currentUser = null;
+
+
+        // =====================================================
+        // INITIAL LOAD
+        // =====================================================
+
+        document.addEventListener(
+            "DOMContentLoaded",
+            async function() {
+
+                currentUser =
+                    await checkAuth();
+
+
+                if (currentUser) {
+
+                    renderExperience(
+                        currentUser.experiences
+                    );
+
+                }
+
+            }
+        );
+
+
+        // =====================================================
+        // CURRENT JOB CHECKBOX
+        // =====================================================
+
+        document
+            .getElementById("isCurrent")
+            .addEventListener(
+                "change",
+                function(e) {
+
+                    const endDate =
+                        document.getElementById(
+                            "endDate"
+                        );
+
+
+                    endDate.disabled =
+                        e.target.checked;
+
+
+                    if (e.target.checked) {
+
+                        endDate.value = "";
+
+                    }
+
+                }
+            );
+
+
+        // =====================================================
+        // RENDER EXPERIENCE
+        // =====================================================
+
+        function renderExperience(
+            experiences
+        ) {
+
+            const container =
+                document.getElementById(
+                    "expList"
+                );
+
+
+            if (
+                !experiences ||
+                experiences.length === 0
+            ) {
+
+                container.innerHTML = `
+
+                    <div class="experience-empty-state">
+
+                        <div class="experience-empty-icon">
+                            💼
+                        </div>
+
+                        <h3>
+                            No Experience Records
+                        </h3>
+
+                        <p>
+                            Add your first professional role
+                            using the form above.
+                        </p>
+
+                    </div>
+
+                `;
+
+                return;
+
+            }
+
+
+            container.innerHTML =
+                experiences
+                    .map(
+                        function(exp) {
+
+                            const startDate =
+                                formatDate(
+                                    exp.startDate
+                                );
+
+
+                            const endDate =
+                                exp.isCurrent
+                                    ? "Present"
+                                    : formatDate(
+                                        exp.endDate
+                                    );
+
+
+                            return `
+
+                                <div class="timeline-item">
+
+                                    <div
+                                        class="experience-item-header">
+
+                                        <div>
+
+                                            <h4
+                                                class="experience-job-title">
+
+                                                ${escapeHtml(
+                                                    exp.jobTitle
+                                                )}
+
+                                            </h4>
+
+
+                                            <p
+                                                class="experience-company">
+
+                                                ${escapeHtml(
+                                                    exp.company
+                                                )}
+
+                                            </p>
+
+                                        </div>
+
+
+                                        <button
+                                            type="button"
+                                            class="delete-experience-button"
+                                            onclick="deleteExp(${exp.id})">
+
+                                            🗑 Delete
+
+                                        </button>
+
+                                    </div>
+
+
+                                    <div
+                                        class="experience-meta">
+
+                                        <span>
+
+                                            📅
+                                            ${startDate}
+                                            -
+                                            ${endDate}
+
+                                        </span>
+
+
+                                        ${
+                                            exp.isCurrent
+                                                ? `
+                                                    <span
+                                                        class="current-badge">
+
+                                                        ● Currently Working
+
+                                                    </span>
+                                                  `
+                                                : ""
+                                        }
+
+                                    </div>
+
+
+                                    ${
+                                        exp.description
+                                            ? `
+                                                <p
+                                                    class="experience-description">
+
+                                                    ${escapeHtml(
+                                                        exp.description
+                                                    )}
+
+                                                </p>
+                                              `
+                                            : ""
+                                    }
+
+                                </div>
+
+                            `;
+
+                        }
+                    )
+                    .join("");
+
         }
 
-        document.getElementById('expForm').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const data = {
-                company: document.getElementById('company').value,
-                jobTitle: document.getElementById('jobTitle').value,
-                startDate: document.getElementById('startDate').value,
-                endDate: document.getElementById('endDate').value || null,
-                isCurrent: document.getElementById('isCurrent').checked,
-                description: document.getElementById('description').value
-            };
+
+        // =====================================================
+        // FORMAT DATE
+        // =====================================================
+
+        function formatDate(
+            dateString
+        ) {
+
+            if (!dateString) {
+
+                return "Not specified";
+
+            }
+
+
+            const date =
+                new Date(
+                    dateString
+                );
+
+
+            if (
+                isNaN(
+                    date.getTime()
+                )
+            ) {
+
+                return dateString;
+
+            }
+
+
+            return date.toLocaleDateString(
+                "en-IN",
+                {
+                    day: "2-digit",
+                    month: "short",
+                    year: "numeric"
+                }
+            );
+
+        }
+
+
+        // =====================================================
+        // ADD EXPERIENCE
+        // =====================================================
+
+        document
+            .getElementById("expForm")
+            .addEventListener(
+                "submit",
+                async function(e) {
+
+                    e.preventDefault();
+
+
+                    const data = {
+
+                        company:
+                            document
+                                .getElementById(
+                                    "company"
+                                )
+                                .value
+                                .trim(),
+
+                        jobTitle:
+                            document
+                                .getElementById(
+                                    "jobTitle"
+                                )
+                                .value
+                                .trim(),
+
+                        startDate:
+                            document
+                                .getElementById(
+                                    "startDate"
+                                )
+                                .value,
+
+                        endDate:
+                            document
+                                .getElementById(
+                                    "endDate"
+                                )
+                                .value ||
+                            null,
+
+                        isCurrent:
+                            document
+                                .getElementById(
+                                    "isCurrent"
+                                )
+                                .checked,
+
+                        description:
+                            document
+                                .getElementById(
+                                    "description"
+                                )
+                                .value
+                                .trim()
+
+                    };
+
+
+                    const button =
+                        document.getElementById(
+                            "saveExperienceButton"
+                        );
+
+
+                    button.disabled = true;
+
+                    button.textContent =
+                        "Saving...";
+
+
+                    try {
+
+                        const response =
+                            await fetch(
+                                `/api/candidates/${currentUser.id}/experience`,
+                                {
+                                    method: "POST",
+
+                                    headers: {
+                                        "Content-Type":
+                                            "application/json"
+                                    },
+
+                                    body:
+                                        JSON.stringify(
+                                            data
+                                        )
+                                }
+                            );
+
+
+                        if (response.ok) {
+
+                            document
+                                .getElementById(
+                                    "expForm"
+                                )
+                                .reset();
+
+
+                            document
+                                .getElementById(
+                                    "endDate"
+                                )
+                                .disabled =
+                                false;
+
+
+                            showAlert(
+                                "Experience added successfully!",
+                                "success"
+                            );
+
+
+                            /*
+                             * Refresh candidate data.
+                             */
+
+                            currentUser =
+                                await checkAuth();
+
+
+                            renderExperience(
+                                currentUser.experiences
+                            );
+
+                        }
+
+                        else {
+
+                            let message =
+                                "Failed to add experience.";
+
+
+                            try {
+
+                                const errorData =
+                                    await response.json();
+
+                                message =
+                                    errorData.message ||
+                                    message;
+
+                            }
+
+                            catch (error) {
+
+                                // Ignore JSON parsing error
+
+                            }
+
+
+                            showAlert(
+                                message
+                            );
+
+                        }
+
+                    }
+
+                    catch (error) {
+
+                        console.error(
+                            "Error adding experience:",
+                            error
+                        );
+
+
+                        showAlert(
+                            "An error occurred while adding experience."
+                        );
+
+                    }
+
+                    finally {
+
+                        button.disabled = false;
+
+                        button.textContent =
+                            "💼 Save Experience";
+
+                    }
+
+                }
+            );
+
+
+        // =====================================================
+        // DELETE EXPERIENCE
+        // =====================================================
+
+        async function deleteExp(
+            id
+        ) {
+
+            const confirmed =
+                confirm(
+                    "Are you sure you want to delete this experience record?"
+                );
+
+
+            if (!confirmed) {
+
+                return;
+
+            }
+
 
             try {
-                const response = await fetch(`/api/candidates/${currentUser.id}/experience`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(data)
-                });
+
+                const response =
+                    await fetch(
+                        `/api/candidates/${currentUser.id}/experience/${id}`,
+                        {
+                            method: "DELETE"
+                        }
+                    );
+
 
                 if (response.ok) {
-                    document.getElementById('expForm').reset();
-                    document.getElementById('endDate').disabled = false;
-                    showAlert('Experience added successfully!', 'success');
-                    currentUser = await checkAuth(); // Refresh UI
-                    renderExperience(currentUser.experiences);
-                } else {
-                    showAlert('Failed to add experience.');
-                }
-            } catch (error) {
-                showAlert('An error occurred.');
-            }
-        });
 
-        async function deleteExp(id) {
-            if(!confirm('Are you sure?')) return;
-            try {
-                const response = await fetch(`/api/candidates/${currentUser.id}/experience/${id}`, { method: 'DELETE' });
-                if(response.ok) {
-                    showAlert('Deleted', 'success');
-                    currentUser = await checkAuth();
-                    renderExperience(currentUser.experiences);
+                    showAlert(
+                        "Experience deleted successfully.",
+                        "success"
+                    );
+
+
+                    /*
+                     * Refresh candidate data.
+                     */
+
+                    currentUser =
+                        await checkAuth();
+
+
+                    renderExperience(
+                        currentUser.experiences
+                    );
+
                 }
-            } catch (error) {
-                showAlert('Error deleting');
+
+                else {
+
+                    let message =
+                        "Failed to delete experience.";
+
+
+                    try {
+
+                        const errorData =
+                            await response.json();
+
+                        message =
+                            errorData.message ||
+                            message;
+
+                    }
+
+                    catch (error) {
+
+                        // Ignore JSON parsing error
+
+                    }
+
+
+                    showAlert(
+                        message
+                    );
+
+                }
+
             }
+
+            catch (error) {
+
+                console.error(
+                    "Error deleting experience:",
+                    error
+                );
+
+
+                showAlert(
+                    "Error deleting experience."
+                );
+
+            }
+
         }
+
+
+        // =====================================================
+        // HTML ESCAPING
+        // =====================================================
+
+        function escapeHtml(
+            value
+        ) {
+
+            const div =
+                document.createElement(
+                    "div"
+                );
+
+
+            div.textContent =
+                value ?? "";
+
+
+            return div.innerHTML;
+
+        }
+
     </script>
+<script src="js/theme.js"></script>
 </body>
+
 </html>

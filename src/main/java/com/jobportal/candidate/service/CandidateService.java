@@ -5,6 +5,7 @@ import com.jobportal.candidate.model.Education;
 import com.jobportal.candidate.model.Experience;
 import com.jobportal.candidate.model.Resume;
 import org.springframework.web.multipart.MultipartFile;
+import java.util.List;
 
 /**
  * Demonstrating OOP Concept: Abstraction.
@@ -35,4 +36,7 @@ public interface CandidateService {
     // Resume
     Resume uploadResume(Long candidateId, MultipartFile file);
     void deleteResume(Long candidateId, Long resumeId);
+    // Resume 
+
+List<Resume> getResumes(Long candidateId);
 }

@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Map;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/candidates/{candidateId}")
@@ -73,7 +74,17 @@ public class CandidateProfileController {
         candidateService.deleteExperience(candidateId, experienceId);
         return ResponseEntity.ok().build();
     }
+@GetMapping("/resume")
+public ResponseEntity<List<Resume>> getResumes(
+        @PathVariable Long candidateId,
+        HttpSession session) {
 
+    if (!isAuthorized(candidateId, session)) {
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+    }
+
+    return ResponseEntity.ok(candidateService.getResumes(candidateId));
+}
     // --- RESUME ---
     @PostMapping("/resume")
     public ResponseEntity<Resume> uploadResume(@PathVariable Long candidateId, @RequestParam("file") MultipartFile file, HttpSession session) {

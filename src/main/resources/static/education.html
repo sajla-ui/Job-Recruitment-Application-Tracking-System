@@ -1,168 +1,1727 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Manage Education</title>
+
+    <title>Education History - Career X</title>
+    <script>
+(function () {
+    const theme = localStorage.getItem("careerx-theme") || "system";
+
+    const actualTheme =
+        theme === "system"
+            ? (
+                window.matchMedia("(prefers-color-scheme: dark)").matches
+                    ? "dark"
+                    : "light"
+            )
+            : theme;
+
+    document.documentElement.setAttribute("data-theme", actualTheme);
+    document.documentElement.setAttribute("data-theme-setting", theme);
+})();
+</script>
+
     <link rel="stylesheet" href="css/style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/careerx.css">
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;750&display=swap"
+        rel="stylesheet"
+    >
+
     <style>
-        .profile-nav { display: flex; gap: 1rem; margin-bottom: 2rem; border-bottom: 1px solid var(--border-color); padding-bottom: 1rem; }
-        .profile-nav a { text-decoration: none; color: var(--text-muted); font-weight: 500; padding: 0.5rem 1rem; border-radius: 5px; }
-        .profile-nav a.active { background-color: rgba(67, 97, 238, 0.1); color: var(--primary-color); }
-        
-        .timeline-item { border-left: 2px solid var(--primary-color); padding-left: 1.5rem; margin-bottom: 1.5rem; position: relative; }
-        .timeline-item::before { content: ''; position: absolute; left: -6px; top: 0; width: 10px; height: 10px; border-radius: 50%; background: var(--primary-color); }
-        .item-actions { float: right; }
+
+        /* =====================================================
+           CAREER X LOGO
+           ===================================================== */
+
+        .careerx-logo {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 8px 10px 28px;
+        }
+
+        .careerx-logo-icon {
+            width: 54px;
+            height: 54px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            flex-shrink: 0;
+
+            border-radius: 15px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #22d3ee 0%,
+                    #38bdf8 45%,
+                    #6366f1 100%
+                );
+
+            color: #020617;
+
+            font-size: 25px;
+            font-weight: 950;
+
+            box-shadow:
+                0 0 25px rgba(34, 211, 238, 0.22),
+                0 8px 25px rgba(37, 99, 235, 0.18);
+        }
+
+        .careerx-logo-text {
+            color: #f8fafc;
+
+            font-size: 1.8rem;
+
+            font-weight: 900;
+
+            letter-spacing: -0.045em;
+
+            white-space: nowrap;
+        }
+
+        .careerx-logo-text span {
+            color: #22d3ee;
+            font-weight: 900;
+        }
+
+
+        /* =====================================================
+           PAGE BACKGROUND
+           ===================================================== */
+
+        body {
+            overflow-x: hidden;
+        }
+
+        .education-background {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            overflow: hidden;
+            z-index: -1;
+        }
+
+        .education-grid {
+            position: absolute;
+            inset: 0;
+
+            background-image:
+                linear-gradient(
+                    rgba(56, 189, 248, 0.035) 1px,
+                    transparent 1px
+                ),
+                linear-gradient(
+                    90deg,
+                    rgba(56, 189, 248, 0.035) 1px,
+                    transparent 1px
+                );
+
+            background-size: 55px 55px;
+
+            mask-image:
+                linear-gradient(
+                    to bottom,
+                    black,
+                    transparent 90%
+                );
+        }
+
+        .education-orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(90px);
+            opacity: 0.16;
+        }
+
+        .education-orb-one {
+            width: 350px;
+            height: 350px;
+            background: #06b6d4;
+            top: -120px;
+            right: -100px;
+        }
+
+        .education-orb-two {
+            width: 320px;
+            height: 320px;
+            background: #8b5cf6;
+            bottom: -120px;
+            left: -120px;
+        }
+
+
+        /* =====================================================
+           PAGE CONTENT
+           ===================================================== */
+
+        .education-page-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .page-subtitle {
+            margin-top: 7px;
+            color: var(--text-muted);
+            font-size: 0.92rem;
+        }
+
+
+        /* =====================================================
+           PROFILE NAVIGATION
+           ===================================================== */
+
+        .profile-nav {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 24px;
+            padding: 7px;
+
+            border:
+                1px solid
+                rgba(148, 163, 184, 0.10);
+
+            border-radius: 14px;
+
+            background:
+                rgba(15, 23, 42, 0.55);
+
+            flex-wrap: wrap;
+
+            backdrop-filter: blur(12px);
+        }
+
+        .profile-nav a {
+            text-decoration: none;
+
+            color: var(--text-muted);
+
+            font-size: 0.84rem;
+
+            font-weight: 600;
+
+            padding: 9px 14px;
+
+            border-radius: 9px;
+
+            transition:
+                color 0.2s ease,
+                background 0.2s ease,
+                transform 0.2s ease;
+        }
+
+        .profile-nav a:hover {
+            color: var(--text);
+
+            background:
+                rgba(56, 189, 248, 0.06);
+
+            transform: translateY(-1px);
+        }
+
+        .profile-nav a.active {
+            color: #67e8f9;
+
+            background:
+                rgba(6, 182, 212, 0.10);
+
+            border:
+                1px solid
+                rgba(6, 182, 212, 0.18);
+
+            box-shadow:
+                0 0 18px
+                rgba(6, 182, 212, 0.05);
+        }
+
+
+        /* =====================================================
+           EDUCATION CARD
+           ===================================================== */
+
+        .education-card {
+            position: relative;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    rgba(15, 23, 42, 0.90),
+                    rgba(8, 15, 30, 0.80)
+                );
+
+            border:
+                1px solid
+                rgba(148, 163, 184, 0.12);
+
+            border-radius: 18px;
+
+            padding: 25px;
+
+            margin-bottom: 22px;
+
+            overflow: hidden;
+        }
+
+        .education-card::before {
+            content: "";
+
+            position: absolute;
+
+            top: 0;
+            left: 0;
+
+            width: 100%;
+            height: 2px;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    transparent,
+                    #06b6d4,
+                    #8b5cf6,
+                    transparent
+                );
+
+            opacity: 0.7;
+        }
+
+        .education-card-header {
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: flex-start;
+
+            gap: 15px;
+
+            margin-bottom: 22px;
+        }
+
+        .education-card-title {
+            margin: 0;
+
+            color: var(--text);
+
+            font-size: 1.12rem;
+
+            font-weight: 750;
+        }
+
+        .education-card-description {
+            margin: 6px 0 0;
+
+            color: var(--text-muted);
+
+            font-size: 0.84rem;
+
+            line-height: 1.5;
+        }
+
+        .education-header-icon {
+            width: 44px;
+            height: 44px;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 12px;
+
+            background:
+                rgba(6, 182, 212, 0.08);
+
+            border:
+                1px solid
+                rgba(6, 182, 212, 0.16);
+
+            font-size: 20px;
+        }
+
+
+        /* =====================================================
+           EDUCATION FORM
+           ===================================================== */
+
+        .education-form {
+            display: grid;
+
+            grid-template-columns:
+                1fr 1fr;
+
+            gap: 17px;
+        }
+
+        .education-form-group {
+            margin: 0;
+        }
+
+        .education-form-group label {
+            display: block;
+
+            margin-bottom: 8px;
+
+            color: var(--text-muted);
+
+            font-size: 0.76rem;
+
+            font-weight: 650;
+
+            letter-spacing: 0.2px;
+        }
+
+        .education-form-group input {
+            width: 100%;
+
+            box-sizing: border-box;
+
+            padding: 11px 13px;
+
+            border:
+                1px solid
+                rgba(148, 163, 184, 0.16);
+
+            border-radius: 10px;
+
+            background:
+                rgba(15, 23, 42, 0.70);
+
+            color: var(--text);
+
+            font-family: inherit;
+
+            font-size: 0.86rem;
+
+            outline: none;
+
+            transition:
+                border-color 0.2s ease,
+                box-shadow 0.2s ease,
+                background 0.2s ease;
+        }
+
+        .education-form-group input::placeholder {
+            color:
+                rgba(148, 163, 184, 0.55);
+        }
+
+        .education-form-group input:focus {
+            border-color:
+                rgba(6, 182, 212, 0.45);
+
+            box-shadow:
+                0 0 0 3px
+                rgba(6, 182, 212, 0.07);
+
+            background:
+                rgba(15, 23, 42, 0.85);
+        }
+
+
+        /* =====================================================
+           SAVE BUTTON
+           ===================================================== */
+
+        .save-education-button {
+            grid-column: 1 / -1;
+
+            width: fit-content;
+
+            border: none;
+
+            cursor: pointer;
+
+            padding: 11px 20px;
+
+            border-radius: 10px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #06b6d4,
+                    #2563eb
+                );
+
+            color: white;
+
+            font-family: inherit;
+
+            font-size: 0.84rem;
+
+            font-weight: 700;
+
+            box-shadow:
+                0 8px 25px
+                rgba(6, 182, 212, 0.13);
+
+            transition:
+                transform 0.2s ease,
+                box-shadow 0.2s ease,
+                opacity 0.2s ease;
+        }
+
+        .save-education-button:hover {
+            transform: translateY(-2px);
+
+            box-shadow:
+                0 12px 30px
+                rgba(6, 182, 212, 0.22);
+        }
+
+        .save-education-button:disabled {
+            opacity: 0.55;
+
+            cursor: not-allowed;
+
+            transform: none;
+        }
+
+
+        /* =====================================================
+           EDUCATION LIST
+           ===================================================== */
+
+        .education-list {
+            position: relative;
+
+            margin-top: 8px;
+
+            padding-left: 20px;
+        }
+
+        .education-list::before {
+            content: "";
+
+            position: absolute;
+
+            left: 4px;
+
+            top: 5px;
+
+            bottom: 5px;
+
+            width: 2px;
+
+            background:
+                linear-gradient(
+                    to bottom,
+                    rgba(6, 182, 212, 0.55),
+                    rgba(139, 92, 246, 0.30),
+                    transparent
+                );
+        }
+
+
+        /* =====================================================
+           EDUCATION TIMELINE ITEM
+           ===================================================== */
+
+        .timeline-item {
+            position: relative;
+
+            padding: 18px 18px 18px 20px;
+
+            margin-bottom: 15px;
+
+            border:
+                1px solid
+                rgba(148, 163, 184, 0.10);
+
+            border-radius: 14px;
+
+            background:
+                rgba(15, 23, 42, 0.55);
+
+            transition:
+                transform 0.25s ease,
+                border-color 0.25s ease,
+                background 0.25s ease;
+        }
+
+        .timeline-item::before {
+            content: "";
+
+            position: absolute;
+
+            left: -22px;
+
+            top: 21px;
+
+            width: 10px;
+            height: 10px;
+
+            border-radius: 50%;
+
+            background: #06b6d4;
+
+            border:
+                2px solid
+                #0f172a;
+
+            box-shadow:
+                0 0 12px
+                rgba(6, 182, 212, 0.45);
+        }
+
+        .timeline-item:hover {
+            transform: translateX(3px);
+
+            border-color:
+                rgba(56, 189, 248, 0.25);
+
+            background:
+                rgba(15, 23, 42, 0.72);
+        }
+
+
+        /* =====================================================
+           EDUCATION ITEM CONTENT
+           ===================================================== */
+
+        .education-item-header {
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: flex-start;
+
+            gap: 15px;
+
+            margin-bottom: 8px;
+        }
+
+        .education-degree {
+            margin: 0;
+
+            color: var(--text);
+
+            font-size: 0.98rem;
+
+            font-weight: 750;
+
+            line-height: 1.4;
+        }
+
+        .education-institution {
+            margin: 0 0 8px;
+
+            color: #67e8f9;
+
+            font-size: 0.84rem;
+
+            font-weight: 600;
+        }
+
+        .education-meta {
+            display: flex;
+
+            flex-wrap: wrap;
+
+            gap: 8px;
+
+            align-items: center;
+        }
+
+        .education-meta span {
+            padding: 5px 9px;
+
+            border-radius: 7px;
+
+            background:
+                rgba(148, 163, 184, 0.06);
+
+            border:
+                1px solid
+                rgba(148, 163, 184, 0.10);
+
+            color: var(--text-muted);
+
+            font-size: 0.72rem;
+        }
+
+
+        /* =====================================================
+           DELETE BUTTON
+           ===================================================== */
+
+        .delete-education-button {
+            flex-shrink: 0;
+
+            border:
+                1px solid
+                rgba(239, 68, 68, 0.25);
+
+            background:
+                rgba(239, 68, 68, 0.08);
+
+            color: #fca5a5;
+
+            padding: 8px 12px;
+
+            border-radius: 8px;
+
+            font-family: inherit;
+
+            font-size: 0.74rem;
+
+            font-weight: 650;
+
+            cursor: pointer;
+
+            transition:
+                background 0.2s ease,
+                border-color 0.2s ease,
+                transform 0.2s ease;
+        }
+
+        .delete-education-button:hover {
+            background:
+                rgba(239, 68, 68, 0.15);
+
+            border-color:
+                rgba(239, 68, 68, 0.40);
+
+            transform: translateY(-1px);
+        }
+
+
+        /* =====================================================
+           EMPTY STATE
+           ===================================================== */
+
+        .education-empty-state {
+            text-align: center;
+
+            padding: 55px 20px;
+
+            color: var(--text-muted);
+        }
+
+        .education-empty-icon {
+            width: 65px;
+            height: 65px;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            margin: 0 auto 16px;
+
+            border-radius: 18px;
+
+            background:
+                rgba(139, 92, 246, 0.07);
+
+            border:
+                1px solid
+                rgba(139, 92, 246, 0.16);
+
+            font-size: 28px;
+        }
+
+        .education-empty-state h3 {
+            color: var(--text);
+
+            margin: 0 0 7px;
+
+            font-size: 1rem;
+        }
+
+        .education-empty-state p {
+            margin: 0;
+
+            font-size: 0.83rem;
+
+            line-height: 1.5;
+        }
+
+
+        /* =====================================================
+           RESPONSIVE
+           ===================================================== */
+
+        @media (max-width: 800px) {
+
+            .education-form {
+                grid-template-columns: 1fr;
+            }
+
+            .save-education-button {
+                width: 100%;
+            }
+
+        }
+
+        @media (max-width: 600px) {
+
+            .profile-nav {
+                gap: 5px;
+            }
+
+            .profile-nav a {
+                padding: 8px 10px;
+
+                font-size: 0.78rem;
+            }
+
+            .education-card {
+                padding: 20px;
+            }
+
+            .education-item-header {
+                flex-direction: column;
+            }
+
+            .delete-education-button {
+                align-self: flex-start;
+            }
+
+        }
+
     </style>
+
 </head>
+
+
 <body>
-    <div class="app-container">
-        <!-- Sidebar -->
-        <aside class="sidebar">
-            <div class="sidebar-brand">Job Portal</div>
-            <ul class="sidebar-menu">
-                <li><a href="dashboard.html">Dashboard</a></li>
-                <li><a href="profile.html" class="active">Profile Settings</a></li>
-                <li><a href="jobs.html">Browse Jobs</a></li>
-                <li><a href="#" id="logoutBtn">Logout</a></li>
-            </ul>
-        </aside>
 
-        <main class="main-content">
-            <header class="header">
-                <h1 class="page-title">Education History</h1>
-            </header>
-            
-            <div id="alertMessage" class="alert"></div>
 
-            <div class="profile-nav">
-                <a href="profile.html">Basic Info</a>
-                <a href="skills.html">Skills</a>
-                <a href="education.html" class="active">Education</a>
-                <a href="experience.html">Experience</a>
-                <a href="resume.html">Resume</a>
-            </div>
+    <!-- =====================================================
+         BACKGROUND
+         ===================================================== -->
 
-            <div class="content-card">
-                <div class="card-header">
-                    <h3>Add Education</h3>
-                </div>
-                <form id="eduForm">
-                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
-                        <div class="form-group">
-                            <label>Institution / University Name</label>
-                            <input type="text" id="institution" class="form-control" required>
-                        </div>
-                        <div class="form-group">
-                            <label>Degree</label>
-                            <input type="text" id="degree" class="form-control" required>
-                        </div>
-                        <div class="form-group">
-                            <label>Field of Study</label>
-                            <input type="text" id="fieldOfStudy" class="form-control">
-                        </div>
-                        <div class="form-group">
-                            <label>Grade / Percentage</label>
-                            <input type="text" id="grade" class="form-control">
-                        </div>
-                        <div class="form-group">
-                            <label>Start Year</label>
-                            <input type="number" id="startYear" class="form-control" required min="1900" max="2100">
-                        </div>
-                        <div class="form-group">
-                            <label>End Year (Leave blank if currently studying)</label>
-                            <input type="number" id="endYear" class="form-control" min="1900" max="2100">
-                        </div>
-                    </div>
-                    <button type="submit" class="btn btn-primary">Save Education</button>
-                </form>
-            </div>
+    <div class="education-background">
 
-            <div class="content-card">
-                <h3>Your Education</h3>
-                <div id="eduList" style="margin-top: 1.5rem;">
-                    <!-- Populated via JS -->
-                </div>
-            </div>
-        </main>
+        <div class="education-grid"></div>
+
+        <div class="education-orb education-orb-one"></div>
+
+        <div class="education-orb education-orb-two"></div>
+
     </div>
 
-    <script src="js/app.js"></script>
-    <script>
-        let currentUser = null;
-        
-        document.addEventListener('DOMContentLoaded', async () => {
-            currentUser = await checkAuth();
-            if (currentUser) {
-                renderEducation(currentUser.educations);
-            }
-        });
 
-        function renderEducation(educations) {
-            const container = document.getElementById('eduList');
-            if (!educations || educations.length === 0) {
-                container.innerHTML = '<div class="empty-state">No education records found.</div>';
-                return;
-            }
-            container.innerHTML = educations.map(edu => `
-                <div class="timeline-item">
-                    <div class="item-actions">
-                        <button onclick="deleteEdu(${edu.id})" class="btn btn-sm btn-danger">Delete</button>
+    <!-- =====================================================
+         SIDEBAR
+         ===================================================== -->
+
+    <aside class="sidebar">
+
+
+        <!-- CAREER X LOGO -->
+
+        <div class="careerx-logo">
+
+            <div class="careerx-logo-icon">
+                X
+            </div>
+
+            <div class="careerx-logo-text">
+                Career <span>X</span>
+            </div>
+
+        </div>
+
+
+        <ul class="sidebar-menu">
+
+            <li>
+
+                <a href="dashboard.html">
+
+                    🏠 Dashboard
+
+                </a>
+
+            </li>
+
+
+            <li>
+
+                <a
+                    href="profile.html"
+                    class="active">
+
+                    👤 Profile Settings
+
+                </a>
+
+            </li>
+
+
+            <li>
+
+                <a href="jobs.html">
+
+                    💼 Browse Jobs
+
+                </a>
+
+            </li>
+
+
+            <li>
+
+                <a href="candidate-applications.html">
+
+                    📄 My Applications
+
+                </a>
+
+            </li>
+
+
+            <li>
+
+                <a href="candidate-interviews.html">
+
+                    📅 My Interviews
+
+                </a>
+
+            </li>
+
+
+            <li>
+
+                <a
+                    href="#"
+                    id="logoutBtn">
+
+                    🚪 Logout
+
+                </a>
+
+            </li>
+
+        </ul>
+
+    </aside>
+
+
+    <!-- =====================================================
+         MAIN CONTENT
+         ===================================================== -->
+
+    <main class="main-content">
+
+
+        <header class="header">
+
+            <div>
+
+                <h1 class="page-title">
+
+                    Education History
+
+                </h1>
+
+                <p class="page-subtitle">
+
+                    Add and manage your academic qualifications.
+
+                </p>
+
+            </div>
+
+
+            <div>
+
+                <span class="user-name-display"></span>
+
+            </div>
+
+        </header>
+
+
+        <div class="education-page-content">
+
+
+            <!-- =================================================
+                 ALERT
+                 ================================================= -->
+
+            <div
+                id="alertMessage"
+                class="alert">
+            </div>
+
+
+            <!-- =================================================
+                 PROFILE NAVIGATION
+                 ================================================= -->
+
+            <div class="profile-nav">
+
+                <a href="profile.html">
+
+                    Basic Info
+
+                </a>
+
+
+                <a href="skills.html">
+
+                    Skills
+
+                </a>
+
+
+                <a
+                    href="education.html"
+                    class="active">
+
+                    Education
+
+                </a>
+
+
+                <a href="experience.html">
+
+                    Experience
+
+                </a>
+
+
+                <a href="resume.html">
+
+                    Resume
+
+                </a>
+
+            </div>
+
+
+            <!-- =================================================
+                 ADD EDUCATION
+                 ================================================= -->
+
+            <div class="education-card">
+
+
+                <div class="education-card-header">
+
+                    <div>
+
+                        <h3 class="education-card-title">
+
+                            Add Education
+
+                        </h3>
+
+                        <p class="education-card-description">
+
+                            Add your academic qualifications
+                            and achievements.
+
+                        </p>
+
                     </div>
-                    <h4 style="margin:0; color: var(--primary-color);">${edu.degree} in ${edu.fieldOfStudy || 'General'}</h4>
-                    <p style="margin: 0.2rem 0; font-weight: 500;">${edu.institution}</p>
-                    <p class="text-muted" style="margin: 0; font-size: 0.9rem;">
-                        ${edu.startYear} - ${edu.endYear ? edu.endYear : 'Present'} | Grade: ${edu.grade || 'N/A'}
-                    </p>
+
+
+                    <div class="education-header-icon">
+
+                        🎓
+
+                    </div>
+
                 </div>
-            `).join('');
+
+
+                <form
+                    id="eduForm"
+                    class="education-form">
+
+
+                    <div class="education-form-group">
+
+                        <label for="institution">
+
+                            Institution / University Name
+
+                        </label>
+
+                        <input
+                            type="text"
+                            id="institution"
+                            placeholder="e.g. ABC University"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="education-form-group">
+
+                        <label for="degree">
+
+                            Degree
+
+                        </label>
+
+                        <input
+                            type="text"
+                            id="degree"
+                            placeholder="e.g. B.Tech Computer Science"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="education-form-group">
+
+                        <label for="fieldOfStudy">
+
+                            Field of Study
+
+                        </label>
+
+                        <input
+                            type="text"
+                            id="fieldOfStudy"
+                            placeholder="e.g. Computer Science"
+                        >
+
+                    </div>
+
+
+                    <div class="education-form-group">
+
+                        <label for="grade">
+
+                            Grade / Percentage
+
+                        </label>
+
+                        <input
+                            type="text"
+                            id="grade"
+                            placeholder="e.g. 85% or 8.5 CGPA"
+                        >
+
+                    </div>
+
+
+                    <div class="education-form-group">
+
+                        <label for="startYear">
+
+                            Start Year
+
+                        </label>
+
+                        <input
+                            type="number"
+                            id="startYear"
+                            placeholder="e.g. 2024"
+                            min="1900"
+                            max="2100"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="education-form-group">
+
+                        <label for="endYear">
+
+                            End Year
+
+                        </label>
+
+                        <input
+                            type="number"
+                            id="endYear"
+                            placeholder="Leave blank if currently studying"
+                            min="1900"
+                            max="2100"
+                        >
+
+                    </div>
+
+
+                    <button
+                        type="submit"
+                        class="save-education-button"
+                        id="saveEducationButton">
+
+                        🎓 Save Education
+
+                    </button>
+
+                </form>
+
+            </div>
+
+
+            <!-- =================================================
+                 EDUCATION LIST
+                 ================================================= -->
+
+            <div class="education-card">
+
+
+                <div class="education-card-header">
+
+                    <div>
+
+                        <h3 class="education-card-title">
+
+                            Your Education
+
+                        </h3>
+
+                        <p class="education-card-description">
+
+                            Your academic history and qualifications.
+
+                        </p>
+
+                    </div>
+
+
+                    <div class="education-header-icon">
+
+                        📚
+
+                    </div>
+
+                </div>
+
+
+                <div
+                    id="eduList"
+                    class="education-list">
+
+                    <div class="education-empty-state">
+
+                        <div class="education-empty-icon">
+
+                            ⏳
+
+                        </div>
+
+                        <h3>
+
+                            Loading education...
+
+                        </h3>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+    </main>
+
+
+    <script src="js/app.js"></script>
+
+
+    <script>
+
+        let currentUser = null;
+
+
+        // =====================================================
+        // INITIAL LOAD
+        // =====================================================
+
+        document.addEventListener(
+            "DOMContentLoaded",
+            async function() {
+
+                currentUser =
+                    await checkAuth();
+
+
+                if (currentUser) {
+
+                    renderEducation(
+                        currentUser.educations
+                    );
+
+                }
+
+            }
+        );
+
+
+        // =====================================================
+        // RENDER EDUCATION
+        // =====================================================
+
+        function renderEducation(
+            educations
+        ) {
+
+            const container =
+                document.getElementById(
+                    "eduList"
+                );
+
+
+            if (
+                !educations ||
+                educations.length === 0
+            ) {
+
+                container.innerHTML = `
+
+                    <div class="education-empty-state">
+
+                        <div class="education-empty-icon">
+
+                            🎓
+
+                        </div>
+
+                        <h3>
+
+                            No Education Records
+
+                        </h3>
+
+                        <p>
+
+                            Add your first academic qualification
+                            using the form above.
+
+                        </p>
+
+                    </div>
+
+                `;
+
+                return;
+
+            }
+
+
+            container.innerHTML =
+                educations
+                    .map(
+                        function(edu) {
+
+                            return `
+
+                                <div class="timeline-item">
+
+                                    <div class="education-item-header">
+
+
+                                        <div>
+
+                                            <h4
+                                                class="education-degree">
+
+                                                ${escapeHtml(
+                                                    edu.degree
+                                                )}
+
+                                                in
+
+                                                ${escapeHtml(
+                                                    edu.fieldOfStudy ||
+                                                    "General"
+                                                )}
+
+                                            </h4>
+
+
+                                            <p
+                                                class="education-institution">
+
+                                                ${escapeHtml(
+                                                    edu.institution
+                                                )}
+
+                                            </p>
+
+                                        </div>
+
+
+                                        <button
+                                            type="button"
+                                            class="delete-education-button"
+                                            onclick="deleteEdu(${edu.id})">
+
+                                            🗑 Delete
+
+                                        </button>
+
+                                    </div>
+
+
+                                    <div
+                                        class="education-meta">
+
+                                        <span>
+
+                                            📅
+                                            ${escapeHtml(
+                                                edu.startYear
+                                            )}
+
+                                            -
+
+                                            ${escapeHtml(
+                                                edu.endYear ||
+                                                "Present"
+                                            )}
+
+                                        </span>
+
+
+                                        <span>
+
+                                            📊 Grade:
+                                            ${escapeHtml(
+                                                edu.grade ||
+                                                "N/A"
+                                            )}
+
+                                        </span>
+
+                                    </div>
+
+                                </div>
+
+                            `;
+
+                        }
+                    )
+                    .join("");
+
         }
 
-        document.getElementById('eduForm').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const data = {
-                institution: document.getElementById('institution').value,
-                degree: document.getElementById('degree').value,
-                fieldOfStudy: document.getElementById('fieldOfStudy').value,
-                grade: document.getElementById('grade').value,
-                startYear: document.getElementById('startYear').value,
-                endYear: document.getElementById('endYear').value || null
-            };
+
+        // =====================================================
+        // ADD EDUCATION
+        // =====================================================
+
+        document
+            .getElementById("eduForm")
+            .addEventListener(
+                "submit",
+                async function(e) {
+
+                    e.preventDefault();
+
+
+                    const data = {
+
+                        institution:
+                            document
+                                .getElementById(
+                                    "institution"
+                                )
+                                .value
+                                .trim(),
+
+                        degree:
+                            document
+                                .getElementById(
+                                    "degree"
+                                )
+                                .value
+                                .trim(),
+
+                        fieldOfStudy:
+                            document
+                                .getElementById(
+                                    "fieldOfStudy"
+                                )
+                                .value
+                                .trim(),
+
+                        grade:
+                            document
+                                .getElementById(
+                                    "grade"
+                                )
+                                .value
+                                .trim(),
+
+                        startYear:
+                            document
+                                .getElementById(
+                                    "startYear"
+                                )
+                                .value,
+
+                        endYear:
+                            document
+                                .getElementById(
+                                    "endYear"
+                                )
+                                .value ||
+                            null
+
+                    };
+
+
+                    const button =
+                        document.getElementById(
+                            "saveEducationButton"
+                        );
+
+
+                    button.disabled = true;
+
+                    button.textContent =
+                        "Saving...";
+
+
+                    try {
+
+                        const response =
+                            await fetch(
+                                `/api/candidates/${currentUser.id}/education`,
+                                {
+                                    method: "POST",
+
+                                    headers: {
+                                        "Content-Type":
+                                            "application/json"
+                                    },
+
+                                    body:
+                                        JSON.stringify(data)
+                                }
+                            );
+
+
+                        if (response.ok) {
+
+                            document
+                                .getElementById(
+                                    "eduForm"
+                                )
+                                .reset();
+
+
+                            showAlert(
+                                "Education added successfully!",
+                                "success"
+                            );
+
+
+                            /*
+                             * Refresh candidate data.
+                             */
+
+                            currentUser =
+                                await checkAuth();
+
+
+                            renderEducation(
+                                currentUser.educations
+                            );
+
+                        }
+
+                        else {
+
+                            let message =
+                                "Failed to add education.";
+
+
+                            try {
+
+                                const errorData =
+                                    await response.json();
+
+                                message =
+                                    errorData.message ||
+                                    message;
+
+                            }
+
+                            catch (error) {
+
+                                // Ignore JSON parsing error
+
+                            }
+
+
+                            showAlert(
+                                message
+                            );
+
+                        }
+
+                    }
+
+                    catch (error) {
+
+                        console.error(
+                            "Error adding education:",
+                            error
+                        );
+
+
+                        showAlert(
+                            "An error occurred while adding education."
+                        );
+
+                    }
+
+                    finally {
+
+                        button.disabled = false;
+
+                        button.textContent =
+                            "🎓 Save Education";
+
+                    }
+
+                }
+            );
+
+
+        // =====================================================
+        // DELETE EDUCATION
+        // =====================================================
+
+        async function deleteEdu(
+            id
+        ) {
+
+            const confirmed =
+                confirm(
+                    "Are you sure you want to delete this education record?"
+                );
+
+
+            if (!confirmed) {
+
+                return;
+
+            }
+
 
             try {
-                const response = await fetch(`/api/candidates/${currentUser.id}/education`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(data)
-                });
+
+                const response =
+                    await fetch(
+                        `/api/candidates/${currentUser.id}/education/${id}`,
+                        {
+                            method: "DELETE"
+                        }
+                    );
+
 
                 if (response.ok) {
-                    document.getElementById('eduForm').reset();
-                    showAlert('Education added successfully!', 'success');
-                    currentUser = await checkAuth(); // Refresh UI
-                    renderEducation(currentUser.educations);
-                } else {
-                    showAlert('Failed to add education.');
-                }
-            } catch (error) {
-                showAlert('An error occurred.');
-            }
-        });
 
-        async function deleteEdu(id) {
-            if(!confirm('Are you sure?')) return;
-            try {
-                const response = await fetch(`/api/candidates/${currentUser.id}/education/${id}`, { method: 'DELETE' });
-                if(response.ok) {
-                    showAlert('Deleted', 'success');
-                    currentUser = await checkAuth();
-                    renderEducation(currentUser.educations);
+                    showAlert(
+                        "Education deleted successfully.",
+                        "success"
+                    );
+
+
+                    /*
+                     * Refresh candidate data.
+                     */
+
+                    currentUser =
+                        await checkAuth();
+
+
+                    renderEducation(
+                        currentUser.educations
+                    );
+
                 }
-            } catch (error) {
-                showAlert('Error deleting');
+
+                else {
+
+                    let message =
+                        "Failed to delete education.";
+
+
+                    try {
+
+                        const errorData =
+                            await response.json();
+
+                        message =
+                            errorData.message ||
+                            message;
+
+                    }
+
+                    catch (error) {
+
+                        // Ignore JSON parsing error
+
+                    }
+
+
+                    showAlert(
+                        message
+                    );
+
+                }
+
             }
+
+            catch (error) {
+
+                console.error(
+                    "Error deleting education:",
+                    error
+                );
+
+
+                showAlert(
+                    "Error deleting education."
+                );
+
+            }
+
         }
+
+
+        // =====================================================
+        // HTML ESCAPING
+        // =====================================================
+
+        function escapeHtml(
+            value
+        ) {
+
+            const div =
+                document.createElement(
+                    "div"
+                );
+
+
+            div.textContent =
+                value ?? "";
+
+
+            return div.innerHTML;
+
+        }
+
     </script>
+<script src="js/theme.js"></script>
 </body>
+
 </html>

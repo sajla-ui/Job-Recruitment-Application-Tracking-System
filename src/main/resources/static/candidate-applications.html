@@ -1,58 +1,219 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>My Applications</title>
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+    <title>My Applications - Career X</title>
+    
+
 
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/careerx.css">
 
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;750&display=swap"
+        rel="stylesheet">
 
     <style>
 
         /* =====================================================
-           APPLICATION PAGE
+           CAREER X LOGO
+           ===================================================== */
+
+        .careerx-logo {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 8px 10px 28px;
+        }
+
+        .careerx-logo-icon {
+            width: 54px;
+            height: 54px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            flex-shrink: 0;
+
+            border-radius: 15px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #22d3ee 0%,
+                    #38bdf8 45%,
+                    #6366f1 100%
+                );
+
+            color: #020617;
+
+            font-size: 25px;
+            font-weight: 950;
+
+            box-shadow:
+                0 0 25px rgba(34, 211, 238, 0.22),
+                0 8px 25px rgba(37, 99, 235, 0.18);
+        }
+
+        .careerx-logo-text {
+            color: #f8fafc;
+
+            font-size: 1.8rem;
+
+            font-weight: 900;
+
+            letter-spacing: -0.045em;
+
+            white-space: nowrap;
+        }
+
+        .careerx-logo-text span {
+            color: #22d3ee;
+
+            font-weight: 900;
+        }
+
+
+        /* =====================================================
+           BACKGROUND
+           ===================================================== */
+
+        body {
+            overflow-x: hidden;
+        }
+
+        .applications-background {
+            position: fixed;
+            inset: 0;
+            overflow: hidden;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .applications-grid {
+            position: absolute;
+            inset: 0;
+
+            background-image:
+                linear-gradient(
+                    rgba(56, 189, 248, 0.035) 1px,
+                    transparent 1px
+                ),
+                linear-gradient(
+                    90deg,
+                    rgba(56, 189, 248, 0.035) 1px,
+                    transparent 1px
+                );
+
+            background-size: 55px 55px;
+
+            mask-image:
+                linear-gradient(
+                    to bottom,
+                    black,
+                    transparent 92%
+                );
+        }
+
+        .applications-orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(100px);
+            opacity: 0.14;
+        }
+
+        .applications-orb-one {
+            width: 380px;
+            height: 380px;
+            background: #06b6d4;
+            top: -150px;
+            right: -120px;
+        }
+
+        .applications-orb-two {
+            width: 350px;
+            height: 350px;
+            background: #7c3aed;
+            bottom: -150px;
+            left: -130px;
+        }
+
+
+        /* =====================================================
+           MAIN PAGE
+           ===================================================== */
+
+        .applications-page {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .page-subtitle {
+            margin-top: 7px;
+            color: var(--text-muted);
+            font-size: 0.88rem;
+        }
+
+
+        /* =====================================================
+           SUMMARY
            ===================================================== */
 
         .applications-summary {
             display: grid;
 
             grid-template-columns:
-                repeat(auto-fit, minmax(180px, 1fr));
+                repeat(
+                    auto-fit,
+                    minmax(180px, 1fr)
+                );
 
-            gap: 18px;
+            gap: 16px;
 
-            margin-bottom: 25px;
+            margin-bottom: 24px;
         }
-
 
         .application-stat {
             position: relative;
 
             padding: 20px;
 
-            border-radius: var(--radius);
+            min-height: 105px;
+
+            box-sizing: border-box;
+
+            border:
+                1px solid
+                rgba(148, 163, 184, 0.12);
+
+            border-radius: 16px;
 
             background:
                 linear-gradient(
                     145deg,
-                    rgba(18, 30, 55, 0.92),
-                    rgba(8, 16, 32, 0.88)
+                    rgba(15, 23, 42, 0.90),
+                    rgba(7, 14, 29, 0.82)
                 );
 
-            border:
-                1px solid var(--border);
-
             box-shadow:
-                var(--shadow);
+                0 15px 40px
+                rgba(0, 0, 0, 0.18);
 
             overflow: hidden;
 
-            transition: 0.3s ease;
+            transition:
+                transform 0.25s ease,
+                border-color 0.25s ease,
+                box-shadow 0.25s ease;
         }
-
 
         .application-stat::before {
             content: "";
@@ -63,57 +224,82 @@
             left: 0;
 
             width: 100%;
-            height: 3px;
+            height: 2px;
 
             background:
                 linear-gradient(
                     90deg,
-                    var(--blue),
-                    var(--cyan),
-                    var(--purple)
+                    #06b6d4,
+                    #2563eb,
+                    #8b5cf6
                 );
 
-            box-shadow:
-                0 0 15px var(--cyan);
+            opacity: 0.8;
         }
-
 
         .application-stat:hover {
-            transform: translateY(-5px);
+            transform: translateY(-3px);
 
             border-color:
-                var(--border-bright);
+                rgba(56, 189, 248, 0.22);
 
             box-shadow:
-                var(--shadow-hover);
+                0 20px 45px
+                rgba(0, 0, 0, 0.25);
         }
 
+        .application-stat-icon {
+            width: 34px;
+            height: 34px;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            margin-bottom: 10px;
+
+            border-radius: 9px;
+
+            background:
+                rgba(6, 182, 212, 0.08);
+
+            border:
+                1px solid
+                rgba(6, 182, 212, 0.14);
+
+            font-size: 16px;
+        }
 
         .application-stat-number {
-            font-size: 2rem;
+            font-size: 1.75rem;
+
+            line-height: 1;
 
             font-weight: 800;
 
             background:
                 linear-gradient(
                     90deg,
-                    var(--cyan),
-                    var(--primary),
-                    var(--purple)
+                    #67e8f9,
+                    #60a5fa,
+                    #a78bfa
                 );
 
             -webkit-background-clip: text;
+            background-clip: text;
 
-            -webkit-text-fill-color: transparent;
+            color: transparent;
         }
 
-
         .application-stat-label {
-            margin-top: 5px;
+            margin-top: 7px;
 
-            color: var(--text-light);
+            color: var(--text-muted);
 
-            font-size: 0.85rem;
+            font-size: 0.76rem;
+
+            font-weight: 600;
         }
 
 
@@ -126,107 +312,114 @@
 
             flex-direction: column;
 
-            gap: 18px;
+            gap: 17px;
         }
 
+
+        /* =====================================================
+           APPLICATION CARD
+           ===================================================== */
 
         .application-card {
             position: relative;
 
             overflow: hidden;
 
+            padding: 24px;
+
+            border:
+                1px solid
+                rgba(148, 163, 184, 0.11);
+
+            border-radius: 17px;
+
             background:
                 linear-gradient(
                     145deg,
-                    rgba(18, 29, 52, 0.95),
-                    rgba(7, 14, 28, 0.92)
+                    rgba(15, 23, 42, 0.93),
+                    rgba(7, 14, 28, 0.88)
                 );
 
-            padding: 24px;
-
-            border-radius: var(--radius);
-
-            border:
-                1px solid var(--border);
-
             box-shadow:
-                var(--shadow);
+                0 15px 45px
+                rgba(0, 0, 0, 0.20);
 
-            transition: 0.3s ease;
+            transition:
+                transform 0.25s ease,
+                border-color 0.25s ease,
+                box-shadow 0.25s ease;
         }
-
 
         .application-card::before {
             content: "";
 
             position: absolute;
 
-            left: 0;
             top: 0;
+            left: 0;
 
             width: 100%;
-            height: 3px;
+            height: 2px;
 
             background:
                 linear-gradient(
                     90deg,
-                    var(--blue),
-                    var(--cyan),
-                    var(--purple)
+                    transparent,
+                    #06b6d4,
+                    #2563eb,
+                    #8b5cf6,
+                    transparent
                 );
 
-            box-shadow:
-                0 0 15px var(--cyan);
+            opacity: 0.8;
         }
-
 
         .application-card:hover {
-            transform:
-                translateY(-4px);
+            transform: translateY(-3px);
 
             border-color:
-                rgba(0, 229, 255, 0.3);
+                rgba(56, 189, 248, 0.22);
 
             box-shadow:
-                var(--shadow-hover);
+                0 22px 55px
+                rgba(0, 0, 0, 0.28);
         }
 
+
+        /* =====================================================
+           APPLICATION HEADER
+           ===================================================== */
 
         .application-header {
             display: flex;
 
-            justify-content:
-                space-between;
+            justify-content: space-between;
 
-            align-items:
-                flex-start;
+            align-items: flex-start;
 
-            gap: 20px;
+            gap: 18px;
 
             margin-bottom: 20px;
         }
 
-
         .application-job-title {
-            margin: 0 0 7px;
+            margin: 0 0 6px;
 
-            color: var(--cyan);
+            color: #67e8f9;
 
-            font-size: 1.25rem;
+            font-size: 1.18rem;
 
             font-weight: 750;
 
-            text-shadow:
-                0 0 15px rgba(0, 229, 255, 0.15);
+            line-height: 1.35;
         }
 
-
         .application-company {
-            color: #e2e8f0;
+            color: #cbd5e1;
 
-            font-size: 0.95rem;
+            font-size: 0.85rem;
 
-            font-weight: 650;
+            font-weight: 600;
         }
 
 
@@ -241,17 +434,16 @@
 
             gap: 7px;
 
-            padding: 7px 13px;
+            padding: 7px 12px;
 
             border-radius: 20px;
 
-            font-size: 0.75rem;
+            font-size: 0.72rem;
 
             font-weight: 700;
 
             white-space: nowrap;
         }
-
 
         .application-status::before {
             content: "";
@@ -259,73 +451,123 @@
             width: 7px;
             height: 7px;
 
+            flex-shrink: 0;
+
             border-radius: 50%;
         }
 
-
         .status-applied {
-            color: var(--warning);
+            color: #fcd34d;
 
             background:
                 rgba(251, 191, 36, 0.08);
 
             border:
-                1px solid rgba(251, 191, 36, 0.25);
-
-            box-shadow:
-                0 0 12px rgba(251, 191, 36, 0.08);
+                1px solid
+                rgba(251, 191, 36, 0.22);
         }
-
 
         .status-applied::before {
-            background: var(--warning);
+            background: #fbbf24;
 
             box-shadow:
-                0 0 8px var(--warning);
+                0 0 8px
+                rgba(251, 191, 36, 0.7);
         }
 
-
         .status-shortlisted {
-            color: #4ade80;
+            color: #86efac;
 
             background:
                 rgba(34, 197, 94, 0.08);
 
             border:
-                1px solid rgba(34, 197, 94, 0.25);
-
-            box-shadow:
-                0 0 12px rgba(34, 197, 94, 0.08);
+                1px solid
+                rgba(34, 197, 94, 0.22);
         }
-
 
         .status-shortlisted::before {
-            background: var(--success);
+            background: #22c55e;
 
             box-shadow:
-                0 0 8px var(--success);
+                0 0 8px
+                rgba(34, 197, 94, 0.7);
         }
-
 
         .status-rejected {
-            color: #ff7b91;
+            color: #fca5a5;
 
             background:
-                rgba(255, 77, 109, 0.08);
+                rgba(239, 68, 68, 0.08);
 
             border:
-                1px solid rgba(255, 77, 109, 0.25);
-
-            box-shadow:
-                0 0 12px rgba(255, 77, 109, 0.08);
+                1px solid
+                rgba(239, 68, 68, 0.22);
         }
 
-
         .status-rejected::before {
-            background: var(--danger);
+            background: #ef4444;
 
             box-shadow:
-                0 0 8px var(--danger);
+                0 0 8px
+                rgba(239, 68, 68, 0.7);
+        }
+
+        .status-interview {
+            color: #93c5fd;
+
+            background:
+                rgba(59, 130, 246, 0.08);
+
+            border:
+                1px solid
+                rgba(59, 130, 246, 0.22);
+        }
+
+        .status-interview::before {
+            background: #3b82f6;
+
+            box-shadow:
+                0 0 8px
+                rgba(59, 130, 246, 0.7);
+        }
+
+        .status-selected {
+            color: #86efac;
+
+            background:
+                rgba(34, 197, 94, 0.10);
+
+            border:
+                1px solid
+                rgba(34, 197, 94, 0.28);
+        }
+
+        .status-selected::before {
+            background: #22c55e;
+
+            box-shadow:
+                0 0 10px
+                rgba(34, 197, 94, 0.8);
+        }
+
+        .status-not-selected {
+            color: #fca5a5;
+
+            background:
+                rgba(239, 68, 68, 0.08);
+
+            border:
+                1px solid
+                rgba(239, 68, 68, 0.22);
+        }
+
+        .status-not-selected::before {
+            background: #ef4444;
+
+            box-shadow:
+                0 0 8px
+                rgba(239, 68, 68, 0.7);
         }
 
 
@@ -339,46 +581,46 @@
             grid-template-columns:
                 repeat(2, 1fr);
 
-            gap: 12px;
+            gap: 10px;
 
             margin-bottom: 20px;
         }
 
-
         .application-detail {
-            padding: 13px 15px;
-
-            background:
-                rgba(5, 12, 26, 0.55);
+            padding: 12px 14px;
 
             border:
-                1px solid rgba(79, 124, 255, 0.12);
+                1px solid
+                rgba(148, 163, 184, 0.09);
 
             border-radius: 10px;
-        }
 
+            background:
+                rgba(5, 12, 26, 0.50);
+        }
 
         .application-detail-label {
             margin-bottom: 5px;
 
-            color: var(--text-muted);
+            color: #64748b;
 
-            font-size: 0.72rem;
+            font-size: 0.68rem;
 
-            font-weight: 600;
+            font-weight: 650;
 
             text-transform: uppercase;
 
-            letter-spacing: 0.4px;
+            letter-spacing: 0.5px;
         }
-
 
         .application-detail-value {
             color: #cbd5e1;
 
-            font-size: 0.88rem;
+            font-size: 0.82rem;
 
             font-weight: 500;
+
+            word-break: break-word;
         }
 
 
@@ -387,28 +629,83 @@
            ===================================================== */
 
         .cover-letter {
-            padding-top: 18px;
+            padding-top: 17px;
 
             border-top:
-                1px solid rgba(79, 124, 255, 0.14);
+                1px solid
+                rgba(148, 163, 184, 0.09);
         }
 
-
         .cover-letter-title {
-            margin-bottom: 8px;
+            margin-bottom: 7px;
 
             color: #e2e8f0;
 
-            font-size: 0.85rem;
+            font-size: 0.80rem;
 
             font-weight: 700;
         }
 
-
         .cover-letter-text {
-            color: var(--text-light);
+            color: #94a3b8;
 
-            font-size: 0.85rem;
+            font-size: 0.82rem;
+
+            line-height: 1.65;
+
+            white-space: pre-wrap;
+
+            word-break: break-word;
+        }
+
+
+        /* =====================================================
+           RECRUITER REMARKS
+           ===================================================== */
+
+        .result-remarks {
+            margin-top: 17px;
+
+            padding: 15px 17px;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    rgba(34, 197, 94, 0.08),
+                    rgba(6, 15, 28, 0.72)
+                );
+
+            border:
+                1px solid
+                rgba(34, 197, 94, 0.20);
+
+            border-radius: 12px;
+
+            box-shadow:
+                0 0 18px
+                rgba(34, 197, 94, 0.04);
+        }
+
+        .result-remarks-title {
+            margin-bottom: 7px;
+
+            color: #86efac;
+
+            font-size: 0.80rem;
+
+            font-weight: 750;
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 7px;
+        }
+
+        .result-remarks-text {
+            color: #cbd5e1;
+
+            font-size: 0.82rem;
 
             line-height: 1.65;
 
@@ -423,69 +720,107 @@
            ===================================================== */
 
         .applications-empty {
-            padding: 60px 25px;
+            padding: 65px 25px;
 
             text-align: center;
 
             background:
                 linear-gradient(
                     145deg,
-                    rgba(17, 27, 49, 0.92),
-                    rgba(8, 15, 30, 0.88)
+                    rgba(15, 23, 42, 0.90),
+                    rgba(7, 14, 28, 0.84)
                 );
 
             border:
-                1px dashed rgba(79, 124, 255, 0.3);
+                1px dashed
+                rgba(56, 189, 248, 0.22);
 
-            border-radius: var(--radius);
+            border-radius: 17px;
 
-            box-shadow: var(--shadow);
+            box-shadow:
+                0 15px 45px
+                rgba(0, 0, 0, 0.18);
         }
 
+        .applications-empty-icon {
+            width: 65px;
+            height: 65px;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            margin:
+                0 auto 16px;
+
+            border-radius: 18px;
+
+            background:
+                rgba(6, 182, 212, 0.07);
+
+            border:
+                1px solid
+                rgba(6, 182, 212, 0.15);
+
+            font-size: 28px;
+        }
 
         .applications-empty h3 {
             margin:
-                0 0 10px;
+                0 0 8px;
 
-            color: white;
+            color: #f8fafc;
+
+            font-size: 1rem;
         }
-
 
         .applications-empty p {
             margin:
                 0 0 22px;
 
-            color: var(--text-light);
-        }
+            color: #64748b;
 
+            font-size: 0.82rem;
+
+            line-height: 1.55;
+        }
 
         .browse-jobs-btn {
             display: inline-flex;
 
-            padding:
-                11px 20px;
+            align-items: center;
 
-            border-radius: 10px;
+            justify-content: center;
+
+            padding:
+                10px 18px;
+
+            border-radius: 9px;
 
             color: white;
 
-            font-size: 0.88rem;
+            text-decoration: none;
+
+            font-size: 0.80rem;
 
             font-weight: 700;
 
             background:
                 linear-gradient(
                     135deg,
-                    var(--primary),
-                    var(--cyan)
+                    #06b6d4,
+                    #2563eb
                 );
 
             box-shadow:
-                0 8px 25px rgba(0, 229, 255, 0.15);
+                0 8px 25px
+                rgba(6, 182, 212, 0.13);
 
-            transition: 0.25s ease;
+            transition:
+                transform 0.2s ease,
+                box-shadow 0.2s ease;
         }
-
 
         .browse-jobs-btn:hover {
             color: white;
@@ -494,37 +829,71 @@
                 translateY(-2px);
 
             box-shadow:
-                0 10px 35px rgba(0, 229, 255, 0.3);
-
-            text-shadow: none;
+                0 12px 30px
+                rgba(6, 182, 212, 0.22);
         }
 
+
+        /* =====================================================
+           LOADING / ERROR
+           ===================================================== */
 
         .applications-loading {
+            padding: 55px;
+
             text-align: center;
 
-            padding: 50px;
+            color: #64748b;
 
-            color: var(--text-light);
+            font-size: 0.84rem;
         }
 
+        .loading-icon {
+            margin-bottom: 12px;
+
+            font-size: 25px;
+
+            animation:
+                pulseLoading 1.4s
+                ease-in-out infinite;
+        }
+
+        @keyframes pulseLoading {
+
+            0%,
+            100% {
+                opacity: 0.35;
+            }
+
+            50% {
+                opacity: 1;
+            }
+
+        }
 
         .applications-error {
             padding: 18px;
 
             border-radius: 12px;
 
-            color: #ff7b91;
+            color: #fca5a5;
 
             background:
-                rgba(239, 68, 68, 0.08);
+                rgba(239, 68, 68, 0.07);
 
             border:
-                1px solid rgba(239, 68, 68, 0.25);
+                1px solid
+                rgba(239, 68, 68, 0.22);
 
             text-align: center;
+
+            font-size: 0.82rem;
         }
 
+
+        /* =====================================================
+           RESPONSIVE
+           ===================================================== */
 
         @media (max-width: 700px) {
 
@@ -532,661 +901,1014 @@
                 flex-direction: column;
             }
 
+            .application-status {
+                align-self: flex-start;
+            }
+
             .application-details {
                 grid-template-columns: 1fr;
+            }
+
+            .application-card {
+                padding: 20px;
             }
 
         }
 
     </style>
+
 </head>
 
 
 <body>
 
-<div class="app-container">
 
     <!-- =====================================================
-         SIDEBAR
+         BACKGROUND
          ===================================================== -->
 
-    <aside class="sidebar">
+    <div class="applications-background">
 
-        <div class="sidebar-brand">
-            Job Portal
-        </div>
+        <div class="applications-grid"></div>
 
+        <div class="applications-orb applications-orb-one"></div>
 
-        <ul class="sidebar-menu">
+        <div class="applications-orb applications-orb-two"></div>
 
-            <li>
-                <a href="dashboard.html">
-                    Dashboard
-                </a>
-            </li>
-
-            <li>
-                <a href="profile.html">
-                    Profile Settings
-                </a>
-            </li>
-
-            <li>
-                <a href="jobs.html">
-                    Browse Jobs
-                </a>
-            </li>
-
-            <li>
-                <a href="candidate-applications.html"
-                   class="active">
-                    My Applications
-                </a>
-            </li>
-
-            <li>
-                <a href="#"
-                   id="logoutBtn">
-                    Logout
-                </a>
-            </li>
-
-        </ul>
-
-    </aside>
+    </div>
 
 
     <!-- =====================================================
-         MAIN CONTENT
+         APP CONTAINER
          ===================================================== -->
 
-    <main class="main-content">
-
-        <header class="header">
-
-            <h1 class="page-title">
-                My Applications
-            </h1>
-
-        </header>
+    <div class="app-container">
 
 
-        <!-- SUMMARY -->
+        <!-- =================================================
+             SIDEBAR
+             ================================================= -->
 
-        <div class="applications-summary">
+        <aside class="sidebar">
 
-            <div class="application-stat">
 
-                <div
-                    class="application-stat-number"
-                    id="totalApplications">
-                    0
+            <!-- CAREER X LOGO -->
+
+            <div class="careerx-logo">
+
+                <div class="careerx-logo-icon">
+                    X
                 </div>
 
-                <div class="application-stat-label">
-                    Total Applications
+                <div class="careerx-logo-text">
+                    Career <span>X</span>
                 </div>
 
             </div>
 
 
-            <div class="application-stat">
+            <!-- NAVIGATION -->
 
-                <div
-                    class="application-stat-number"
-                    id="appliedCount">
-                    0
-                </div>
+            <ul class="sidebar-menu">
 
-                <div class="application-stat-label">
-                    Applied
-                </div>
 
-            </div>
+                <li>
 
+                    <a href="dashboard.html">
 
-            <div class="application-stat">
+                        🏠 Dashboard
 
-                <div
-                    class="application-stat-number"
-                    id="shortlistedCount">
-                    0
-                </div>
-
-                <div class="application-stat-label">
-                    Shortlisted
-                </div>
-
-            </div>
-
-
-            <div class="application-stat">
-
-                <div
-                    class="application-stat-number"
-                    id="rejectedCount">
-                    0
-                </div>
-
-                <div class="application-stat-label">
-                    Rejected
-                </div>
-
-            </div>
-
-        </div>
-
-
-        <!-- APPLICATIONS -->
-
-        <div
-            id="applicationsContainer"
-            class="applications-list">
-
-            <div class="applications-loading">
-                Loading your applications...
-            </div>
-
-        </div>
-
-    </main>
-
-</div>
-
-
-<script src="js/app.js"></script>
-
-
-<script>
-
-    document.addEventListener(
-        'DOMContentLoaded',
-        async () => {
-
-            const user =
-                await checkAuth();
-
-            if (user) {
-
-                loadApplications();
-
-            }
-
-        }
-    );
-
-
-    async function loadApplications() {
-
-        const candidateId =
-            localStorage.getItem('candidateId');
-
-
-        if (!candidateId) {
-
-            document.getElementById(
-                'applicationsContainer'
-            ).innerHTML = `
-
-                <div class="applications-error">
-                    Candidate information not found.
-                    Please login again.
-                </div>
-
-            `;
-
-            return;
-
-        }
-
-
-        try {
-
-            const response =
-                await fetch(
-                    `/api/applications/candidate/${candidateId}`
-                );
-
-
-            if (!response.ok) {
-
-                throw new Error(
-                    'Unable to load applications.'
-                );
-
-            }
-
-
-            const applications =
-                await response.json();
-
-
-            updateSummary(
-                applications
-            );
-
-
-            displayApplications(
-                applications
-            );
-
-
-        } catch (error) {
-
-            console.error(
-                'Application loading error:',
-                error
-            );
-
-
-            document.getElementById(
-                'applicationsContainer'
-            ).innerHTML = `
-
-                <div class="applications-error">
-                    ${escapeHtml(error.message)}
-                </div>
-
-            `;
-
-        }
-
-    }
-
-
-    function updateSummary(
-        applications
-    ) {
-
-        let applied = 0;
-
-        let shortlisted = 0;
-
-        let rejected = 0;
-
-
-        applications.forEach(
-            application => {
-
-                if (
-                    application.status ===
-                    'Applied'
-                ) {
-
-                    applied++;
-
-                }
-
-                else if (
-                    application.status ===
-                    'Shortlisted'
-                ) {
-
-                    shortlisted++;
-
-                }
-
-                else if (
-                    application.status ===
-                    'Rejected'
-                ) {
-
-                    rejected++;
-
-                }
-
-            }
-        );
-
-
-        document.getElementById(
-            'totalApplications'
-        ).textContent =
-            applications.length;
-
-
-        document.getElementById(
-            'appliedCount'
-        ).textContent =
-            applied;
-
-
-        document.getElementById(
-            'shortlistedCount'
-        ).textContent =
-            shortlisted;
-
-
-        document.getElementById(
-            'rejectedCount'
-        ).textContent =
-            rejected;
-
-    }
-
-
-    function displayApplications(
-        applications
-    ) {
-
-        const container =
-            document.getElementById(
-                'applicationsContainer'
-            );
-
-
-        if (
-            !applications ||
-            applications.length === 0
-        ) {
-
-            container.innerHTML = `
-
-                <div class="applications-empty">
-
-                    <h3>
-                        No Applications Yet
-                    </h3>
-
-                    <p>
-                        You haven't applied for any jobs yet.
-                        Browse available jobs and start applying.
-                    </p>
-
-                    <a
-                        href="jobs.html"
-                        class="browse-jobs-btn">
-                        Browse Jobs
                     </a>
 
+                </li>
+
+
+                <li>
+
+                    <a href="profile.html">
+
+                        👤 Profile Settings
+
+                    </a>
+
+                </li>
+
+
+                <li>
+
+                    <a href="jobs.html">
+
+                        💼 Browse Jobs
+
+                    </a>
+
+                </li>
+
+
+                <li>
+
+                    <a
+                        href="candidate-applications.html"
+                        class="active">
+
+                        📄 My Applications
+
+                    </a>
+
+                </li>
+
+
+                <li>
+
+                    <a href="candidate-interviews.html">
+
+                        📅 My Interviews
+
+                    </a>
+
+                </li>
+
+
+                <li>
+
+                    <a
+                        href="#"
+                        id="logoutBtn">
+
+                        🚪 Logout
+
+                    </a>
+
+                </li>
+
+
+            </ul>
+
+
+        </aside>
+
+
+        <!-- =================================================
+             MAIN CONTENT
+             ================================================= -->
+
+        <main class="main-content">
+
+
+            <header class="header">
+
+                <div>
+
+                    <h1 class="page-title">
+
+                        My Applications
+
+                    </h1>
+
+                    <p class="page-subtitle">
+
+                        Track your job applications
+                        and recruitment progress.
+
+                    </p>
+
+                </div>
+
+            </header>
+
+
+            <div class="applications-page">
+
+
+                <!-- =================================================
+                     SUMMARY
+                     ================================================= -->
+
+                <div class="applications-summary">
+
+
+                    <div class="application-stat">
+
+                        <div class="application-stat-icon">
+                            📄
+                        </div>
+
+                        <div
+                            class="application-stat-number"
+                            id="totalApplications">
+
+                            0
+
+                        </div>
+
+                        <div class="application-stat-label">
+
+                            Total Applications
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="application-stat">
+
+                        <div class="application-stat-icon">
+                            📨
+                        </div>
+
+                        <div
+                            class="application-stat-number"
+                            id="appliedCount">
+
+                            0
+
+                        </div>
+
+                        <div class="application-stat-label">
+
+                            Applied
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="application-stat">
+
+                        <div class="application-stat-icon">
+                            ⭐
+                        </div>
+
+                        <div
+                            class="application-stat-number"
+                            id="shortlistedCount">
+
+                            0
+
+                        </div>
+
+                        <div class="application-stat-label">
+
+                            Shortlisted
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="application-stat">
+
+                        <div class="application-stat-icon">
+                            ❌
+                        </div>
+
+                        <div
+                            class="application-stat-number"
+                            id="rejectedCount">
+
+                            0
+
+                        </div>
+
+                        <div class="application-stat-label">
+
+                            Rejected
+
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+
+                <!-- =================================================
+                     APPLICATIONS
+                     ================================================= -->
+
+                <div
+                    id="applicationsContainer"
+                    class="applications-list">
+
+                    <div class="applications-loading">
+
+                        <div class="loading-icon">
+                            ⏳
+                        </div>
+
+                        Loading your applications...
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+
+        </main>
+
+
+    </div>
+
+
+    <script src="js/app.js"></script>
+
+
+    <script>
+
+
+        // =====================================================
+        // INITIAL LOAD
+        // =====================================================
+
+        document.addEventListener(
+            "DOMContentLoaded",
+            async function() {
+
+                const user =
+                    await checkAuth();
+
+                if (user) {
+
+                    loadApplications();
+
+                }
+
+            }
+        );
+
+
+        // =====================================================
+        // LOAD APPLICATIONS
+        // =====================================================
+
+        async function loadApplications() {
+
+
+            const candidateId =
+                localStorage.getItem(
+                    "candidateId"
+                );
+
+
+            if (!candidateId) {
+
+                document
+                    .getElementById(
+                        "applicationsContainer"
+                    )
+                    .innerHTML = `
+
+                        <div class="applications-error">
+
+                            Candidate information not found.
+                            Please login again.
+
+                        </div>
+
+                    `;
+
+                return;
+
+            }
+
+
+            try {
+
+                const response =
+                    await fetch(
+                        `/api/applications/candidate/${candidateId}`
+                    );
+
+
+                if (!response.ok) {
+
+                    throw new Error(
+                        "Unable to load applications."
+                    );
+
+                }
+
+
+                const applications =
+                    await response.json();
+
+
+                updateSummary(
+                    applications
+                );
+
+
+                displayApplications(
+                    applications
+                );
+
+
+            }
+
+            catch (error) {
+
+                console.error(
+                    "Application loading error:",
+                    error
+                );
+
+
+                document
+                    .getElementById(
+                        "applicationsContainer"
+                    )
+                    .innerHTML = `
+
+                        <div class="applications-error">
+
+                            ${escapeHtml(
+                                error.message
+                            )}
+
+                        </div>
+
+                    `;
+
+            }
+
+        }
+
+
+        // =====================================================
+        // UPDATE SUMMARY
+        // =====================================================
+
+        function updateSummary(
+            applications
+        ) {
+
+            let applied = 0;
+
+            let shortlisted = 0;
+
+            let rejected = 0;
+
+
+            applications.forEach(
+                function(application) {
+
+
+                    if (
+                        application.status ===
+                        "Applied"
+                    ) {
+
+                        applied++;
+
+                    }
+
+
+                    else if (
+                        application.status ===
+                        "Shortlisted"
+                    ) {
+
+                        shortlisted++;
+
+                    }
+
+
+                    else if (
+                        application.status ===
+                        "Rejected"
+                    ) {
+
+                        rejected++;
+
+                    }
+
+                }
+            );
+
+
+            document
+                .getElementById(
+                    "totalApplications"
+                )
+                .textContent =
+                applications.length;
+
+
+            document
+                .getElementById(
+                    "appliedCount"
+                )
+                .textContent =
+                applied;
+
+
+            document
+                .getElementById(
+                    "shortlistedCount"
+                )
+                .textContent =
+                shortlisted;
+
+
+            document
+                .getElementById(
+                    "rejectedCount"
+                )
+                .textContent =
+                rejected;
+
+        }
+
+
+        // =====================================================
+        // DISPLAY APPLICATIONS
+        // =====================================================
+
+        function displayApplications(
+            applications
+        ) {
+
+
+            const container =
+                document.getElementById(
+                    "applicationsContainer"
+                );
+
+
+            if (
+                !applications ||
+                applications.length === 0
+            ) {
+
+                container.innerHTML = `
+
+                    <div class="applications-empty">
+
+                        <div class="applications-empty-icon">
+                            📄
+                        </div>
+
+                        <h3>
+                            No Applications Yet
+                        </h3>
+
+                        <p>
+                            You haven't applied for any jobs yet.
+                            Browse available jobs and start applying.
+                        </p>
+
+                        <a
+                            href="jobs.html"
+                            class="browse-jobs-btn">
+
+                            💼 Browse Jobs
+
+                        </a>
+
+                    </div>
+
+                `;
+
+                return;
+
+            }
+
+
+            container.innerHTML =
+                applications
+                    .map(
+                        function(application) {
+
+                            return createApplicationCard(
+                                application
+                            );
+
+                        }
+                    )
+                    .join("");
+
+        }
+
+
+        // =====================================================
+        // CREATE APPLICATION CARD
+        // =====================================================
+
+        function createApplicationCard(
+            application
+        ) {
+
+
+            const job =
+                application.job || {};
+
+
+            const status =
+                application.status ||
+                "Applied";
+
+
+            let statusClass =
+                "status-applied";
+
+
+            if (
+                status === "Shortlisted"
+            ) {
+
+                statusClass =
+                    "status-shortlisted";
+
+            }
+
+
+            else if (
+                status === "Rejected"
+            ) {
+
+                statusClass =
+                    "status-rejected";
+
+            }
+
+
+            else if (
+                status === "Interview Completed"
+            ) {
+
+                statusClass =
+                    "status-interview";
+
+            }
+
+
+            else if (
+                status === "Selected"
+            ) {
+
+                statusClass =
+                    "status-selected";
+
+            }
+
+
+            else if (
+                status === "Not Selected"
+            ) {
+
+                statusClass =
+                    "status-not-selected";
+
+            }
+
+
+            const coverLetter =
+                application.coverLetter
+                    ? escapeHtml(
+                        application.coverLetter
+                    )
+                    : "No cover letter provided.";
+
+
+            const resultRemarks =
+                application.resultRemarks
+                    ? escapeHtml(
+                        application.resultRemarks
+                    )
+                    : "";
+
+
+            return `
+
+                <div class="application-card">
+
+
+                    <!-- APPLICATION HEADER -->
+
+                    <div class="application-header">
+
+
+                        <div>
+
+                            <h2
+                                class="application-job-title">
+
+                                ${escapeHtml(
+                                    job.title ||
+                                    "Job Position"
+                                )}
+
+                            </h2>
+
+
+                            <div
+                                class="application-company">
+
+                                ${escapeHtml(
+                                    job.company ||
+                                    "Company"
+                                )}
+
+                            </div>
+
+                        </div>
+
+
+                        <span
+                            class="
+                                application-status
+                                ${statusClass}
+                            ">
+
+                            ${escapeHtml(
+                                status
+                            )}
+
+                        </span>
+
+
+                    </div>
+
+
+                    <!-- APPLICATION DETAILS -->
+
+                    <div
+                        class="application-details">
+
+
+                        <div
+                            class="application-detail">
+
+                            <div
+                                class="
+                                    application-detail-label
+                                ">
+
+                                Location
+
+                            </div>
+
+
+                            <div
+                                class="
+                                    application-detail-value
+                                ">
+
+                                ${escapeHtml(
+                                    job.location ||
+                                    "Not specified"
+                                )}
+
+                            </div>
+
+                        </div>
+
+
+                        <div
+                            class="application-detail">
+
+                            <div
+                                class="
+                                    application-detail-label
+                                ">
+
+                                Employment Type
+
+                            </div>
+
+
+                            <div
+                                class="
+                                    application-detail-value
+                                ">
+
+                                ${escapeHtml(
+                                    job.employmentType ||
+                                    "Not specified"
+                                )}
+
+                            </div>
+
+                        </div>
+
+
+                        <div
+                            class="application-detail">
+
+                            <div
+                                class="
+                                    application-detail-label
+                                ">
+
+                                Applied On
+
+                            </div>
+
+
+                            <div
+                                class="
+                                    application-detail-value
+                                ">
+
+                                ${formatDate(
+                                    application.appliedDate
+                                )}
+
+                            </div>
+
+                        </div>
+
+
+                        <div
+                            class="application-detail">
+
+                            <div
+                                class="
+                                    application-detail-label
+                                ">
+
+                                Application ID
+
+                            </div>
+
+
+                            <div
+                                class="
+                                    application-detail-value
+                                ">
+
+                                #${application.id}
+
+                            </div>
+
+                        </div>
+
+
+                    </div>
+
+
+                    <!-- COVER LETTER -->
+
+                    <div class="cover-letter">
+
+
+                        <div
+                            class="cover-letter-title">
+
+                            Cover Letter
+
+                        </div>
+
+
+                        <div
+                            class="cover-letter-text">
+
+                            ${coverLetter}
+
+                        </div>
+
+
+                    </div>
+
+
+                    <!-- RECRUITER REMARKS -->
+
+                    ${
+                        resultRemarks
+                            ? `
+
+                                <div
+                                    class="result-remarks">
+
+                                    <div
+                                        class="
+                                            result-remarks-title
+                                        ">
+
+                                        💬 Recruiter Remarks
+
+                                    </div>
+
+
+                                    <div
+                                        class="
+                                            result-remarks-text
+                                        ">
+
+                                        ${resultRemarks}
+
+                                    </div>
+
+                                </div>
+
+                            `
+                            : ""
+                    }
+
+
                 </div>
 
             `;
 
-            return;
-
         }
 
 
-        container.innerHTML =
-            applications
-                .map(
-                    application =>
-                        createApplicationCard(
-                            application
-                        )
-                )
-                .join('');
+        // =====================================================
+        // FORMAT DATE
+        // =====================================================
 
-    }
-
-
-    function createApplicationCard(
-        application
-    ) {
-
-        const job =
-            application.job || {};
-
-
-        const status =
-            application.status ||
-            'Applied';
-
-
-        let statusClass =
-            'status-applied';
-
-
-        if (
-            status ===
-            'Shortlisted'
+        function formatDate(
+            dateString
         ) {
 
-            statusClass =
-                'status-shortlisted';
 
-        }
+            if (!dateString) {
 
-        else if (
-            status ===
-            'Rejected'
-        ) {
+                return "Not available";
 
-            statusClass =
-                'status-rejected';
-
-        }
-
-
-        const coverLetter =
-            application.coverLetter
-                ? escapeHtml(
-                    application.coverLetter
-                )
-                : 'No cover letter provided.';
-
-
-        return `
-
-            <div class="application-card">
-
-                <div class="application-header">
-
-                    <div>
-
-                        <h2 class="application-job-title">
-
-                            ${escapeHtml(
-                                job.title ||
-                                'Job Position'
-                            )}
-
-                        </h2>
-
-
-                        <div class="application-company">
-
-                            ${escapeHtml(
-                                job.company ||
-                                'Company'
-                            )}
-
-                        </div>
-
-                    </div>
-
-
-                    <span
-                        class="application-status
-                        ${statusClass}">
-
-                        ${escapeHtml(status)}
-
-                    </span>
-
-                </div>
-
-
-                <div class="application-details">
-
-
-                    <div class="application-detail">
-
-                        <div
-                            class="application-detail-label">
-                            Location
-                        </div>
-
-                        <div
-                            class="application-detail-value">
-
-                            ${escapeHtml(
-                                job.location ||
-                                'Not specified'
-                            )}
-
-                        </div>
-
-                    </div>
-
-
-                    <div class="application-detail">
-
-                        <div
-                            class="application-detail-label">
-                            Employment Type
-                        </div>
-
-                        <div
-                            class="application-detail-value">
-
-                            ${escapeHtml(
-                                job.employmentType ||
-                                'Not specified'
-                            )}
-
-                        </div>
-
-                    </div>
-
-
-                    <div class="application-detail">
-
-                        <div
-                            class="application-detail-label">
-                            Applied On
-                        </div>
-
-                        <div
-                            class="application-detail-value">
-
-                            ${formatDate(
-                                application.appliedDate
-                            )}
-
-                        </div>
-
-                    </div>
-
-
-                    <div class="application-detail">
-
-                        <div
-                            class="application-detail-label">
-                            Application ID
-                        </div>
-
-                        <div
-                            class="application-detail-value">
-
-                            #${application.id}
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-
-                <div class="cover-letter">
-
-                    <div class="cover-letter-title">
-                        Cover Letter
-                    </div>
-
-                    <div class="cover-letter-text">
-
-                        ${coverLetter}
-
-                    </div>
-
-                </div>
-
-            </div>
-
-        `;
-
-    }
-
-
-    function formatDate(
-        dateString
-    ) {
-
-        if (!dateString) {
-
-            return 'Not available';
-
-        }
-
-
-        const date =
-            new Date(dateString);
-
-
-        if (
-            isNaN(
-                date.getTime()
-            )
-        ) {
-
-            return dateString;
-
-        }
-
-
-        return date.toLocaleDateString(
-            'en-IN',
-            {
-                day: '2-digit',
-                month: 'short',
-                year: 'numeric'
             }
-        );
-
-    }
 
 
-    function escapeHtml(
-        value
-    ) {
-
-        if (
-            value === null ||
-            value === undefined
-        ) {
-
-            return '';
-
-        }
+            const date =
+                new Date(
+                    dateString
+                );
 
 
-        return String(value)
-            .replace(
-                /&/g,
-                '&amp;'
-            )
-            .replace(
-                /</g,
-                '&lt;'
-            )
-            .replace(
-                />/g,
-                '&gt;'
-            )
-            .replace(
-                /"/g,
-                '&quot;'
-            )
-            .replace(
-                /'/g,
-                '&#039;'
+            if (
+                isNaN(
+                    date.getTime()
+                )
+            ) {
+
+                return dateString;
+
+            }
+
+
+            return date.toLocaleDateString(
+                "en-IN",
+                {
+                    day: "2-digit",
+                    month: "short",
+                    year: "numeric"
+                }
             );
 
-    }
+        }
 
-</script>
 
+        // =====================================================
+        // ESCAPE HTML
+        // =====================================================
+
+        function escapeHtml(
+            value
+        ) {
+
+
+            if (
+                value === null ||
+                value === undefined
+            ) {
+
+                return "";
+
+            }
+
+
+            return String(value)
+
+                .replace(
+                    /&/g,
+                    "&amp;"
+                )
+
+                .replace(
+                    /</g,
+                    "&lt;"
+                )
+
+                .replace(
+                    />/g,
+                    "&gt;"
+                )
+
+                .replace(
+                    /"/g,
+                    "&quot;"
+                )
+
+                .replace(
+                    /'/g,
+                    "&#039;"
+                );
+
+        }
+
+    </script>
 </body>
+
 </html>

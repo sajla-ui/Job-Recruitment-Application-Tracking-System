@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
+import com.jobportal.candidate.model.Resume;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -19,6 +20,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.Optional;
+import java.util.List;
 import java.util.UUID;
 
 /**
@@ -195,4 +197,10 @@ public class CandidateServiceImpl implements CandidateService {
         
         resumeRepository.delete(resume);
     }
+    @Override
+@Transactional(readOnly = true)
+public List<Resume> getResumes(Long candidateId) {
+    getCandidateById(candidateId);
+    return resumeRepository.findByCandidateId(candidateId);
+}
 }

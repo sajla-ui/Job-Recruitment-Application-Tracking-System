@@ -1,99 +1,999 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Job Portal - Register</title>
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>CareerX - Create Account</title>
+    
+
     <link rel="stylesheet" href="css/style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/careerx.css">
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;750&display=swap"
+        rel="stylesheet"
+    >
+
+    <style>
+
+        /* =====================================================
+           BACKGROUND
+           ===================================================== */
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            overflow-x: hidden;
+            background: #050b18;
+        }
+
+        .register-background {
+            position: fixed;
+            inset: 0;
+            overflow: hidden;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .register-grid {
+            position: absolute;
+            inset: 0;
+
+            background-image:
+                linear-gradient(
+                    rgba(56, 189, 248, 0.035) 1px,
+                    transparent 1px
+                ),
+                linear-gradient(
+                    90deg,
+                    rgba(56, 189, 248, 0.035) 1px,
+                    transparent 1px
+                );
+
+            background-size: 55px 55px;
+
+            mask-image:
+                linear-gradient(
+                    to bottom,
+                    black,
+                    transparent 95%
+                );
+        }
+
+        .register-orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(100px);
+            opacity: 0.17;
+        }
+
+        .register-orb-one {
+            width: 400px;
+            height: 400px;
+            background: #06b6d4;
+            top: -160px;
+            left: -140px;
+        }
+
+        .register-orb-two {
+            width: 420px;
+            height: 420px;
+            background: #7c3aed;
+            right: -160px;
+            bottom: -180px;
+        }
+
+        .register-orb-three {
+            width: 250px;
+            height: 250px;
+            background: #2563eb;
+            top: 45%;
+            left: 45%;
+            opacity: 0.08;
+        }
+
+
+        /* =====================================================
+           PAGE LAYOUT
+           ===================================================== */
+
+        .register-page {
+
+            position: relative;
+            z-index: 1;
+
+            min-height: 100vh;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            padding: 35px 20px;
+
+            box-sizing: border-box;
+        }
+
+        .register-wrapper {
+
+            width: 100%;
+
+            max-width: 560px;
+
+        }
+
+
+        /* =====================================================
+           BRAND
+           ===================================================== */
+
+        .careerx-brand {
+
+            text-align: center;
+
+            margin-bottom: 22px;
+
+        }
+
+        .careerx-logo {
+
+            margin: 0;
+
+            color: #f8fafc;
+
+            font-size: 2.15rem;
+
+            font-weight: 750;
+
+            letter-spacing: -1.5px;
+        }
+
+        .careerx-logo span {
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #22d3ee,
+                    #3b82f6,
+                    #8b5cf6
+                );
+
+            -webkit-background-clip: text;
+            background-clip: text;
+
+            color: transparent;
+        }
+
+        .careerx-tagline {
+
+            margin: 7px 0 0;
+
+            color: #64748b;
+
+            font-size: 0.76rem;
+
+            letter-spacing: 1.4px;
+
+            text-transform: uppercase;
+        }
+
+
+        /* =====================================================
+           REGISTER CARD
+           ===================================================== */
+
+        .register-card {
+
+            position: relative;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    rgba(15, 23, 42, 0.94),
+                    rgba(7, 14, 29, 0.92)
+                );
+
+            border:
+                1px solid
+                rgba(148, 163, 184, 0.14);
+
+            border-radius: 22px;
+
+            padding: 34px;
+
+            box-shadow:
+                0 30px 80px
+                rgba(0, 0, 0, 0.35),
+                0 0 50px
+                rgba(6, 182, 212, 0.035);
+
+            backdrop-filter: blur(18px);
+
+            overflow: hidden;
+        }
+
+        .register-card::before {
+
+            content: "";
+
+            position: absolute;
+
+            top: 0;
+            left: 0;
+
+            width: 100%;
+            height: 2px;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    transparent,
+                    #06b6d4,
+                    #3b82f6,
+                    #8b5cf6,
+                    transparent
+                );
+        }
+
+        .register-card::after {
+
+            content: "";
+
+            position: absolute;
+
+            width: 180px;
+            height: 180px;
+
+            top: -110px;
+            right: -100px;
+
+            border-radius: 50%;
+
+            background:
+                rgba(6, 182, 212, 0.05);
+
+            filter: blur(25px);
+
+            pointer-events: none;
+        }
+
+
+        /* =====================================================
+           HEADING
+           ===================================================== */
+
+        .register-heading {
+
+            margin-bottom: 27px;
+
+            text-align: center;
+        }
+
+        .register-heading h1 {
+
+            margin: 0;
+
+            color: #f8fafc;
+
+            font-size: 1.55rem;
+
+            font-weight: 750;
+
+            letter-spacing: -0.5px;
+        }
+
+        .register-heading p {
+
+            margin: 8px 0 0;
+
+            color: #64748b;
+
+            font-size: 0.84rem;
+
+            line-height: 1.5;
+        }
+
+
+        /* =====================================================
+           FORM
+           ===================================================== */
+
+        .register-form {
+
+            display: flex;
+
+            flex-direction: column;
+
+            gap: 17px;
+        }
+
+        .register-form .form-group {
+
+            margin: 0;
+        }
+
+        .register-form label {
+
+            display: block;
+
+            margin-bottom: 8px;
+
+            color: #94a3b8;
+
+            font-size: 0.77rem;
+
+            font-weight: 650;
+        }
+
+        .register-form input {
+
+            width: 100%;
+
+            box-sizing: border-box;
+
+            padding: 12px 14px;
+
+            border:
+                1px solid
+                rgba(148, 163, 184, 0.16);
+
+            border-radius: 10px;
+
+            background:
+                rgba(15, 23, 42, 0.72);
+
+            color: #f8fafc;
+
+            font-family: inherit;
+
+            font-size: 0.86rem;
+
+            outline: none;
+
+            transition:
+                border-color 0.2s ease,
+                box-shadow 0.2s ease,
+                background 0.2s ease;
+        }
+
+        .register-form input::placeholder {
+
+            color:
+                rgba(148, 163, 184, 0.45);
+        }
+
+        .register-form input:focus {
+
+            border-color:
+                rgba(6, 182, 212, 0.48);
+
+            background:
+                rgba(15, 23, 42, 0.88);
+
+            box-shadow:
+                0 0 0 3px
+                rgba(6, 182, 212, 0.07),
+                0 0 20px
+                rgba(6, 182, 212, 0.04);
+        }
+
+        .password-grid {
+
+            display: grid;
+
+            grid-template-columns:
+                1fr 1fr;
+
+            gap: 14px;
+        }
+
+
+        /* =====================================================
+           REGISTER BUTTON
+           ===================================================== */
+
+        .register-button {
+
+            width: 100%;
+
+            margin-top: 4px;
+
+            padding: 12px 18px;
+
+            border: none;
+
+            border-radius: 10px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #06b6d4,
+                    #2563eb
+                );
+
+            color: white;
+
+            font-family: inherit;
+
+            font-size: 0.86rem;
+
+            font-weight: 700;
+
+            cursor: pointer;
+
+            box-shadow:
+                0 10px 28px
+                rgba(6, 182, 212, 0.14);
+
+            transition:
+                transform 0.2s ease,
+                box-shadow 0.2s ease,
+                opacity 0.2s ease;
+        }
+
+        .register-button:hover {
+
+            transform: translateY(-2px);
+
+            box-shadow:
+                0 14px 32px
+                rgba(6, 182, 212, 0.23);
+        }
+
+        .register-button:disabled {
+
+            opacity: 0.55;
+
+            cursor: not-allowed;
+
+            transform: none;
+
+            box-shadow: none;
+        }
+
+
+        /* =====================================================
+           LOGIN LINK
+           ===================================================== */
+
+        .register-footer {
+
+            margin-top: 23px;
+
+            padding-top: 20px;
+
+            border-top:
+                1px solid
+                rgba(148, 163, 184, 0.09);
+
+            text-align: center;
+        }
+
+        .register-footer p {
+
+            margin: 0;
+
+            color: #64748b;
+
+            font-size: 0.80rem;
+        }
+
+        .register-footer a {
+
+            color: #67e8f9;
+
+            font-weight: 650;
+
+            text-decoration: none;
+
+            transition:
+                color 0.2s ease;
+        }
+
+        .register-footer a:hover {
+
+            color: #a5f3fc;
+
+            text-decoration: underline;
+        }
+
+
+        /* =====================================================
+           ALERT
+           ===================================================== */
+
+        #alertMessage {
+
+            margin-bottom: 17px;
+
+            border-radius: 10px;
+        }
+
+
+        /* =====================================================
+           SECURITY NOTE
+           ===================================================== */
+
+        .register-note {
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            gap: 7px;
+
+            margin-top: 18px;
+
+            color: #475569;
+
+            font-size: 0.70rem;
+        }
+
+
+        /* =====================================================
+           RESPONSIVE
+           ===================================================== */
+
+        @media (max-width: 600px) {
+
+            .register-page {
+
+                padding: 25px 14px;
+
+            }
+
+            .register-card {
+
+                padding: 25px 20px;
+
+                border-radius: 18px;
+
+            }
+
+            .careerx-logo {
+
+                font-size: 1.9rem;
+
+            }
+
+            .password-grid {
+
+                grid-template-columns: 1fr;
+
+                gap: 17px;
+
+            }
+
+        }
+
+    </style>
+
 </head>
+
+
 <body>
-    <div class="auth-container">
-        <div class="auth-card" style="max-width: 500px;">
-            <h2>Create Candidate Account</h2>
-            <div id="alertMessage" class="alert"></div>
-            
-            <form id="registerForm">
-                <div class="form-group">
-                    <label for="name">Full Name</label>
-                    <input type="text" id="name" class="form-control" required>
-                </div>
-                <div class="form-group">
-                    <label for="email">Email Address</label>
-                    <input type="email" id="email" class="form-control" required>
-                </div>
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
-                    <div class="form-group">
-                        <label for="password">Password</label>
-                        <input type="password" id="password" class="form-control" required minlength="6">
-                    </div>
-                    <div class="form-group">
-                        <label for="confirmPassword">Confirm Password</label>
-                        <input type="password" id="confirmPassword" class="form-control" required minlength="6">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="phone">Phone Number</label>
-                    <input type="text" id="phone" class="form-control">
-                </div>
-                <div class="form-group">
-                    <label for="location">Location (City, Country)</label>
-                    <input type="text" id="location" class="form-control">
-                </div>
-                <button type="submit" class="btn btn-primary" id="registerBtn">Register</button>
-            </form>
-            
-            <div class="auth-links">
-                <p>Already have an account? <a href="index.html">Login here</a></p>
-            </div>
-        </div>
+
+
+    <!-- =====================================================
+         BACKGROUND
+         ===================================================== -->
+
+    <div class="register-background">
+
+        <div class="register-grid"></div>
+
+        <div class="register-orb register-orb-one"></div>
+
+        <div class="register-orb register-orb-two"></div>
+
+        <div class="register-orb register-orb-three"></div>
+
     </div>
 
+
+    <!-- =====================================================
+         REGISTER PAGE
+         ===================================================== -->
+
+    <main class="register-page">
+
+        <div class="register-wrapper">
+
+
+            <!-- BRAND -->
+
+            <div class="careerx-brand">
+
+                <h2 class="careerx-logo">
+                    Career<span>X</span>
+                </h2>
+
+                <p class="careerx-tagline">
+                    Build your career. Find your opportunity.
+                </p>
+
+            </div>
+
+
+            <!-- REGISTER CARD -->
+
+            <div class="register-card">
+
+
+                <!-- HEADING -->
+
+                <div class="register-heading">
+
+                    <h1>
+                        Create Candidate Account
+                    </h1>
+
+                    <p>
+                        Create your CareerX profile and start
+                        exploring opportunities.
+                    </p>
+
+                </div>
+
+
+                <!-- ALERT -->
+
+                <div
+                    id="alertMessage"
+                    class="alert"
+                ></div>
+
+
+                <!-- FORM -->
+
+                <form
+                    id="registerForm"
+                    class="register-form"
+                >
+
+
+                    <!-- NAME -->
+
+                    <div class="form-group">
+
+                        <label for="name">
+                            Full Name
+                        </label>
+
+                        <input
+                            type="text"
+                            id="name"
+                            placeholder="Enter your full name"
+                            autocomplete="name"
+                            required
+                        >
+
+                    </div>
+
+
+                    <!-- EMAIL -->
+
+                    <div class="form-group">
+
+                        <label for="email">
+                            Email Address
+                        </label>
+
+                        <input
+                            type="email"
+                            id="email"
+                            placeholder="Enter your email address"
+                            autocomplete="email"
+                            required
+                        >
+
+                    </div>
+
+
+                    <!-- PASSWORDS -->
+
+                    <div class="password-grid">
+
+
+                        <div class="form-group">
+
+                            <label for="password">
+                                Password
+                            </label>
+
+                            <input
+                                type="password"
+                                id="password"
+                                placeholder="Minimum 6 characters"
+                                autocomplete="new-password"
+                                minlength="6"
+                                required
+                            >
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label for="confirmPassword">
+                                Confirm Password
+                            </label>
+
+                            <input
+                                type="password"
+                                id="confirmPassword"
+                                placeholder="Re-enter password"
+                                autocomplete="new-password"
+                                minlength="6"
+                                required
+                            >
+
+                        </div>
+
+
+                    </div>
+
+
+                    <!-- PHONE -->
+
+                    <div class="form-group">
+
+                        <label for="phone">
+                            Phone Number
+                        </label>
+
+                        <input
+                            type="text"
+                            id="phone"
+                            placeholder="Enter your phone number"
+                            autocomplete="tel"
+                        >
+
+                    </div>
+
+
+                    <!-- LOCATION -->
+
+                    <div class="form-group">
+
+                        <label for="location">
+                            Location
+                        </label>
+
+                        <input
+                            type="text"
+                            id="location"
+                            placeholder="City, Country"
+                            autocomplete="address-level2"
+                        >
+
+                    </div>
+
+
+                    <!-- REGISTER -->
+
+                    <button
+                        type="submit"
+                        class="register-button"
+                        id="registerBtn"
+                    >
+
+                        Create Account
+
+                    </button>
+
+
+                </form>
+
+
+                <!-- FOOTER -->
+
+                <div class="register-footer">
+
+                    <p>
+
+                        Already have an account?
+
+                        <a href="index.html">
+                            Login here
+                        </a>
+
+                    </p>
+
+                </div>
+
+
+                <!-- SECURITY NOTE -->
+
+                <div class="register-note">
+
+                    <span>🔒</span>
+
+                    <span>
+                        Your information is securely stored.
+                    </span>
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+    </main>
+
+
+    <!-- =====================================================
+         JAVASCRIPT
+         ===================================================== -->
+
     <script src="js/app.js"></script>
+
+
     <script>
-        document.getElementById('registerForm').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            
-            const password = document.getElementById('password').value;
-            const confirmPassword = document.getElementById('confirmPassword').value;
-            
-            if (password !== confirmPassword) {
-                showAlert('Passwords do not match');
-                return;
-            }
 
-            const data = {
-                name: document.getElementById('name').value,
-                email: document.getElementById('email').value,
-                password: password,
-                phone: document.getElementById('phone').value,
-                location: document.getElementById('location').value
-            };
+        document
+            .getElementById("registerForm")
+            .addEventListener(
+                "submit",
+                async function(e) {
 
-            const btn = document.getElementById('registerBtn');
-            btn.textContent = 'Registering...';
-            btn.disabled = true;
+                    e.preventDefault();
 
-            try {
-                const response = await fetch('/api/candidates/register', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(data)
-                });
 
-                if (response.ok) {
-                    window.location.href = 'index.html?registered=true';
-                } else {
-                    const err = await response.json();
-                    showAlert(err.message || 'Registration failed');
+                    const password =
+                        document
+                            .getElementById("password")
+                            .value;
+
+
+                    const confirmPassword =
+                        document
+                            .getElementById("confirmPassword")
+                            .value;
+
+
+                    /* Password validation */
+
+                    if (
+                        password !==
+                        confirmPassword
+                    ) {
+
+                        showAlert(
+                            "Passwords do not match"
+                        );
+
+                        return;
+
+                    }
+
+
+                    const data = {
+
+                        name:
+                            document
+                                .getElementById("name")
+                                .value
+                                .trim(),
+
+                        email:
+                            document
+                                .getElementById("email")
+                                .value
+                                .trim(),
+
+                        password:
+                            password,
+
+                        phone:
+                            document
+                                .getElementById("phone")
+                                .value
+                                .trim(),
+
+                        location:
+                            document
+                                .getElementById("location")
+                                .value
+                                .trim()
+
+                    };
+
+
+                    const btn =
+                        document
+                            .getElementById(
+                                "registerBtn"
+                            );
+
+
+                    btn.textContent =
+                        "Creating Account...";
+
+                    btn.disabled = true;
+
+
+                    try {
+
+                        const response =
+                            await fetch(
+                                "/api/candidates/register",
+                                {
+                                    method: "POST",
+
+                                    headers: {
+                                        "Content-Type":
+                                            "application/json"
+                                    },
+
+                                    body:
+                                        JSON.stringify(
+                                            data
+                                        )
+                                }
+                            );
+
+
+                        if (response.ok) {
+
+                            window.location.href =
+                                "index.html?registered=true";
+
+                        }
+
+                        else {
+
+                            const err =
+                                await response.json();
+
+
+                            showAlert(
+                                err.message ||
+                                "Registration failed"
+                            );
+
+                        }
+
+                    }
+
+                    catch (error) {
+
+                        console.error(
+                            "Registration error:",
+                            error
+                        );
+
+
+                        showAlert(
+                            "An error occurred connecting to the server."
+                        );
+
+                    }
+
+                    finally {
+
+                        btn.textContent =
+                            "Create Account";
+
+                        btn.disabled = false;
+
+                    }
+
                 }
-            } catch (error) {
-                showAlert('An error occurred connecting to the server.');
-            } finally {
-                btn.textContent = 'Register';
-                btn.disabled = false;
-            }
-        });
+            );
+
     </script>
+
+
 </body>
+
 </html>

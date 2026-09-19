@@ -1,0 +1,2387 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+    <title>My Interviews | CareerX</title>
+<script>
+(function () {
+    const theme = localStorage.getItem("careerx-theme") || "system";
+
+    const actualTheme =
+        theme === "system"
+            ? (
+                window.matchMedia("(prefers-color-scheme: dark)").matches
+                    ? "dark"
+                    : "light"
+            )
+            : theme;
+
+    document.documentElement.setAttribute("data-theme", actualTheme);
+    document.documentElement.setAttribute("data-theme-setting", theme);
+})();
+</script>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/careerx.css">
+
+    <style>
+
+        /* =====================================================
+           CAREERX RECRUITER INTERVIEWS
+           ===================================================== */
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+
+            font-family: Inter, Arial, sans-serif;
+
+            color: #e2e8f0;
+
+            background:
+                radial-gradient(
+                    circle at 10% 10%,
+                    rgba(34, 211, 238, 0.09),
+                    transparent 30%
+                ),
+                radial-gradient(
+                    circle at 90% 15%,
+                    rgba(139, 92, 246, 0.10),
+                    transparent 30%
+                ),
+                #020617;
+        }
+
+
+        body::before {
+            content: "";
+
+            position: fixed;
+
+            inset: 0;
+
+            pointer-events: none;
+
+            background-image:
+                linear-gradient(
+                    rgba(56, 189, 248, 0.025) 1px,
+                    transparent 1px
+                ),
+                linear-gradient(
+                    90deg,
+                    rgba(56, 189, 248, 0.025) 1px,
+                    transparent 1px
+                );
+
+            background-size: 55px 55px;
+
+            mask-image:
+                linear-gradient(
+                    to bottom,
+                    black,
+                    transparent
+                );
+
+            z-index: -1;
+        }
+
+
+        /* =====================================================
+           APP
+           ===================================================== */
+
+        .app-container {
+            min-height: 100vh;
+        }
+
+
+        /* =====================================================
+           SIDEBAR
+           ===================================================== */
+
+        .sidebar {
+            position: fixed;
+
+            top: 0;
+            left: 0;
+            bottom: 0;
+
+            width: 250px;
+
+            padding: 25px 16px;
+
+            background:
+                linear-gradient(
+                    180deg,
+                    rgba(7, 18, 36, 0.97),
+                    rgba(2, 8, 23, 0.97)
+                );
+
+            border-right:
+                1px solid rgba(56, 189, 248, 0.13);
+
+            box-shadow:
+                10px 0 40px rgba(0, 0, 0, 0.22);
+
+            z-index: 1000;
+
+            overflow-y: auto;
+        }
+
+
+        /* =====================================================
+           CAREER X LOGO
+           ===================================================== */
+
+        .careerx-logo {
+            display: flex;
+
+            align-items: center;
+
+            gap: 16px;
+
+            padding: 8px 10px 28px;
+        }
+
+
+        .careerx-logo-icon {
+            width: 54px;
+            height: 54px;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            flex-shrink: 0;
+
+            border-radius: 15px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #22d3ee 0%,
+                    #38bdf8 45%,
+                    #6366f1 100%
+                );
+
+            color: #020617;
+
+            font-size: 25px;
+
+            font-weight: 950;
+
+            box-shadow:
+                0 0 25px rgba(34, 211, 238, 0.22),
+                0 8px 25px rgba(37, 99, 235, 0.18);
+        }
+
+
+        .careerx-logo-text {
+            color: #f8fafc;
+
+            font-size: 1.8rem;
+
+            font-weight: 900;
+
+            letter-spacing: -0.045em;
+
+            white-space: nowrap;
+        }
+
+
+        .careerx-logo-text span {
+            color: #22d3ee;
+
+            font-weight: 900;
+        }
+
+
+        /* =====================================================
+           SIDEBAR MENU
+           ===================================================== */
+
+        .sidebar-menu {
+            list-style: none;
+
+            padding: 0;
+            margin: 0;
+        }
+
+
+        .sidebar-menu li {
+            margin-bottom: 6px;
+        }
+
+
+        .sidebar-menu a {
+            position: relative;
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 10px;
+
+            padding: 12px 13px;
+
+            border-radius: 11px;
+
+            color: #64748b;
+
+            text-decoration: none;
+
+            font-size: 0.82rem;
+
+            font-weight: 700;
+
+            transition: all 0.22s ease;
+        }
+
+
+        .sidebar-menu a:hover {
+            color: #cbd5e1;
+
+            background:
+                rgba(34, 211, 238, 0.06);
+
+            transform: translateX(2px);
+        }
+
+
+        .sidebar-menu a.active {
+            color: #67e8f9;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    rgba(34, 211, 238, 0.11),
+                    rgba(139, 92, 246, 0.06)
+                );
+
+            border:
+                1px solid rgba(34, 211, 238, 0.12);
+
+            box-shadow:
+                inset 3px 0 0 #22d3ee;
+        }
+
+
+        .logout-link {
+            color: #f87171 !important;
+        }
+
+
+        .logout-link:hover {
+            color: #fca5a5 !important;
+
+            background:
+                rgba(239, 68, 68, 0.07) !important;
+        }
+
+
+        /* =====================================================
+           MAIN
+           ===================================================== */
+
+        .main-content {
+            width: calc(100% - 250px);
+
+            margin-left: 250px;
+
+            min-height: 100vh;
+
+            padding: 35px;
+
+            max-width: 1700px;
+        }
+
+
+        /* =====================================================
+           HEADER
+           ===================================================== */
+
+        .header {
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: flex-end;
+
+            gap: 20px;
+
+            margin-bottom: 28px;
+
+            padding-bottom: 24px;
+
+            border-bottom:
+                1px solid rgba(56, 189, 248, 0.13);
+        }
+
+
+        .header-eyebrow {
+            display: inline-flex;
+
+            align-items: center;
+
+            gap: 7px;
+
+            margin-bottom: 9px;
+
+            color: #67e8f9;
+
+            font-size: 0.7rem;
+
+            font-weight: 850;
+
+            letter-spacing: 0.15em;
+
+            text-transform: uppercase;
+        }
+
+
+        .header-eyebrow::before {
+            content: "";
+
+            width: 7px;
+            height: 7px;
+
+            border-radius: 50%;
+
+            background: #22d3ee;
+
+            box-shadow:
+                0 0 12px #22d3ee;
+        }
+
+
+        .page-title {
+            margin: 0;
+
+            font-size: clamp(2rem, 4vw, 2.8rem);
+
+            font-weight: 900;
+
+            letter-spacing: -0.045em;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    #f8fafc,
+                    #67e8f9,
+                    #a78bfa
+                );
+
+            -webkit-background-clip: text;
+
+            -webkit-text-fill-color: transparent;
+        }
+
+
+        .header-description {
+            margin: 9px 0 0;
+
+            color: #64748b;
+
+            font-size: 0.88rem;
+        }
+
+
+        .user-name-display {
+            display: inline-flex;
+
+            align-items: center;
+
+            padding: 9px 13px;
+
+            border-radius: 10px;
+
+            color: #67e8f9;
+
+            background:
+                rgba(34, 211, 238, 0.06);
+
+            border:
+                1px solid rgba(34, 211, 238, 0.15);
+
+            font-size: 0.75rem;
+
+            font-weight: 750;
+        }
+
+
+        /* =====================================================
+           CONTENT CARD
+           ===================================================== */
+
+        .content-card {
+            position: relative;
+
+            padding: 25px;
+
+            border-radius: 20px;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    rgba(15, 23, 42, 0.94),
+                    rgba(8, 18, 35, 0.86)
+                );
+
+            border:
+                1px solid rgba(56, 189, 248, 0.12);
+
+            box-shadow:
+                0 18px 50px rgba(0, 0, 0, 0.24);
+
+            overflow: hidden;
+        }
+
+
+        .content-card::before {
+            content: "";
+
+            position: absolute;
+
+            left: 0;
+            right: 0;
+            top: 0;
+
+            height: 2px;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    #22d3ee,
+                    #38bdf8,
+                    #8b5cf6
+                );
+
+            opacity: 0.75;
+        }
+
+
+        /* =====================================================
+           MESSAGES
+           ===================================================== */
+
+        .success-message,
+        .error-message {
+            padding: 12px 14px;
+
+            margin-bottom: 18px;
+
+            border-radius: 10px;
+
+            font-size: 0.78rem;
+
+            line-height: 1.5;
+
+            display: none;
+        }
+
+
+        .success-message {
+            color: #86efac;
+
+            background:
+                rgba(34, 197, 94, 0.08);
+
+            border:
+                1px solid rgba(34, 197, 94, 0.22);
+        }
+
+
+        .error-message {
+            color: #fca5a5;
+
+            background:
+                rgba(239, 68, 68, 0.08);
+
+            border:
+                1px solid rgba(239, 68, 68, 0.22);
+        }
+
+
+        /* =====================================================
+           LOADING
+           ===================================================== */
+
+        .loading {
+            display: flex;
+
+            flex-direction: column;
+
+            align-items: center;
+            justify-content: center;
+
+            min-height: 250px;
+
+            color: #64748b;
+
+            font-size: 0.82rem;
+        }
+
+
+        .loading-spinner {
+            width: 35px;
+            height: 35px;
+
+            margin-bottom: 14px;
+
+            border-radius: 50%;
+
+            border:
+                3px solid rgba(34, 211, 238, 0.10);
+
+            border-top-color:
+                #22d3ee;
+
+            animation:
+                spin 0.8s linear infinite;
+        }
+
+
+        @keyframes spin {
+
+            to {
+                transform: rotate(360deg);
+            }
+
+        }
+
+
+        /* =====================================================
+           INTERVIEW CARD
+           ===================================================== */
+
+        .interview-card {
+            position: relative;
+
+            padding: 23px;
+
+            margin-bottom: 18px;
+
+            border-radius: 18px;
+
+            background:
+                rgba(2, 6, 23, 0.45);
+
+            border:
+                1px solid rgba(56, 189, 248, 0.11);
+
+            overflow: hidden;
+
+            transition:
+                transform 0.25s ease,
+                border-color 0.25s ease,
+                box-shadow 0.25s ease;
+        }
+
+
+        .interview-card:last-child {
+            margin-bottom: 0;
+        }
+
+
+        .interview-card::before {
+            content: "";
+
+            position: absolute;
+
+            left: 0;
+            top: 0;
+            bottom: 0;
+
+            width: 3px;
+
+            background:
+                linear-gradient(
+                    #22d3ee,
+                    #8b5cf6
+                );
+
+            opacity: 0.75;
+        }
+
+
+        .interview-card:hover {
+            transform: translateY(-3px);
+
+            border-color:
+                rgba(34, 211, 238, 0.27);
+
+            box-shadow:
+                0 18px 40px rgba(0, 0, 0, 0.22),
+                0 0 25px rgba(34, 211, 238, 0.04);
+        }
+
+
+        /* =====================================================
+           INTERVIEW HEADER
+           ===================================================== */
+
+        .interview-header {
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: flex-start;
+
+            gap: 20px;
+
+            margin-bottom: 19px;
+        }
+
+
+        .candidate-name {
+            margin-bottom: 7px;
+
+            color: #f1f5f9;
+
+            font-size: 1.15rem;
+
+            font-weight: 850;
+        }
+
+
+        .job-name {
+            color: #67e8f9;
+
+            font-size: 0.78rem;
+
+            font-weight: 700;
+        }
+
+
+        /* =====================================================
+           STATUS
+           ===================================================== */
+
+        .interview-status {
+            display: inline-flex;
+
+            align-items: center;
+            justify-content: center;
+
+            padding: 7px 12px;
+
+            border-radius: 999px;
+
+            font-size: 0.68rem;
+
+            font-weight: 850;
+
+            white-space: nowrap;
+        }
+
+
+        .status-scheduled {
+            color: #67e8f9;
+
+            background:
+                rgba(34, 211, 238, 0.08);
+
+            border:
+                1px solid rgba(34, 211, 238, 0.23);
+        }
+
+
+        .status-completed {
+            color: #86efac;
+
+            background:
+                rgba(34, 197, 94, 0.08);
+
+            border:
+                1px solid rgba(34, 197, 94, 0.23);
+        }
+
+
+        .status-cancelled {
+            color: #fca5a5;
+
+            background:
+                rgba(239, 68, 68, 0.08);
+
+            border:
+                1px solid rgba(239, 68, 68, 0.23);
+        }
+
+
+        /* =====================================================
+           DETAILS
+           ===================================================== */
+
+        .interview-details {
+            display: grid;
+
+            grid-template-columns:
+                repeat(2, minmax(0, 1fr));
+
+            gap: 12px;
+
+            margin-top: 18px;
+        }
+
+
+        .detail-box {
+            min-height: 72px;
+
+            padding: 13px;
+
+            border-radius: 11px;
+
+            background:
+                rgba(15, 23, 42, 0.50);
+
+            border:
+                1px solid rgba(148, 163, 184, 0.07);
+        }
+
+
+        .detail-label {
+            display: block;
+
+            margin-bottom: 7px;
+
+            color: #475569;
+
+            font-size: 0.65rem;
+
+            font-weight: 800;
+
+            text-transform: uppercase;
+
+            letter-spacing: 0.08em;
+        }
+
+
+        .detail-value {
+            color: #cbd5e1;
+
+            font-size: 0.78rem;
+
+            font-weight: 650;
+
+            line-height: 1.5;
+
+            word-break: break-word;
+        }
+
+
+        /* =====================================================
+           MEETING LINK
+           ===================================================== */
+
+        .meeting-link {
+            display: inline-flex;
+
+            align-items: center;
+
+            gap: 7px;
+
+            margin-top: 17px;
+
+            padding: 10px 15px;
+
+            border-radius: 10px;
+
+            color: #03121d;
+
+            background:
+                linear-gradient(
+                    100deg,
+                    #67e8f9,
+                    #22d3ee
+                );
+
+            text-decoration: none;
+
+            font-size: 0.75rem;
+
+            font-weight: 850;
+
+            transition: all 0.22s ease;
+        }
+
+
+        .meeting-link:hover {
+            transform: translateY(-2px);
+
+            box-shadow:
+                0 0 24px rgba(34, 211, 238, 0.20);
+        }
+
+
+        /* =====================================================
+           NOTES
+           ===================================================== */
+
+        .notes-box {
+            margin-top: 17px;
+        }
+
+
+        /* =====================================================
+           ACTION BUTTONS
+           ===================================================== */
+
+        .action-buttons {
+            display: flex;
+
+            gap: 9px;
+
+            margin-top: 19px;
+
+            padding-top: 17px;
+
+            border-top:
+                1px solid rgba(148, 163, 184, 0.07);
+
+            flex-wrap: wrap;
+        }
+
+
+        .action-btn {
+            display: inline-flex;
+
+            align-items: center;
+            justify-content: center;
+
+            min-height: 39px;
+
+            padding: 9px 14px;
+
+            border-radius: 10px;
+
+            font-family: inherit;
+
+            font-size: 0.73rem;
+
+            font-weight: 800;
+
+            cursor: pointer;
+
+            transition: all 0.22s ease;
+        }
+
+
+        .complete-btn {
+            color: #86efac;
+
+            background:
+                rgba(34, 197, 94, 0.07);
+
+            border:
+                1px solid rgba(34, 197, 94, 0.20);
+        }
+
+
+        .complete-btn:hover {
+            transform: translateY(-2px);
+
+            background:
+                rgba(34, 197, 94, 0.14);
+
+            border-color:
+                rgba(34, 197, 94, 0.4);
+        }
+
+
+        .cancel-btn {
+            color: #fca5a5;
+
+            background:
+                rgba(239, 68, 68, 0.07);
+
+            border:
+                1px solid rgba(239, 68, 68, 0.20);
+        }
+
+
+        .cancel-btn:hover {
+            transform: translateY(-2px);
+
+            background:
+                rgba(239, 68, 68, 0.14);
+
+            border-color:
+                rgba(239, 68, 68, 0.4);
+        }
+
+
+        /* =====================================================
+           EMPTY STATE
+           ===================================================== */
+
+        .empty-state {
+            display: flex;
+
+            flex-direction: column;
+
+            align-items: center;
+
+            justify-content: center;
+
+            min-height: 300px;
+
+            padding: 50px 20px;
+
+            text-align: center;
+
+            color: #64748b;
+        }
+
+
+        .empty-icon {
+            width: 68px;
+            height: 68px;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            margin-bottom: 18px;
+
+            border-radius: 18px;
+
+            color: #67e8f9;
+
+            background:
+                rgba(34, 211, 238, 0.06);
+
+            border:
+                1px solid rgba(34, 211, 238, 0.15);
+
+            font-size: 1.7rem;
+        }
+
+
+        .empty-state h2 {
+            margin: 0 0 8px;
+
+            color: #cbd5e1;
+
+            font-size: 1.05rem;
+        }
+
+
+        .empty-state p {
+            margin: 0;
+
+            color: #64748b;
+
+            font-size: 0.78rem;
+        }
+
+
+        /* =====================================================
+           RESPONSIVE
+           ===================================================== */
+
+        @media (max-width: 900px) {
+
+            .sidebar {
+                width: 220px;
+            }
+
+
+            .main-content {
+                width: calc(100% - 220px);
+
+                margin-left: 220px;
+
+                padding: 28px;
+            }
+
+        }
+
+
+        @media (max-width: 800px) {
+
+            .sidebar {
+                position: relative;
+
+                width: 100%;
+
+                height: auto;
+
+                border-right: none;
+
+                border-bottom:
+                    1px solid rgba(56, 189, 248, 0.13);
+            }
+
+
+            .sidebar-menu {
+                display: flex;
+
+                gap: 6px;
+
+                overflow-x: auto;
+
+                padding-bottom: 5px;
+            }
+
+
+            .sidebar-menu li {
+                flex-shrink: 0;
+
+                margin: 0;
+            }
+
+
+            .sidebar-menu a {
+                white-space: nowrap;
+            }
+
+
+            .app-container {
+                display: block;
+            }
+
+
+            .main-content {
+                width: 100%;
+
+                margin-left: 0;
+
+                padding: 25px 18px;
+            }
+
+        }
+
+
+        @media (max-width: 650px) {
+
+            .interview-details {
+                grid-template-columns: 1fr;
+            }
+
+
+            .interview-header {
+                flex-direction: column;
+            }
+
+
+            .header {
+                align-items: flex-start;
+
+                flex-direction: column;
+            }
+
+
+            .user-name-display {
+                align-self: flex-start;
+            }
+
+        }
+
+
+        @media (max-width: 450px) {
+
+            .main-content {
+                padding: 18px 12px;
+            }
+
+
+            .content-card {
+                padding: 17px;
+            }
+
+
+            .interview-card {
+                padding: 18px;
+            }
+
+
+            .page-title {
+                font-size: 1.8rem;
+            }
+
+
+            .action-buttons {
+                flex-direction: column;
+            }
+
+
+            .action-btn {
+                width: 100%;
+            }
+
+
+            .meeting-link {
+                width: 100%;
+
+                justify-content: center;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<div class="app-container">
+
+
+    <!-- =====================================================
+         SIDEBAR
+         ===================================================== -->
+
+    <aside class="sidebar">
+
+
+        <div class="careerx-logo">
+
+            <div class="careerx-logo-icon">
+                X
+            </div>
+
+            <div class="careerx-logo-text">
+                Career <span>X</span>
+            </div>
+
+        </div>
+
+
+        <ul class="sidebar-menu">
+
+
+            <li>
+
+                <a href="recruiter-dashboard.html">
+
+                    🏠
+                    Dashboard
+
+                </a>
+
+            </li>
+
+
+            <li>
+
+                <a href="recruiter-jobs.html">
+
+                    💼
+                    Manage Jobs
+
+                </a>
+
+            </li>
+
+
+            <li>
+
+                <a href="recruiter-applications.html">
+
+                    📄
+                    Applications
+
+                </a>
+
+            </li>
+
+
+            <li>
+
+                <a
+                    href="recruiter-interviews.html"
+                    class="active">
+
+                    📅
+                    My Interviews
+
+                </a>
+
+            </li>
+
+
+            <li>
+
+                <a
+                    href="#"
+                    id="logoutBtn"
+                    class="logout-link">
+
+                    🚪
+                    Logout
+
+                </a>
+
+            </li>
+
+
+        </ul>
+
+    </aside>
+
+
+    <!-- =====================================================
+         MAIN CONTENT
+         ===================================================== -->
+
+    <main class="main-content">
+
+
+        <header class="header">
+
+
+            <div>
+
+                <div class="header-eyebrow">
+                    Recruiter Workspace
+                </div>
+
+
+                <h1 class="page-title">
+                    My Interviews
+                </h1>
+
+
+                <p class="header-description">
+                    Manage your scheduled candidate interviews.
+                </p>
+
+            </div>
+
+
+            <div>
+
+                <span
+                    class="user-name-display"
+                    id="userNameDisplay">
+
+                    Recruiter
+
+                </span>
+
+            </div>
+
+
+        </header>
+
+
+        <!-- =================================================
+             CONTENT
+             ================================================= -->
+
+        <div class="content-card">
+
+
+            <div
+                id="successMessage"
+                class="success-message">
+            </div>
+
+
+            <div
+                id="errorMessage"
+                class="error-message">
+            </div>
+
+
+            <div
+                id="loadingMessage"
+                class="loading">
+
+                <div class="loading-spinner"></div>
+
+                Loading interviews...
+
+            </div>
+
+
+            <div
+                id="interviewsContainer">
+            </div>
+
+
+        </div>
+
+
+    </main>
+
+
+</div>
+
+
+<script>
+
+
+/* =========================================================
+   DATA
+   ========================================================= */
+
+let allInterviews = [];
+
+
+/* =========================================================
+   LOAD RECRUITER NAME
+   ========================================================= */
+
+function loadRecruiterName() {
+
+    try {
+
+        const recruiterData =
+            localStorage.getItem(
+                "recruiter"
+            );
+
+
+        if (!recruiterData) {
+            return;
+        }
+
+
+        const recruiter =
+            JSON.parse(
+                recruiterData
+            );
+
+
+        const display =
+            document.getElementById(
+                "userNameDisplay"
+            );
+
+
+        if (
+            recruiter.companyName
+        ) {
+
+            display.textContent =
+                recruiter.companyName;
+
+        }
+
+        else if (
+            recruiter.name
+        ) {
+
+            display.textContent =
+                recruiter.name;
+
+        }
+
+    }
+
+    catch (error) {
+
+        console.error(
+            "Unable to load recruiter information:",
+            error
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   LOAD INTERVIEWS
+   ========================================================= */
+
+async function loadInterviews() {
+
+
+    const container =
+        document.getElementById(
+            "interviewsContainer"
+        );
+
+
+    const loading =
+        document.getElementById(
+            "loadingMessage"
+        );
+
+
+    const recruiterId =
+        localStorage.getItem(
+            "recruiterId"
+        );
+
+
+    if (!recruiterId) {
+
+        window.location.href =
+            "recruiter-login.html";
+
+        return;
+
+    }
+
+
+    loading.style.display =
+        "flex";
+
+
+    try {
+
+        const response =
+            await fetch(
+                `/api/interviews/recruiter/${recruiterId}`
+            );
+
+
+        if (!response.ok) {
+
+            throw new Error(
+                "Unable to load interviews."
+            );
+
+        }
+
+
+        allInterviews =
+            await response.json();
+
+
+        loading.style.display =
+            "none";
+
+
+        displayInterviews();
+
+
+    }
+
+    catch (error) {
+
+        console.error(
+            "Error loading interviews:",
+            error
+        );
+
+
+        loading.style.display =
+            "none";
+
+
+        showError(
+            error.message ||
+            "Unable to load interviews."
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   DISPLAY INTERVIEWS
+   ========================================================= */
+
+function displayInterviews() {
+
+
+    const container =
+        document.getElementById(
+            "interviewsContainer"
+        );
+
+
+    if (
+        !allInterviews ||
+        allInterviews.length === 0
+    ) {
+
+        container.innerHTML = `
+
+            <div class="empty-state">
+
+                <div class="empty-icon">
+                    📅
+                </div>
+
+                <h2>
+                    No Interviews Scheduled
+                </h2>
+
+                <p>
+                    Interviews you schedule
+                    will appear here.
+                </p>
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    allInterviews.sort(
+        function(a, b) {
+
+            return new Date(
+                a.interviewDate
+            ) -
+            new Date(
+                b.interviewDate
+            );
+
+        }
+    );
+
+
+    container.innerHTML =
+        allInterviews
+            .map(
+                createInterviewCard
+            )
+            .join("");
+
+}
+
+
+/* =========================================================
+   CREATE INTERVIEW CARD
+   ========================================================= */
+
+function createInterviewCard(
+    interview
+) {
+
+
+    const status =
+        interview.status ||
+        "Scheduled";
+
+
+    let statusClass =
+        "status-scheduled";
+
+
+    if (
+        status === "Completed"
+    ) {
+
+        statusClass =
+            "status-completed";
+
+    }
+
+
+    else if (
+        status === "Cancelled"
+    ) {
+
+        statusClass =
+            "status-cancelled";
+
+    }
+
+
+    const mode =
+        interview.mode &&
+        interview.mode.toLowerCase() ===
+        "online"
+
+            ? "💻 Online"
+
+            : "🏢 Offline";
+
+
+    /* =====================================================
+       LOCATION
+       ===================================================== */
+
+    let location = "";
+
+
+    if (
+        interview.location
+    ) {
+
+        location = `
+
+            <div class="detail-box">
+
+                <span class="detail-label">
+                    Location
+                </span>
+
+                <span class="detail-value">
+
+                    ${escapeHtml(
+                        interview.location
+                    )}
+
+                </span>
+
+            </div>
+
+        `;
+
+    }
+
+
+    /* =====================================================
+       MEETING LINK
+       ===================================================== */
+
+    let meetingLink = "";
+
+
+    if (
+        interview.meetingLink &&
+        interview.mode &&
+        interview.mode.toLowerCase() ===
+        "online"
+    ) {
+
+        meetingLink = `
+
+            <a
+                href="${escapeAttribute(
+                    interview.meetingLink
+                )}"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="meeting-link">
+
+                🔗 Join Interview
+
+            </a>
+
+        `;
+
+    }
+
+
+    /* =====================================================
+       NOTES
+       ===================================================== */
+
+    let notes = "";
+
+
+    if (
+        interview.notes
+    ) {
+
+        notes = `
+
+            <div
+                class="detail-box notes-box">
+
+                <span class="detail-label">
+                    Notes
+                </span>
+
+                <span class="detail-value">
+
+                    ${escapeHtml(
+                        interview.notes
+                    )}
+
+                </span>
+
+            </div>
+
+        `;
+
+    }
+
+
+    /* =====================================================
+       ACTIONS
+       ===================================================== */
+
+    let actions = "";
+
+
+    if (
+        status === "Scheduled"
+    ) {
+
+        actions = `
+
+            <div class="action-buttons">
+
+                <button
+                    type="button"
+                    class="action-btn complete-btn"
+                    onclick="updateInterviewStatus(
+                        ${interview.id},
+                        'Completed'
+                    )">
+
+                    ✓ Mark Completed
+
+                </button>
+
+
+                <button
+                    type="button"
+                    class="action-btn cancel-btn"
+                    onclick="cancelInterview(
+                        ${interview.id}
+                    )">
+
+                    ✕ Cancel Interview
+
+                </button>
+
+            </div>
+
+        `;
+
+    }
+
+
+    /* =====================================================
+       RETURN CARD
+       ===================================================== */
+
+    return `
+
+        <div class="interview-card">
+
+
+            <div class="interview-header">
+
+
+                <div>
+
+                    <div class="candidate-name">
+
+                        👤
+                        ${escapeHtml(
+                            interview.candidateName ||
+                            "Candidate"
+                        )}
+
+                    </div>
+
+
+                    <div class="job-name">
+
+                        💼
+                        ${escapeHtml(
+                            interview.jobTitle ||
+                            "Job Position"
+                        )}
+
+                        —
+
+                        ${escapeHtml(
+                            interview.companyName ||
+                            "Company"
+                        )}
+
+                    </div>
+
+                </div>
+
+
+                <span
+                    class="interview-status
+                           ${statusClass}">
+
+                    ${escapeHtml(
+                        status
+                    )}
+
+                </span>
+
+
+            </div>
+
+
+            <div class="interview-details">
+
+
+                <div class="detail-box">
+
+                    <span class="detail-label">
+                        Interview Date & Time
+                    </span>
+
+                    <span class="detail-value">
+
+                        📅
+                        ${formatDateTime(
+                            interview.interviewDate
+                        )}
+
+                    </span>
+
+                </div>
+
+
+                <div class="detail-box">
+
+                    <span class="detail-label">
+                        Mode
+                    </span>
+
+                    <span class="detail-value">
+
+                        ${mode}
+
+                    </span>
+
+                </div>
+
+
+                <div class="detail-box">
+
+                    <span class="detail-label">
+                        Application ID
+                    </span>
+
+                    <span class="detail-value">
+
+                        #${interview.applicationId || "N/A"}
+
+                    </span>
+
+                </div>
+
+
+                <div class="detail-box">
+
+                    <span class="detail-label">
+                        Applied Date
+                    </span>
+
+                    <span class="detail-value">
+
+                        ${
+                            interview.appliedDate
+                                ? formatDate(
+                                    interview.appliedDate
+                                )
+                                : "Not available"
+                        }
+
+                    </span>
+
+                </div>
+
+
+                ${location}
+
+
+            </div>
+
+
+            ${meetingLink}
+
+
+            ${notes}
+
+
+            ${actions}
+
+
+        </div>
+
+    `;
+
+}
+
+
+/* =========================================================
+   UPDATE INTERVIEW STATUS
+   ========================================================= */
+
+async function updateInterviewStatus(
+    interviewId,
+    status
+) {
+
+
+    const recruiterId =
+        localStorage.getItem(
+            "recruiterId"
+        );
+
+
+    if (!recruiterId) {
+
+        window.location.href =
+            "recruiter-login.html";
+
+        return;
+
+    }
+
+
+    try {
+
+        const response =
+            await fetch(
+                `/api/interviews/${interviewId}/status?recruiterId=${recruiterId}&status=${encodeURIComponent(status)}`,
+                {
+                    method: "PUT"
+                }
+            );
+
+
+        if (!response.ok) {
+
+            const errorData =
+                await response
+                    .json()
+                    .catch(
+                        () => null
+                    );
+
+
+            throw new Error(
+                errorData?.message ||
+                "Unable to update interview."
+            );
+
+        }
+
+
+        showSuccess(
+            "Interview marked as completed."
+        );
+
+
+        await loadInterviews();
+
+
+    }
+
+    catch (error) {
+
+        console.error(
+            error
+        );
+
+
+        showError(
+            error.message ||
+            "Unable to update interview."
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   CANCEL INTERVIEW
+   ========================================================= */
+
+async function cancelInterview(
+    interviewId
+) {
+
+
+    const confirmed =
+        confirm(
+            "Are you sure you want to cancel this interview?"
+        );
+
+
+    if (!confirmed) {
+
+        return;
+
+    }
+
+
+    const recruiterId =
+        localStorage.getItem(
+            "recruiterId"
+        );
+
+
+    if (!recruiterId) {
+
+        window.location.href =
+            "recruiter-login.html";
+
+        return;
+
+    }
+
+
+    try {
+
+        const response =
+            await fetch(
+                `/api/interviews/${interviewId}?recruiterId=${recruiterId}`,
+                {
+                    method: "DELETE"
+                }
+            );
+
+
+        if (!response.ok) {
+
+            const errorData =
+                await response
+                    .json()
+                    .catch(
+                        () => null
+                    );
+
+
+            throw new Error(
+                errorData?.message ||
+                "Unable to cancel interview."
+            );
+
+        }
+
+
+        showSuccess(
+            "Interview cancelled successfully."
+        );
+
+
+        await loadInterviews();
+
+
+    }
+
+    catch (error) {
+
+        console.error(
+            error
+        );
+
+
+        showError(
+            error.message ||
+            "Unable to cancel interview."
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   FORMAT DATE + TIME
+   ========================================================= */
+
+function formatDateTime(
+    dateString
+) {
+
+
+    if (!dateString) {
+
+        return "Not available";
+
+    }
+
+
+    const date =
+        new Date(
+            dateString
+        );
+
+
+    if (
+        isNaN(
+            date.getTime()
+        )
+    ) {
+
+        return dateString;
+
+    }
+
+
+    return date.toLocaleString(
+        "en-IN",
+        {
+            day: "2-digit",
+            month: "short",
+            year: "numeric",
+            hour: "2-digit",
+            minute: "2-digit"
+        }
+    );
+
+}
+
+
+/* =========================================================
+   FORMAT DATE
+   ========================================================= */
+
+function formatDate(
+    dateString
+) {
+
+
+    if (!dateString) {
+
+        return "Not available";
+
+    }
+
+
+    const date =
+        new Date(
+            dateString
+        );
+
+
+    if (
+        isNaN(
+            date.getTime()
+        )
+    ) {
+
+        return dateString;
+
+    }
+
+
+    return date.toLocaleDateString(
+        "en-IN",
+        {
+            day: "2-digit",
+            month: "short",
+            year: "numeric"
+        }
+    );
+
+}
+
+
+/* =========================================================
+   HTML ESCAPING
+   ========================================================= */
+
+function escapeHtml(
+    value
+) {
+
+
+    if (
+        value === null ||
+        value === undefined
+    ) {
+
+        return "";
+
+    }
+
+
+    return String(value)
+        .replace(
+            /&/g,
+            "&amp;"
+        )
+        .replace(
+            /</g,
+            "&lt;"
+        )
+        .replace(
+            />/g,
+            "&gt;"
+        )
+        .replace(
+            /"/g,
+            "&quot;"
+        )
+        .replace(
+            /'/g,
+            "&#039;"
+        );
+
+}
+
+
+/* =========================================================
+   ATTRIBUTE ESCAPING
+   ========================================================= */
+
+function escapeAttribute(
+    value
+) {
+
+
+    if (!value) {
+
+        return "";
+
+    }
+
+
+    return String(value)
+        .replace(
+            /&/g,
+            "&amp;"
+        )
+        .replace(
+            /"/g,
+            "&quot;"
+        )
+        .replace(
+            /</g,
+            "&lt;"
+        )
+        .replace(
+            />/g,
+            "&gt;"
+        );
+
+}
+
+
+/* =========================================================
+   SUCCESS MESSAGE
+   ========================================================= */
+
+function showSuccess(
+    message
+) {
+
+
+    const element =
+        document.getElementById(
+            "successMessage"
+        );
+
+
+    const errorElement =
+        document.getElementById(
+            "errorMessage"
+        );
+
+
+    errorElement.style.display =
+        "none";
+
+
+    element.textContent =
+        message;
+
+
+    element.style.display =
+        "block";
+
+
+    setTimeout(
+        function() {
+
+            element.style.display =
+                "none";
+
+        },
+        4000
+    );
+
+}
+
+
+/* =========================================================
+   ERROR MESSAGE
+   ========================================================= */
+
+function showError(
+    message
+) {
+
+
+    const element =
+        document.getElementById(
+            "errorMessage"
+        );
+
+
+    const successElement =
+        document.getElementById(
+            "successMessage"
+        );
+
+
+    successElement.style.display =
+        "none";
+
+
+    element.textContent =
+        message;
+
+
+    element.style.display =
+        "block";
+
+}
+
+
+/* =========================================================
+   LOGOUT
+   ========================================================= */
+
+document.getElementById(
+    "logoutBtn"
+).addEventListener(
+    "click",
+    function(event) {
+
+        event.preventDefault();
+
+
+        localStorage.removeItem(
+            "recruiter"
+        );
+
+
+        localStorage.removeItem(
+            "recruiterId"
+        );
+
+
+        window.location.href =
+            "recruiter-login.html";
+
+    }
+);
+
+
+/* =========================================================
+   INITIAL LOAD
+   ========================================================= */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function() {
+
+        loadRecruiterName();
+
+        loadInterviews();
+
+    }
+);
+
+</script>
+
+<script src="js/theme.js"></script>
+</body>
+
+</html>

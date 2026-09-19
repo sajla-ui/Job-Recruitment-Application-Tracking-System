@@ -37,6 +37,8 @@ public class Application {
 
     @Column(name = "cover_letter", columnDefinition = "TEXT")
     private String coverLetter;
+    @Column(name = "result_remarks", columnDefinition = "TEXT")
+private String resultRemarks;
 
     // Default constructor
     public Application() {
@@ -102,4 +104,11 @@ public class Application {
     public void setCoverLetter(String coverLetter) {
         this.coverLetter = coverLetter;
     }
+    public String getResultRemarks() {
+    return resultRemarks;
+}
+
+public void setResultRemarks(String resultRemarks) {
+    this.resultRemarks = resultRemarks;
+}
 }

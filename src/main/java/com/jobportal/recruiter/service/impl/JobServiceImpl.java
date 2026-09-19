@@ -1,10 +1,16 @@
 package com.jobportal.recruiter.service.impl;
 
+import com.jobportal.application.model.Application;
+import com.jobportal.application.model.Interview;
+import com.jobportal.application.repository.ApplicationRepository;
+import com.jobportal.application.repository.InterviewRepository;
+
 import com.jobportal.recruiter.model.Job;
 import com.jobportal.recruiter.model.Recruiter;
 import com.jobportal.recruiter.repository.JobRepository;
 import com.jobportal.recruiter.repository.RecruiterRepository;
 import com.jobportal.recruiter.service.JobService;
+
 import com.jobportal.shared.exception.ResourceNotFoundException;
 import com.jobportal.shared.exception.UnauthorizedException;
 
@@ -19,17 +25,29 @@ public class JobServiceImpl implements JobService {
 
     private final JobRepository jobRepository;
     private final RecruiterRepository recruiterRepository;
+    private final ApplicationRepository applicationRepository;
+    private final InterviewRepository interviewRepository;
 
-    // Constructor - Dependency Injection
+    // =====================================================
+    // CONSTRUCTOR - DEPENDENCY INJECTION
+    // =====================================================
+
     public JobServiceImpl(
             JobRepository jobRepository,
-            RecruiterRepository recruiterRepository) {
+            RecruiterRepository recruiterRepository,
+            ApplicationRepository applicationRepository,
+            InterviewRepository interviewRepository) {
 
         this.jobRepository = jobRepository;
         this.recruiterRepository = recruiterRepository;
+        this.applicationRepository = applicationRepository;
+        this.interviewRepository = interviewRepository;
     }
 
-    // Create / Post Job
+    // =====================================================
+    // CREATE / POST JOB
+    // =====================================================
+
     @Override
     @Transactional
     public Job createJob(Long recruiterId, Job job) {
@@ -53,7 +71,10 @@ public class JobServiceImpl implements JobService {
         return jobRepository.save(job);
     }
 
-    // Get one job
+    // =====================================================
+    // GET ONE JOB
+    // =====================================================
+
     @Override
     public Job getJobById(Long jobId) {
 
@@ -65,14 +86,20 @@ public class JobServiceImpl implements JobService {
                 );
     }
 
-    // Get all jobs
+    // =====================================================
+    // GET ALL JOBS
+    // =====================================================
+
     @Override
     public List<Job> getAllJobs() {
 
         return jobRepository.findAll();
     }
 
-    // Get jobs belonging to a recruiter
+    // =====================================================
+    // GET JOBS BELONGING TO A RECRUITER
+    // =====================================================
+
     @Override
     public List<Job> getJobsByRecruiter(Long recruiterId) {
 
@@ -86,7 +113,10 @@ public class JobServiceImpl implements JobService {
         return jobRepository.findByRecruiter(recruiter);
     }
 
-    // Update Job
+    // =====================================================
+    // UPDATE JOB
+    // =====================================================
+
     @Override
     @Transactional
     public Job updateJob(
@@ -97,7 +127,8 @@ public class JobServiceImpl implements JobService {
         Job existingJob = getJobById(jobId);
 
         // Security check:
-        // Only the recruiter who posted the job can update it.
+        // Only the recruiter who posted the job
+        // can update it.
         if (!existingJob.getRecruiter()
                 .getId()
                 .equals(recruiterId)) {
@@ -107,14 +138,22 @@ public class JobServiceImpl implements JobService {
             );
         }
 
-        existingJob.setTitle(updatedJob.getTitle());
-        existingJob.setLocation(updatedJob.getLocation());
+        existingJob.setTitle(
+                updatedJob.getTitle()
+        );
+
+        existingJob.setLocation(
+                updatedJob.getLocation()
+        );
+
         existingJob.setEmploymentType(
                 updatedJob.getEmploymentType()
         );
+
         existingJob.setDescription(
                 updatedJob.getDescription()
         );
+
         existingJob.setRequirements(
                 updatedJob.getRequirements()
         );
@@ -122,7 +161,10 @@ public class JobServiceImpl implements JobService {
         return jobRepository.save(existingJob);
     }
 
-    // Delete Job
+    // =====================================================
+    // DELETE JOB
+    // =====================================================
+
     @Override
     @Transactional
     public void deleteJob(
@@ -131,7 +173,10 @@ public class JobServiceImpl implements JobService {
 
         Job existingJob = getJobById(jobId);
 
-        // Security check
+        // -------------------------------------------------
+        // SECURITY CHECK
+        // -------------------------------------------------
+
         if (!existingJob.getRecruiter()
                 .getId()
                 .equals(recruiterId)) {
@@ -141,20 +186,72 @@ public class JobServiceImpl implements JobService {
             );
         }
 
+        // -------------------------------------------------
+        // FIND ALL APPLICATIONS FOR THIS JOB
+        // -------------------------------------------------
+
+        List<Application> applications =
+                applicationRepository.findByJob(existingJob);
+
+        // -------------------------------------------------
+        // DELETE INTERVIEWS FIRST
+        // -------------------------------------------------
+        // Interviews depend on applications.
+        // Therefore, interviews must be deleted first.
+        // -------------------------------------------------
+
+        for (Application application : applications) {
+
+            List<Interview> interviews =
+                    interviewRepository.findByApplicationId(
+                            application.getId()
+                    );
+
+            if (!interviews.isEmpty()) {
+
+                interviewRepository.deleteAll(
+                        interviews
+                );
+            }
+        }
+
+        // -------------------------------------------------
+        // DELETE APPLICATIONS
+        // -------------------------------------------------
+        // Applications depend on the job.
+        // Therefore, delete them before the job.
+        // -------------------------------------------------
+
+        if (!applications.isEmpty()) {
+
+            applicationRepository.deleteAll(
+                    applications
+            );
+        }
+
+        // -------------------------------------------------
+        // FINALLY DELETE THE JOB
+        // -------------------------------------------------
+
         jobRepository.delete(existingJob);
     }
 
-    // Search Jobs
+    // =====================================================
+    // SEARCH JOBS
+    // =====================================================
+
     @Override
     public List<Job> searchJobs(
             String keyword,
             String location) {
 
         boolean hasKeyword =
-                keyword != null && !keyword.trim().isEmpty();
+                keyword != null &&
+                !keyword.trim().isEmpty();
 
         boolean hasLocation =
-                location != null && !location.trim().isEmpty();
+                location != null &&
+                !location.trim().isEmpty();
 
         if (hasKeyword && hasLocation) {
 
@@ -167,12 +264,16 @@ public class JobServiceImpl implements JobService {
         } else if (hasKeyword) {
 
             return jobRepository
-                    .findByTitleContainingIgnoreCase(keyword);
+                    .findByTitleContainingIgnoreCase(
+                            keyword
+                    );
 
         } else if (hasLocation) {
 
             return jobRepository
-                    .findByLocationContainingIgnoreCase(location);
+                    .findByLocationContainingIgnoreCase(
+                            location
+                    );
 
         } else {
 

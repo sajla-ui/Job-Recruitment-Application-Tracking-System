@@ -1,154 +1,1072 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Recruiter Login - Job Portal</title>
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
 
-    <link rel="stylesheet" href="css/style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+    <title>CareerX | Recruiter Login</title>
+    
+
+    <link rel="preconnect"
+          href="https://fonts.googleapis.com">
+
+    <link rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
           rel="stylesheet">
+
+    <link rel="stylesheet"
+          href="css/careerx.css">
+
+
+    <style>
+
+        /* =====================================================
+           RECRUITER LOGIN
+           ===================================================== */
+
+        * {
+            box-sizing: border-box;
+        }
+
+
+        body {
+            margin: 0;
+
+            min-height: 100vh;
+
+            font-family: 'Inter', sans-serif;
+
+            color: #f8fafc;
+
+            background: #050914;
+
+            overflow-x: hidden;
+        }
+
+
+        /* =====================================================
+           BACKGROUND
+           ===================================================== */
+
+        .login-background {
+            position: fixed;
+
+            inset: 0;
+
+            overflow: hidden;
+
+            z-index: -1;
+
+            background:
+                radial-gradient(
+                    circle at 20% 20%,
+                    rgba(99, 102, 241, 0.11),
+                    transparent 30%
+                ),
+                radial-gradient(
+                    circle at 80% 70%,
+                    rgba(168, 85, 247, 0.12),
+                    transparent 35%
+                ),
+                #050914;
+        }
+
+
+        .login-grid {
+            position: absolute;
+
+            inset: 0;
+
+            opacity: 0.35;
+
+            background-image:
+                linear-gradient(
+                    rgba(99, 102, 241, 0.05) 1px,
+                    transparent 1px
+                ),
+                linear-gradient(
+                    90deg,
+                    rgba(99, 102, 241, 0.05) 1px,
+                    transparent 1px
+                );
+
+            background-size: 50px 50px;
+
+            mask-image:
+                linear-gradient(
+                    to bottom,
+                    black,
+                    transparent
+                );
+        }
+
+
+        .login-orb {
+            position: absolute;
+
+            border-radius: 50%;
+
+            filter: blur(80px);
+
+            opacity: 0.35;
+
+            animation:
+                floatOrb 8s ease-in-out infinite;
+        }
+
+
+        .login-orb-one {
+            width: 350px;
+            height: 350px;
+
+            top: -120px;
+            left: -100px;
+
+            background: #6366f1;
+        }
+
+
+        .login-orb-two {
+            width: 400px;
+            height: 400px;
+
+            right: -150px;
+            bottom: -150px;
+
+            background: #a855f7;
+
+            animation-delay: -3s;
+        }
+
+
+        @keyframes floatOrb {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-25px);
+            }
+
+        }
+
+
+        /* =====================================================
+           NAVBAR
+           ===================================================== */
+
+        .login-navbar {
+            position: relative;
+
+            width: 100%;
+
+            padding: 24px 6%;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+        }
+
+
+        .careerx-brand {
+            display: flex;
+
+            align-items: center;
+
+            gap: 12px;
+
+            color: white;
+
+            text-decoration: none;
+
+            font-size: 1.4rem;
+
+            font-weight: 800;
+
+            letter-spacing: -0.5px;
+        }
+
+
+        .brand-icon {
+            width: 38px;
+            height: 38px;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 11px;
+
+            color: #06111f;
+
+            font-weight: 900;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #00e5ff,
+                    #6366f1
+                );
+
+            box-shadow:
+                0 0 25px
+                rgba(0, 229, 255, 0.35);
+        }
+
+
+        .brand-x {
+            color: #00e5ff;
+
+            text-shadow:
+                0 0 15px
+                rgba(0, 229, 255, 0.5);
+        }
+
+
+        .back-home {
+            color: #94a3b8;
+
+            text-decoration: none;
+
+            font-size: 0.85rem;
+
+            font-weight: 600;
+
+            transition: 0.25s ease;
+        }
+
+
+        .back-home:hover {
+            color: #00e5ff;
+        }
+
+
+        /* =====================================================
+           LOGIN LAYOUT
+           ===================================================== */
+
+        .login-page {
+            min-height:
+                calc(100vh - 90px);
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            padding:
+                30px 20px 70px;
+        }
+
+
+        .login-wrapper {
+            width: 100%;
+
+            max-width: 1050px;
+
+            display: grid;
+
+            grid-template-columns:
+                1fr 1fr;
+
+            gap: 70px;
+
+            align-items: center;
+        }
+
+
+        /* =====================================================
+           INTRO
+           ===================================================== */
+
+        .login-intro {
+            padding: 20px;
+        }
+
+
+        .login-eyebrow {
+            display: inline-flex;
+
+            align-items: center;
+
+            gap: 10px;
+
+            margin-bottom: 22px;
+
+            color: #a5b4fc;
+
+            font-size: 0.72rem;
+
+            font-weight: 700;
+
+            letter-spacing: 1.8px;
+        }
+
+
+        .login-eyebrow::before {
+            content: "";
+
+            width: 28px;
+            height: 1px;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    transparent,
+                    #6366f1
+                );
+        }
+
+
+        .login-intro h1 {
+            margin: 0 0 20px;
+
+            font-size:
+                clamp(2.4rem, 5vw, 4.2rem);
+
+            line-height: 1.05;
+
+            letter-spacing: -2px;
+        }
+
+
+        .gradient-text {
+            background:
+                linear-gradient(
+                    90deg,
+                    #00e5ff,
+                    #6366f1,
+                    #a855f7
+                );
+
+            -webkit-background-clip: text;
+
+            -webkit-text-fill-color: transparent;
+        }
+
+
+        .login-intro p {
+            max-width: 480px;
+
+            color: #94a3b8;
+
+            font-size: 0.95rem;
+
+            line-height: 1.8;
+        }
+
+
+        .login-feature {
+            display: flex;
+
+            align-items: center;
+
+            gap: 12px;
+
+            margin-top: 30px;
+
+            color: #cbd5e1;
+
+            font-size: 0.82rem;
+        }
+
+
+        .feature-dot {
+            width: 9px;
+            height: 9px;
+
+            border-radius: 50%;
+
+            background: #a855f7;
+
+            box-shadow:
+                0 0 12px #a855f7;
+        }
+
+
+        /* =====================================================
+           LOGIN CARD
+           ===================================================== */
+
+        .login-card {
+            position: relative;
+
+            padding: 38px;
+
+            border-radius: 24px;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    rgba(15, 27, 49, 0.92),
+                    rgba(5, 12, 25, 0.94)
+                );
+
+            border:
+                1px solid
+                rgba(99, 102, 241, 0.20);
+
+            box-shadow:
+                0 25px 80px
+                rgba(0, 0, 0, 0.4),
+
+                0 0 45px
+                rgba(99, 102, 241, 0.06);
+
+            backdrop-filter: blur(20px);
+
+            overflow: hidden;
+        }
+
+
+        .login-card::before {
+            content: "";
+
+            position: absolute;
+
+            top: 0;
+            left: 0;
+
+            width: 100%;
+            height: 3px;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    #6366f1,
+                    #00e5ff,
+                    #a855f7
+                );
+
+            box-shadow:
+                0 0 18px
+                rgba(99, 102, 241, 0.5);
+        }
+
+
+        .card-heading {
+            margin-bottom: 28px;
+        }
+
+
+        .card-heading h2 {
+            margin: 0 0 8px;
+
+            font-size: 1.55rem;
+
+            font-weight: 800;
+        }
+
+
+        .card-heading p {
+            margin: 0;
+
+            color: #64748b;
+
+            font-size: 0.82rem;
+        }
+
+
+        /* =====================================================
+           ALERT
+           ===================================================== */
+
+        #alertMessage {
+            display: none;
+
+            margin-bottom: 18px;
+
+            padding: 12px 14px;
+
+            border-radius: 10px;
+
+            color: #fca5a5;
+
+            background:
+                rgba(239, 68, 68, 0.08);
+
+            border:
+                1px solid
+                rgba(239, 68, 68, 0.25);
+
+            font-size: 0.82rem;
+        }
+
+
+        /* =====================================================
+           FORM
+           ===================================================== */
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+
+        .form-group label {
+            display: block;
+
+            margin-bottom: 8px;
+
+            color: #cbd5e1;
+
+            font-size: 0.78rem;
+
+            font-weight: 600;
+        }
+
+
+        .form-control {
+            width: 100%;
+
+            padding: 13px 15px;
+
+            border-radius: 11px;
+
+            outline: none;
+
+            color: #f8fafc;
+
+            font-family: inherit;
+
+            font-size: 0.88rem;
+
+            background:
+                rgba(3, 10, 22, 0.75);
+
+            border:
+                1px solid
+                rgba(100, 116, 139, 0.22);
+
+            transition: 0.25s ease;
+        }
+
+
+        .form-control:focus {
+            border-color: #6366f1;
+
+            box-shadow:
+                0 0 0 3px
+                rgba(99, 102, 241, 0.08),
+
+                0 0 20px
+                rgba(99, 102, 241, 0.10);
+        }
+
+
+        .form-control::placeholder {
+            color: #475569;
+        }
+
+
+        /* =====================================================
+           LOGIN BUTTON
+           ===================================================== */
+
+        .login-button {
+            width: 100%;
+
+            padding: 13px 20px;
+
+            border: none;
+
+            border-radius: 11px;
+
+            cursor: pointer;
+
+            color: #04111c;
+
+            font-family: inherit;
+
+            font-size: 0.85rem;
+
+            font-weight: 800;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #6366f1,
+                    #00e5ff
+                );
+
+            box-shadow:
+                0 10px 30px
+                rgba(99, 102, 241, 0.18);
+
+            transition: 0.25s ease;
+        }
+
+
+        .login-button:hover {
+            transform:
+                translateY(-2px);
+
+            box-shadow:
+                0 14px 35px
+                rgba(99, 102, 241, 0.30);
+        }
+
+
+        .login-button:disabled {
+            opacity: 0.6;
+
+            cursor: not-allowed;
+
+            transform: none;
+        }
+
+
+        /* =====================================================
+           LINKS
+           ===================================================== */
+
+        .auth-links {
+            margin-top: 25px;
+
+            padding-top: 20px;
+
+            border-top:
+                1px solid
+                rgba(100, 116, 139, 0.12);
+
+            text-align: center;
+
+            color: #64748b;
+
+            font-size: 0.82rem;
+        }
+
+
+        .auth-links p {
+            margin: 0;
+        }
+
+
+        .auth-links a {
+            color: #00e5ff;
+
+            text-decoration: none;
+
+            font-weight: 700;
+        }
+
+
+        .auth-links a:hover {
+            color: #67e8f9;
+
+            text-decoration: underline;
+        }
+
+
+        /* =====================================================
+           RESPONSIVE
+           ===================================================== */
+
+        @media (max-width: 800px) {
+
+            .login-wrapper {
+                grid-template-columns: 1fr;
+
+                max-width: 520px;
+
+                gap: 25px;
+            }
+
+
+            .login-intro {
+                text-align: center;
+
+                padding: 0;
+            }
+
+
+            .login-intro p {
+                margin-left: auto;
+
+                margin-right: auto;
+            }
+
+
+            .login-feature {
+                justify-content: center;
+            }
+
+        }
+
+
+        @media (max-width: 500px) {
+
+            .login-navbar {
+                padding: 18px 20px;
+            }
+
+
+            .login-page {
+                padding:
+                    20px 15px 40px;
+            }
+
+
+            .login-card {
+                padding: 28px 22px;
+            }
+
+
+            .login-intro h1 {
+                font-size: 2.3rem;
+            }
+
+
+            .back-home {
+                display: none;
+            }
+
+        }
+
+    </style>
+
 </head>
+
 
 <body>
 
-<div class="auth-container">
 
-    <div class="auth-card">
+    <!-- =====================================================
+         ANIMATED BACKGROUND
+         ===================================================== -->
 
-        <h2>Company Login</h2>
+    <div class="login-background">
 
-        <div id="alertMessage" class="alert"></div>
+        <div class="login-grid"></div>
 
-        <form id="loginForm">
+        <div class="login-orb login-orb-one"></div>
 
-            <div class="form-group">
-                <label for="email">Email Address</label>
-
-                <input
-                    type="email"
-                    id="email"
-                    class="form-control"
-                    placeholder="Enter company email"
-                    required>
-            </div>
-
-            <div class="form-group">
-                <label for="password">Password</label>
-
-                <input
-                    type="password"
-                    id="password"
-                    class="form-control"
-                    placeholder="Enter password"
-                    required>
-            </div>
-
-            <button
-                type="submit"
-                class="btn btn-primary"
-                id="loginBtn">
-                Login
-            </button>
-
-        </form>
-
-        <div class="auth-links">
-
-            <p>
-                Don't have a company account?
-                <a href="company-register.html">Register here</a>
-            </p>
-
-        </div>
+        <div class="login-orb login-orb-two"></div>
 
     </div>
 
-</div>
+
+    <!-- =====================================================
+         NAVBAR
+         ===================================================== -->
+
+    <nav class="login-navbar">
+
+        <a href="index.html"
+           class="careerx-brand">
+
+            <div class="brand-icon">
+                X
+            </div>
+
+            <span>
+                Career<span class="brand-x">X</span>
+            </span>
+
+        </a>
 
 
-<script>
+        <a href="index.html"
+           class="back-home">
 
-document.getElementById("loginForm").addEventListener("submit", async function(e) {
+            ← Back to Home
 
-    e.preventDefault();
+        </a>
 
-    const email =
-        document.getElementById("email").value;
+    </nav>
 
-    const password =
-        document.getElementById("password").value;
 
-    const loginBtn =
-        document.getElementById("loginBtn");
+    <!-- =====================================================
+         MAIN
+         ===================================================== -->
 
-    loginBtn.textContent = "Logging in...";
-    loginBtn.disabled = true;
+    <main class="login-page">
 
-    try {
+        <div class="login-wrapper">
 
-        const response = await fetch(
-            `/api/recruiters/login?email=${encodeURIComponent(email)}&password=${encodeURIComponent(password)}`,
-            {
-                method: "POST"
-            }
-        );
 
-        const data = await response.json();
+            <!-- =================================================
+                 INTRO
+                 ================================================= -->
 
-        if (response.ok) {
+            <section class="login-intro">
 
-            // Save recruiter information
-            localStorage.setItem(
-                "recruiter",
-                JSON.stringify(data)
+                <div class="login-eyebrow">
+                    RECRUITER PORTAL
+                </div>
+
+
+                <h1>
+
+                    Build your
+                    <br>
+
+                    <span class="gradient-text">
+                        future team.
+                    </span>
+
+                </h1>
+
+
+                <p>
+
+                    Sign in to discover exceptional talent,
+                    manage your job opportunities, review
+                    applications, and build your next great team.
+
+                </p>
+
+
+                <div class="login-feature">
+
+                    <span class="feature-dot"></span>
+
+                    <span>
+                        Great teams start with great talent.
+                    </span>
+
+                </div>
+
+            </section>
+
+
+            <!-- =================================================
+                 LOGIN CARD
+                 ================================================= -->
+
+            <section class="login-card">
+
+                <div class="card-heading">
+
+                    <h2>
+                        Welcome Back
+                    </h2>
+
+                    <p>
+                        Sign in to your CareerX recruiter account.
+                    </p>
+
+                </div>
+
+
+                <div id="alertMessage"></div>
+
+
+                <form id="loginForm">
+
+
+                    <div class="form-group">
+
+                        <label for="email">
+                            Company Email Address
+                        </label>
+
+                        <input
+                            type="email"
+                            id="email"
+                            class="form-control"
+                            placeholder="company@example.com"
+                            autocomplete="email"
+                            required>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="password">
+                            Password
+                        </label>
+
+                        <input
+                            type="password"
+                            id="password"
+                            class="form-control"
+                            placeholder="Enter your password"
+                            autocomplete="current-password"
+                            required>
+
+                    </div>
+
+
+                    <button
+                        type="submit"
+                        class="login-button"
+                        id="loginBtn">
+
+                        Login to CareerX
+
+                    </button>
+
+
+                </form>
+
+
+                <div class="auth-links">
+
+                    <p>
+
+                        Don't have a company account?
+
+                        <a href="company-register.html">
+                            Create your account
+                        </a>
+
+                    </p>
+
+                </div>
+
+            </section>
+
+        </div>
+
+    </main>
+
+
+    <!-- =====================================================
+         JAVASCRIPT
+         ===================================================== -->
+
+    <script>
+
+        document
+            .getElementById("loginForm")
+            .addEventListener(
+                "submit",
+                async function(e) {
+
+                    e.preventDefault();
+
+
+                    const email =
+                        document
+                            .getElementById("email")
+                            .value;
+
+
+                    const password =
+                        document
+                            .getElementById("password")
+                            .value;
+
+
+                    const loginBtn =
+                        document
+                            .getElementById("loginBtn");
+
+
+                    loginBtn.textContent =
+                        "Signing in...";
+
+                    loginBtn.disabled = true;
+
+
+                    try {
+
+                        const response =
+                            await fetch(
+                                `/api/recruiters/login?email=${encodeURIComponent(email)}&password=${encodeURIComponent(password)}`,
+                                {
+                                    method: "POST"
+                                }
+                            );
+
+
+                        const data =
+                            await response.json();
+
+
+                        if (response.ok) {
+
+                            /*
+                             * Save recruiter information
+                             */
+
+                            localStorage.setItem(
+                                "recruiter",
+                                JSON.stringify(data)
+                            );
+
+
+                            localStorage.setItem(
+                                "recruiterId",
+                                data.id
+                            );
+
+
+                            window.location.href =
+                                "recruiter-dashboard.html";
+
+                        }
+
+                        else {
+
+                            showAlert(
+                                data.message ||
+                                "Invalid email or password."
+                            );
+
+                        }
+
+                    }
+
+                    catch (error) {
+
+                        console.error(error);
+
+
+                        showAlert(
+                            "Unable to connect to the server."
+                        );
+
+                    }
+
+                    finally {
+
+                        loginBtn.textContent =
+                            "Login to CareerX";
+
+                        loginBtn.disabled =
+                            false;
+
+                    }
+
+                }
             );
 
-            localStorage.setItem(
-                "recruiterId",
-                data.id
-            );
 
-            alert("Login successful!");
+        function showAlert(message) {
 
-            window.location.href = "recruiter-dashboard.html";
+            const alertBox =
+                document.getElementById(
+                    "alertMessage"
+                );
 
-        } else {
 
-            showAlert(
-                data.message || "Invalid email or password."
-            );
+            alertBox.textContent =
+                message;
+
+
+            alertBox.style.display =
+                "block";
+
         }
 
-    } catch (error) {
+    </script>
 
-        console.error(error);
-
-        showAlert(
-            "Unable to connect to the server."
-        );
-
-    } finally {
-
-        loginBtn.textContent = "Login";
-        loginBtn.disabled = false;
-    }
-
-});
-
-
-function showAlert(message) {
-
-    const alertBox =
-        document.getElementById("alertMessage");
-
-    alertBox.textContent = message;
-
-    alertBox.style.display = "block";
-}
-
-</script>
 
 </body>
+
 </html>

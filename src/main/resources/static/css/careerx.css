@@ -1,3 +1,13 @@
+/* =========================================================
+   CAREER X — FUTURISTIC LANDING PAGE
+   Dark Theme
+   ========================================================= */
+
+
+/* =========================================================
+   GLOBAL RESET
+   ========================================================= */
+
 * {
     margin: 0;
     padding: 0;
@@ -17,15 +27,16 @@ body {
 }
 
 
-/* ========================================
+/* =========================================================
    BACKGROUND
-======================================== */
+   ========================================================= */
 
 .background {
     position: fixed;
     inset: 0;
     overflow: hidden;
     z-index: -5;
+
     background:
         radial-gradient(
             circle at 50% 10%,
@@ -41,6 +52,7 @@ body {
 .grid {
     position: absolute;
     inset: -50%;
+
     width: 200%;
     height: 200%;
 
@@ -57,11 +69,13 @@ body {
 
     background-size: 55px 55px;
 
-    transform: perspective(600px)
-               rotateX(60deg)
-               translateY(80px);
+    transform:
+        perspective(600px)
+        rotateX(60deg)
+        translateY(80px);
 
-    animation: gridMove 18s linear infinite;
+    animation:
+        gridMove 18s linear infinite;
 
     mask-image:
         linear-gradient(
@@ -91,20 +105,29 @@ body {
 }
 
 
-/* Glowing orbs */
+/* =========================================================
+   GLOWING ORBS
+   ========================================================= */
 
 .orb {
     position: absolute;
+
     border-radius: 50%;
+
     filter: blur(80px);
+
     opacity: 0.35;
-    animation: floatOrb 12s ease-in-out infinite;
+
+    animation:
+        floatOrb 12s ease-in-out infinite;
 }
 
 .orb-one {
     width: 450px;
     height: 450px;
+
     background: #663cff;
+
     top: -180px;
     left: -150px;
 }
@@ -112,18 +135,24 @@ body {
 .orb-two {
     width: 400px;
     height: 400px;
+
     background: #008cff;
+
     right: -160px;
     top: 25%;
+
     animation-delay: -4s;
 }
 
 .orb-three {
     width: 350px;
     height: 350px;
+
     background: #c72cff;
+
     bottom: -150px;
     left: 35%;
+
     animation-delay: -8s;
 }
 
@@ -131,25 +160,37 @@ body {
 
     0%,
     100% {
-        transform: translate(0, 0) scale(1);
+        transform:
+            translate(0, 0)
+            scale(1);
     }
 
     50% {
-        transform: translate(40px, -30px) scale(1.12);
+        transform:
+            translate(40px, -30px)
+            scale(1.12);
     }
 }
 
 
-/* Stars */
+/* =========================================================
+   STARS
+   ========================================================= */
 
 .stars span {
     position: absolute;
+
     width: 3px;
     height: 3px;
+
     border-radius: 50%;
+
     background: white;
+
     opacity: 0.5;
-    animation: twinkle 3s ease-in-out infinite;
+
+    animation:
+        twinkle 3s ease-in-out infinite;
 }
 
 .stars span:nth-child(1) {
@@ -238,9 +279,9 @@ body {
 }
 
 
-/* ========================================
+/* =========================================================
    NAVBAR
-======================================== */
+   ========================================================= */
 
 .navbar {
     width: 100%;
@@ -252,13 +293,16 @@ body {
     align-items: center;
     justify-content: space-between;
 
-    border-bottom: 1px solid rgba(255, 255, 255, .07);
+    border-bottom:
+        1px solid rgba(255, 255, 255, .07);
 
-    background: rgba(5, 5, 16, .35);
+    background:
+        rgba(5, 5, 16, .35);
 
     backdrop-filter: blur(20px);
 
-    animation: navAppear .8s ease forwards;
+    animation:
+        navAppear .8s ease forwards;
 }
 
 @keyframes navAppear {
@@ -275,18 +319,24 @@ body {
 }
 
 
-/* Brand */
+/* =========================================================
+   BRAND
+   ========================================================= */
 
 .brand {
     display: flex;
     align-items: center;
+
     gap: 11px;
 
     color: white;
+
     text-decoration: none;
 
     font-size: 24px;
+
     font-weight: 800;
+
     letter-spacing: -1px;
 }
 
@@ -311,6 +361,7 @@ body {
         0 0 25px rgba(111, 83, 255, .5);
 
     font-size: 19px;
+
     font-weight: 800;
 
     transform: rotate(-8deg);
@@ -334,19 +385,25 @@ body {
 
     -webkit-background-clip: text;
     background-clip: text;
+
     color: transparent;
 }
 
 
-/* Status */
+/* =========================================================
+   NAV STATUS
+   ========================================================= */
 
 .nav-status {
     display: flex;
     align-items: center;
+
     gap: 9px;
 
     font-size: 12px;
-    color: rgba(255, 255, 255, .55);
+
+    color:
+        rgba(255, 255, 255, .55);
 
     letter-spacing: .4px;
 }
@@ -362,7 +419,8 @@ body {
     box-shadow:
         0 0 12px #5dffb1;
 
-    animation: statusPulse 2s infinite;
+    animation:
+        statusPulse 2s infinite;
 }
 
 @keyframes statusPulse {
@@ -380,14 +438,16 @@ body {
 }
 
 
-/* ========================================
+/* =========================================================
    HERO
-======================================== */
+   ========================================================= */
 
 .hero {
-    min-height: calc(100vh - 82px);
+    min-height:
+        calc(100vh - 82px);
 
     display: flex;
+
     justify-content: center;
 
     padding:
@@ -398,30 +458,37 @@ body {
 
 .hero-content {
     width: 100%;
+
     max-width: 1050px;
 
     text-align: center;
 }
 
 
-/* Eyebrow */
+/* =========================================================
+   EYEBROW
+   ========================================================= */
 
 .eyebrow {
     display: flex;
+
     align-items: center;
     justify-content: center;
+
     gap: 13px;
 
     color: #9e8bff;
 
     font-size: 10px;
+
     font-weight: 700;
 
     letter-spacing: 3px;
 
     margin-bottom: 25px;
 
-    animation: fadeUp .8s ease .15s both;
+    animation:
+        fadeUp .8s ease .15s both;
 }
 
 .eyebrow-line {
@@ -446,10 +513,13 @@ body {
 }
 
 
-/* Main heading */
+/* =========================================================
+   MAIN HEADING
+   ========================================================= */
 
 .hero h1 {
-    font-size: clamp(42px, 6vw, 76px);
+    font-size:
+        clamp(42px, 6vw, 76px);
 
     line-height: 1.03;
 
@@ -459,7 +529,8 @@ body {
 
     margin-bottom: 25px;
 
-    animation: fadeUp .8s ease .25s both;
+    animation:
+        fadeUp .8s ease .25s both;
 }
 
 .gradient-text {
@@ -479,37 +550,43 @@ body {
 
     color: transparent;
 
-    animation: gradientFlow 5s linear infinite;
+    animation:
+        gradientFlow 5s linear infinite;
 }
 
 @keyframes gradientFlow {
 
     to {
-        background-position: 300% center;
+        background-position:
+            300% center;
     }
 }
 
 
-/* Description */
+/* =========================================================
+   HERO DESCRIPTION
+   ========================================================= */
 
 .hero-description {
     max-width: 650px;
 
     margin: auto;
 
-    color: rgba(255, 255, 255, .58);
+    color:
+        rgba(255, 255, 255, .58);
 
     font-size: 15px;
 
     line-height: 1.8;
 
-    animation: fadeUp .8s ease .35s both;
+    animation:
+        fadeUp .8s ease .35s both;
 }
 
 
-/* ========================================
+/* =========================================================
    PORTAL SECTION
-======================================== */
+   ========================================================= */
 
 .portal-section {
     margin-top: 55px;
@@ -522,15 +599,19 @@ body {
 
     letter-spacing: 3px;
 
-    color: rgba(255, 255, 255, .35);
+    color:
+        rgba(255, 255, 255, .35);
 
     margin-bottom: 18px;
 
-    animation: fadeUp .8s ease .45s both;
+    animation:
+        fadeUp .8s ease .45s both;
 }
 
 
-/* Cards */
+/* =========================================================
+   PORTAL CONTAINER
+   ========================================================= */
 
 .portal-container {
     display: grid;
@@ -541,6 +622,10 @@ body {
     gap: 20px;
 }
 
+
+/* =========================================================
+   PORTAL CARDS
+   ========================================================= */
 
 .portal-card {
     position: relative;
@@ -559,7 +644,8 @@ body {
 
     color: white;
 
-    border: 1px solid rgba(255, 255, 255, .1);
+    border:
+        1px solid rgba(255, 255, 255, .1);
 
     background:
         linear-gradient(
@@ -579,7 +665,8 @@ body {
         border-color .4s ease,
         box-shadow .4s ease;
 
-    animation: cardAppear .9s ease both;
+    animation:
+        cardAppear .9s ease both;
 }
 
 .candidate-card {
@@ -590,11 +677,11 @@ body {
     animation-delay: .65s;
 }
 
-
 @keyframes cardAppear {
 
     from {
         opacity: 0;
+
         transform:
             translateY(35px)
             scale(.97);
@@ -602,6 +689,7 @@ body {
 
     to {
         opacity: 1;
+
         transform:
             translateY(0)
             scale(1);
@@ -609,7 +697,9 @@ body {
 }
 
 
-/* Card glow */
+/* =========================================================
+   CARD GLOW
+   ========================================================= */
 
 .card-glow {
     position: absolute;
@@ -623,19 +713,22 @@ body {
 
     opacity: 0;
 
-    transition: opacity .5s ease;
+    transition:
+        opacity .5s ease;
 
     pointer-events: none;
 }
 
 .candidate-card .card-glow {
     background: #744cff;
+
     top: -150px;
     right: -80px;
 }
 
 .recruiter-card .card-glow {
     background: #168cff;
+
     top: -150px;
     right: -80px;
 }
@@ -645,7 +738,9 @@ body {
 }
 
 .portal-card:hover {
-    transform: translateY(-8px);
+
+    transform:
+        translateY(-8px);
 
     border-color:
         rgba(143, 112, 255, .45);
@@ -656,7 +751,9 @@ body {
 }
 
 
-/* Card top */
+/* =========================================================
+   CARD TOP
+   ========================================================= */
 
 .card-top {
     display: flex;
@@ -672,6 +769,7 @@ body {
     height: 58px;
 
     display: flex;
+
     align-items: center;
     justify-content: center;
 
@@ -686,38 +784,53 @@ body {
 }
 
 .candidate-icon {
+
     background:
         rgba(130, 88, 255, .15);
 
-    color: #a884ff;
+    color:
+        #a884ff;
 
-    border: 1px solid
+    border:
+        1px solid
         rgba(150, 110, 255, .2);
 }
 
 .recruiter-icon {
+
     background:
         rgba(53, 147, 255, .13);
 
-    color: #62aeff;
+    color:
+        #62aeff;
 
-    border: 1px solid
+    border:
+        1px solid
         rgba(70, 150, 255, .2);
 }
 
 .portal-card:hover .portal-icon {
-    transform: scale(1.08) rotate(-4deg);
+
+    transform:
+        scale(1.08)
+        rotate(-4deg);
 }
 
+
+/* Arrow */
+
 .arrow {
+
     font-size: 27px;
 
-    color: rgba(255,255,255,.35);
+    color:
+        rgba(255,255,255,.35);
 
     transition: .3s ease;
 }
 
 .portal-card:hover .arrow {
+
     color: white;
 
     transform:
@@ -725,19 +838,24 @@ body {
 }
 
 
-/* Card content */
+/* =========================================================
+   CARD CONTENT
+   ========================================================= */
 
 .card-label {
+
     font-size: 9px;
 
     font-weight: 700;
 
     letter-spacing: 2px;
 
-    color: rgba(255,255,255,.4);
+    color:
+        rgba(255,255,255,.4);
 }
 
 .card-content h2 {
+
     font-size: 30px;
 
     letter-spacing: -1px;
@@ -749,7 +867,9 @@ body {
 }
 
 .card-content p {
-    color: rgba(255,255,255,.52);
+
+    color:
+        rgba(255,255,255,.52);
 
     font-size: 13px;
 
@@ -759,18 +879,23 @@ body {
 }
 
 
-/* Card footer */
+/* =========================================================
+   CARD FOOTER
+   ========================================================= */
 
 .card-footer {
+
     position: absolute;
 
     bottom: 25px;
+
     left: 28px;
     right: 28px;
 
     display: flex;
 
     justify-content: space-between;
+
     align-items: center;
 
     padding-top: 18px;
@@ -785,29 +910,35 @@ body {
 
     letter-spacing: 1.5px;
 
-    color: rgba(255,255,255,.45);
+    color:
+        rgba(255,255,255,.45);
 }
 
 .footer-arrow {
+
     font-size: 17px;
 
-    color: rgba(255,255,255,.55);
+    color:
+        rgba(255,255,255,.55);
 
     transition: .3s ease;
 }
 
 .portal-card:hover .footer-arrow {
-    transform: translateX(6px);
+
+    transform:
+        translateX(6px);
 
     color: white;
 }
 
 
-/* ========================================
+/* =========================================================
    FEATURES
-======================================== */
+   ========================================================= */
 
 .features {
+
     display: flex;
 
     justify-content: center;
@@ -821,13 +952,15 @@ body {
 }
 
 .feature {
+
     display: flex;
 
     align-items: center;
 
     gap: 8px;
 
-    color: rgba(255,255,255,.35);
+    color:
+        rgba(255,255,255,.35);
 
     font-size: 10px;
 
@@ -835,17 +968,20 @@ body {
 }
 
 .feature-icon {
-    color: #9274ff;
+
+    color:
+        #9274ff;
 
     font-size: 15px;
 }
 
 
-/* ========================================
+/* =========================================================
    FOOTER
-======================================== */
+   ========================================================= */
 
 footer {
+
     position: relative;
 
     width: 100%;
@@ -858,7 +994,8 @@ footer {
 
     padding: 20px;
 
-    color: rgba(255,255,255,.22);
+    color:
+        rgba(255,255,255,.22);
 
     font-size: 8px;
 
@@ -868,13 +1005,15 @@ footer {
 }
 
 .footer-separator {
-    color: #765aff;
+
+    color:
+        #765aff;
 }
 
 
-/* ========================================
+/* =========================================================
    ANIMATIONS
-======================================== */
+   ========================================================= */
 
 @keyframes fadeUp {
 
@@ -894,79 +1033,113 @@ footer {
 }
 
 
-/* ========================================
+/* =========================================================
    RESPONSIVE
-======================================== */
+   ========================================================= */
 
 @media (max-width: 750px) {
 
     .navbar {
-        padding: 0 25px;
+        padding:
+            0 25px;
     }
 
     .nav-status {
-        display: none;
+        display:
+            none;
     }
 
     .hero {
-        padding-top: 55px;
+        padding-top:
+            55px;
     }
 
     .hero h1 {
-        letter-spacing: -2px;
+        letter-spacing:
+            -2px;
     }
 
     .portal-container {
-        grid-template-columns: 1fr;
+        grid-template-columns:
+            1fr;
     }
 
     .portal-card {
-        min-height: 285px;
+        min-height:
+            285px;
     }
 
     .features {
-        flex-direction: column;
 
-        align-items: center;
+        flex-direction:
+            column;
 
-        gap: 12px;
+        align-items:
+            center;
+
+        gap:
+            12px;
     }
 
     footer {
-        text-align: center;
 
-        flex-wrap: wrap;
+        text-align:
+            center;
+
+        flex-wrap:
+            wrap;
     }
 }
 
 
+/* =========================================================
+   SMALL SCREEN
+   ========================================================= */
+
 @media (max-width: 450px) {
 
     .hero {
-        padding-left: 18px;
-        padding-right: 18px;
+
+        padding-left:
+            18px;
+
+        padding-right:
+            18px;
     }
 
     .eyebrow {
-        font-size: 8px;
 
-        letter-spacing: 2px;
+        font-size:
+            8px;
+
+        letter-spacing:
+            2px;
     }
 
     .hero h1 {
-        font-size: 40px;
+
+        font-size:
+            40px;
     }
 
     .hero-description {
-        font-size: 13px;
+
+        font-size:
+            13px;
     }
 
     .portal-card {
-        padding: 23px;
+
+        padding:
+            23px;
     }
 
     .card-footer {
-        left: 23px;
-        right: 23px;
+
+        left:
+            23px;
+
+        right:
+            23px;
     }
 }

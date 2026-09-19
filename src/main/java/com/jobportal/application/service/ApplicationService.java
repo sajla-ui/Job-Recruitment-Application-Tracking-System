@@ -1,6 +1,7 @@
 package com.jobportal.application.service;
 
 import com.jobportal.application.model.Application;
+import com.jobportal.candidate.model.Resume;
 
 import java.util.List;
 
@@ -34,4 +35,14 @@ public interface ApplicationService {
             Long recruiterId,
             String status
     );
+    Application updateResult(
+        Long applicationId,
+        Long recruiterId,
+        String status,
+        String resultRemarks);
+    // Recruiter views the resume of an applicant
+Resume getCandidateResumeForRecruiter(
+        Long applicationId,
+        Long recruiterId
+);
 }

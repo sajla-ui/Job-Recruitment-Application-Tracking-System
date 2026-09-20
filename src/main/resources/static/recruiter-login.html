@@ -9,7 +9,6 @@
           content="width=device-width, initial-scale=1.0">
 
     <title>CareerX | Recruiter Login</title>
-    
 
     <link rel="preconnect"
           href="https://fonts.googleapis.com">
@@ -70,11 +69,13 @@
                     rgba(99, 102, 241, 0.11),
                     transparent 30%
                 ),
+
                 radial-gradient(
                     circle at 80% 70%,
                     rgba(168, 85, 247, 0.12),
                     transparent 35%
                 ),
+
                 #050914;
         }
 
@@ -91,6 +92,7 @@
                     rgba(99, 102, 241, 0.05) 1px,
                     transparent 1px
                 ),
+
                 linear-gradient(
                     90deg,
                     rgba(99, 102, 241, 0.05) 1px,
@@ -118,7 +120,10 @@
             opacity: 0.35;
 
             animation:
-                floatOrb 8s ease-in-out infinite;
+                floatOrb
+                8s
+                ease-in-out
+                infinite;
         }
 
 
@@ -481,32 +486,6 @@
 
 
         /* =====================================================
-           ALERT
-           ===================================================== */
-
-        #alertMessage {
-            display: none;
-
-            margin-bottom: 18px;
-
-            padding: 12px 14px;
-
-            border-radius: 10px;
-
-            color: #fca5a5;
-
-            background:
-                rgba(239, 68, 68, 0.08);
-
-            border:
-                1px solid
-                rgba(239, 68, 68, 0.25);
-
-            font-size: 0.82rem;
-        }
-
-
-        /* =====================================================
            FORM
            ===================================================== */
 
@@ -671,6 +650,170 @@
 
 
         /* =====================================================
+           CAREER X TOAST
+           ===================================================== */
+
+        .careerx-toast-container {
+            position: fixed;
+
+            top: 24px;
+            right: 24px;
+
+            display: flex;
+
+            flex-direction: column;
+
+            gap: 10px;
+
+            z-index: 2000;
+
+            pointer-events: none;
+        }
+
+
+        .careerx-toast {
+            min-width: 320px;
+
+            max-width: 400px;
+
+            display: flex;
+
+            align-items: flex-start;
+
+            gap: 12px;
+
+            padding:
+                15px 16px;
+
+            border-radius: 14px;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    rgba(15, 27, 49, 0.98),
+                    rgba(5, 12, 25, 0.98)
+                );
+
+            border:
+                1px solid
+                rgba(248, 113, 113, 0.25);
+
+            box-shadow:
+                0 20px 55px
+                rgba(0, 0, 0, 0.45);
+
+            backdrop-filter:
+                blur(18px);
+
+            pointer-events: auto;
+
+            animation:
+                toastIn
+                0.3s
+                ease forwards;
+        }
+
+
+        .careerx-toast-icon {
+            width: 31px;
+            height: 31px;
+
+            flex-shrink: 0;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 9px;
+
+            color: white;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #ef4444,
+                    #f97316
+                );
+
+            font-size: 0.9rem;
+
+            font-weight: 900;
+        }
+
+
+        .careerx-toast-content {
+            flex: 1;
+        }
+
+
+        .careerx-toast-title {
+            margin-bottom: 3px;
+
+            color: #f8fafc;
+
+            font-size: 0.79rem;
+
+            font-weight: 800;
+        }
+
+
+        .careerx-toast-message {
+            color: #94a3b8;
+
+            font-size: 0.74rem;
+
+            line-height: 1.5;
+        }
+
+
+        @keyframes toastIn {
+
+            from {
+                opacity: 0;
+
+                transform:
+                    translateX(25px);
+            }
+
+            to {
+                opacity: 1;
+
+                transform:
+                    translateX(0);
+            }
+
+        }
+
+
+        @keyframes toastOut {
+
+            from {
+                opacity: 1;
+
+                transform:
+                    translateX(0);
+            }
+
+            to {
+                opacity: 0;
+
+                transform:
+                    translateX(25px);
+            }
+
+        }
+
+
+        .careerx-toast.removing {
+            animation:
+                toastOut
+                0.25s
+                ease forwards;
+        }
+
+
+        /* =====================================================
            RESPONSIVE
            ===================================================== */
 
@@ -720,7 +863,8 @@
 
 
             .login-card {
-                padding: 28px 22px;
+                padding:
+                    28px 22px;
             }
 
 
@@ -731,6 +875,22 @@
 
             .back-home {
                 display: none;
+            }
+
+
+            .careerx-toast-container {
+                top: 15px;
+
+                right: 15px;
+
+                left: 15px;
+            }
+
+
+            .careerx-toast {
+                min-width: 0;
+
+                width: 100%;
             }
 
         }
@@ -861,9 +1021,6 @@
                 </div>
 
 
-                <div id="alertMessage"></div>
-
-
                 <form id="loginForm">
 
 
@@ -936,6 +1093,16 @@
 
 
     <!-- =====================================================
+         CAREER X TOAST
+         ===================================================== -->
+
+    <div
+        id="careerxToastContainer"
+        class="careerx-toast-container"
+    ></div>
+
+
+    <!-- =====================================================
          JAVASCRIPT
          ===================================================== -->
 
@@ -953,7 +1120,8 @@
                     const email =
                         document
                             .getElementById("email")
-                            .value;
+                            .value
+                            .trim();
 
 
                     const password =
@@ -970,7 +1138,8 @@
                     loginBtn.textContent =
                         "Signing in...";
 
-                    loginBtn.disabled = true;
+                    loginBtn.disabled =
+                        true;
 
 
                     try {
@@ -1006,6 +1175,11 @@
                             );
 
 
+                            /*
+                             * Keep the existing
+                             * successful login flow.
+                             */
+
                             window.location.href =
                                 "recruiter-dashboard.html";
 
@@ -1013,7 +1187,8 @@
 
                         else {
 
-                            showAlert(
+                            showCareerXToast(
+                                "Login Failed",
                                 data.message ||
                                 "Invalid email or password."
                             );
@@ -1024,11 +1199,14 @@
 
                     catch (error) {
 
-                        console.error(error);
+                        console.error(
+                            error
+                        );
 
 
-                        showAlert(
-                            "Unable to connect to the server."
+                        showCareerXToast(
+                            "Connection Error",
+                            "Unable to connect to the server. Please try again."
                         );
 
                     }
@@ -1047,20 +1225,123 @@
             );
 
 
-        function showAlert(message) {
+        /* =====================================================
+           CAREER X TOAST
+           ===================================================== */
 
-            const alertBox =
+        function showCareerXToast(
+            title,
+            message
+        ) {
+
+            const container =
                 document.getElementById(
-                    "alertMessage"
+                    "careerxToastContainer"
                 );
 
 
-            alertBox.textContent =
-                message;
+            const toast =
+                document.createElement(
+                    "div"
+                );
 
 
-            alertBox.style.display =
-                "block";
+            toast.className =
+                "careerx-toast";
+
+
+            toast.innerHTML =
+                `
+                    <div class="careerx-toast-icon">
+                        !
+                    </div>
+
+                    <div class="careerx-toast-content">
+
+                        <div class="careerx-toast-title">
+                            ${escapeHtml(title)}
+                        </div>
+
+                        <div class="careerx-toast-message">
+                            ${escapeHtml(message)}
+                        </div>
+
+                    </div>
+                `;
+
+
+            container.appendChild(
+                toast
+            );
+
+
+            setTimeout(
+                () => {
+
+                    toast.classList.add(
+                        "removing"
+                    );
+
+
+                    setTimeout(
+                        () => {
+
+                            toast.remove();
+
+                        },
+                        250
+                    );
+
+                },
+                3500
+            );
+
+        }
+
+
+        /* =====================================================
+           HTML ESCAPING
+           ===================================================== */
+
+        function escapeHtml(
+            value
+        ) {
+
+            if (
+                value === null ||
+                value === undefined
+            ) {
+
+                return "";
+            }
+
+
+            return String(value)
+
+                .replace(
+                    /&/g,
+                    "&amp;"
+                )
+
+                .replace(
+                    /</g,
+                    "&lt;"
+                )
+
+                .replace(
+                    />/g,
+                    "&gt;"
+                )
+
+                .replace(
+                    /"/g,
+                    "&quot;"
+                )
+
+                .replace(
+                    /'/g,
+                    "&#039;"
+                );
 
         }
 

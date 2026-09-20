@@ -5,11 +5,12 @@
 
     <meta charset="UTF-8">
 
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
     <title>Career X | Browse Jobs</title>
-    
 
     <link rel="preconnect"
           href="https://fonts.googleapis.com">
@@ -20,11 +21,13 @@
 
     <link
         href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
-        rel="stylesheet">
+        rel="stylesheet"
+    >
 
     <link
         rel="stylesheet"
-        href="css/careerx.css">
+        href="css/careerx.css"
+    >
 
 
     <style>
@@ -956,6 +959,589 @@
 
 
         /* =====================================================
+           CAREER X MODAL OVERLAY
+           ===================================================== */
+
+        .careerx-modal-overlay {
+            position: fixed;
+
+            inset: 0;
+
+            display: none;
+
+            align-items: center;
+            justify-content: center;
+
+            padding: 20px;
+
+            background:
+                rgba(2, 6, 23, 0.78);
+
+            backdrop-filter:
+                blur(10px);
+
+            z-index: 1000;
+
+            opacity: 0;
+
+            transition:
+                opacity 0.25s ease;
+        }
+
+
+        .careerx-modal-overlay.show {
+            display: flex;
+
+            opacity: 1;
+        }
+
+
+        /* =====================================================
+           APPLICATION MODAL
+           ===================================================== */
+
+        .careerx-modal {
+            position: relative;
+
+            width: 100%;
+
+            max-width: 620px;
+
+            padding: 30px;
+
+            border-radius: 22px;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    rgba(15, 27, 49, 0.98),
+                    rgba(5, 12, 25, 0.98)
+                );
+
+            border:
+                1px solid
+                rgba(79, 124, 255, 0.20);
+
+            box-shadow:
+                0 30px 100px
+                rgba(0, 0, 0, 0.55),
+
+                0 0 60px
+                rgba(0, 229, 255, 0.07);
+
+            transform:
+                translateY(20px)
+                scale(0.97);
+
+            transition:
+                transform 0.25s ease;
+        }
+
+
+        .careerx-modal-overlay.show
+        .careerx-modal {
+
+            transform:
+                translateY(0)
+                scale(1);
+        }
+
+
+        .careerx-modal::before {
+            content: "";
+
+            position: absolute;
+
+            top: 0;
+            left: 0;
+
+            width: 100%;
+            height: 3px;
+
+            border-radius:
+                22px 22px 0 0;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    #00e5ff,
+                    #6366f1,
+                    #a855f7
+                );
+
+            box-shadow:
+                0 0 18px
+                rgba(0, 229, 255, 0.25);
+        }
+
+
+        .careerx-modal-close {
+            position: absolute;
+
+            top: 18px;
+            right: 20px;
+
+            width: 36px;
+            height: 36px;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            border: none;
+
+            border-radius: 10px;
+
+            color: #94a3b8;
+
+            background:
+                rgba(100, 116, 139, 0.10);
+
+            font-size: 1.2rem;
+
+            cursor: pointer;
+
+            transition:
+                0.2s ease;
+        }
+
+
+        .careerx-modal-close:hover {
+            color: #f8fafc;
+
+            background:
+                rgba(0, 229, 255, 0.10);
+        }
+
+
+        .careerx-modal-icon {
+            width: 48px;
+            height: 48px;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            margin-bottom: 16px;
+
+            border-radius: 14px;
+
+            color: #04111c;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #22d3ee,
+                    #6366f1
+                );
+
+            font-size: 1.3rem;
+
+            box-shadow:
+                0 8px 25px
+                rgba(0, 229, 255, 0.15);
+        }
+
+
+        .careerx-modal h2 {
+            margin:
+                0 40px 7px 0;
+
+            color: #f8fafc;
+
+            font-size: 1.35rem;
+
+            font-weight: 800;
+
+            letter-spacing: -0.4px;
+        }
+
+
+        .careerx-modal-subtitle {
+            margin:
+                0 0 22px;
+
+            color: #94a3b8;
+
+            font-size: 0.82rem;
+
+            line-height: 1.6;
+        }
+
+
+        .careerx-modal-job {
+            margin-bottom: 18px;
+
+            padding:
+                13px 15px;
+
+            border-radius: 11px;
+
+            background:
+                rgba(0, 229, 255, 0.045);
+
+            border:
+                1px solid
+                rgba(0, 229, 255, 0.10);
+        }
+
+
+        .careerx-modal-job-title {
+            color: #67e8f9;
+
+            font-size: 0.9rem;
+
+            font-weight: 750;
+        }
+
+
+        .careerx-modal-label {
+            display: block;
+
+            margin-bottom: 8px;
+
+            color: #cbd5e1;
+
+            font-size: 0.76rem;
+
+            font-weight: 650;
+        }
+
+
+        .careerx-modal-textarea {
+            width: 100%;
+
+            min-height: 170px;
+
+            resize: vertical;
+
+            padding:
+                13px 15px;
+
+            border-radius: 12px;
+
+            outline: none;
+
+            color: #f8fafc;
+
+            background:
+                rgba(3, 10, 22, 0.80);
+
+            border:
+                1px solid
+                rgba(100, 116, 139, 0.22);
+
+            font-family: inherit;
+
+            font-size: 0.84rem;
+
+            line-height: 1.65;
+
+            transition:
+                0.25s ease;
+        }
+
+
+        .careerx-modal-textarea::placeholder {
+            color: #475569;
+        }
+
+
+        .careerx-modal-textarea:focus {
+            border-color:
+                #00e5ff;
+
+            box-shadow:
+                0 0 0 3px
+                rgba(0, 229, 255, 0.07),
+
+                0 0 20px
+                rgba(0, 229, 255, 0.06);
+        }
+
+
+        .careerx-modal-actions {
+            display: flex;
+
+            justify-content: flex-end;
+
+            gap: 10px;
+
+            margin-top: 20px;
+        }
+
+
+        .careerx-btn {
+            padding:
+                11px 18px;
+
+            border-radius: 10px;
+
+            font-family: inherit;
+
+            font-size: 0.78rem;
+
+            font-weight: 750;
+
+            cursor: pointer;
+
+            transition:
+                0.25s ease;
+        }
+
+
+        .careerx-btn-secondary {
+            color: #cbd5e1;
+
+            background:
+                rgba(100, 116, 139, 0.10);
+
+            border:
+                1px solid
+                rgba(100, 116, 139, 0.18);
+        }
+
+
+        .careerx-btn-secondary:hover {
+            color: #f8fafc;
+
+            background:
+                rgba(100, 116, 139, 0.16);
+        }
+
+
+        .careerx-btn-primary {
+            border: none;
+
+            color: #04111c;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #00e5ff,
+                    #6366f1
+                );
+
+            box-shadow:
+                0 7px 20px
+                rgba(0, 229, 255, 0.10);
+        }
+
+
+        .careerx-btn-primary:hover {
+            transform:
+                translateY(-2px);
+
+            box-shadow:
+                0 10px 28px
+                rgba(0, 229, 255, 0.20);
+        }
+
+
+        .careerx-btn-primary:disabled {
+            opacity: 0.55;
+
+            cursor: not-allowed;
+
+            transform: none;
+
+            box-shadow: none;
+        }
+
+
+        /* =====================================================
+           CAREER X TOAST
+           ===================================================== */
+
+        .careerx-toast-container {
+            position: fixed;
+
+            top: 24px;
+            right: 24px;
+
+            display: flex;
+
+            flex-direction: column;
+
+            gap: 10px;
+
+            z-index: 2000;
+
+            pointer-events: none;
+        }
+
+
+        .careerx-toast {
+            min-width: 310px;
+
+            max-width: 390px;
+
+            display: flex;
+
+            align-items: flex-start;
+
+            gap: 12px;
+
+            padding:
+                14px 16px;
+
+            border-radius: 14px;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    rgba(15, 27, 49, 0.97),
+                    rgba(5, 12, 25, 0.98)
+                );
+
+            border:
+                1px solid
+                rgba(79, 124, 255, 0.18);
+
+            box-shadow:
+                0 20px 55px
+                rgba(0, 0, 0, 0.40);
+
+            backdrop-filter:
+                blur(18px);
+
+            pointer-events: auto;
+
+            animation:
+                toastIn
+                0.3s
+                ease forwards;
+        }
+
+
+        .careerx-toast.success {
+            border-color:
+                rgba(34, 211, 238, 0.22);
+        }
+
+
+        .careerx-toast.error {
+            border-color:
+                rgba(248, 113, 113, 0.25);
+        }
+
+
+        .careerx-toast-icon {
+            width: 30px;
+            height: 30px;
+
+            flex-shrink: 0;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 9px;
+
+            color: #04111c;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #22d3ee,
+                    #6366f1
+                );
+
+            font-size: 0.85rem;
+
+            font-weight: 900;
+        }
+
+
+        .careerx-toast.error
+        .careerx-toast-icon {
+
+            color: #fff;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #ef4444,
+                    #f97316
+                );
+        }
+
+
+        .careerx-toast-content {
+            flex: 1;
+        }
+
+
+        .careerx-toast-title {
+            margin-bottom: 3px;
+
+            color: #f8fafc;
+
+            font-size: 0.78rem;
+
+            font-weight: 800;
+        }
+
+
+        .careerx-toast-message {
+            color: #94a3b8;
+
+            font-size: 0.73rem;
+
+            line-height: 1.45;
+        }
+
+
+        @keyframes toastIn {
+
+            from {
+                opacity: 0;
+
+                transform:
+                    translateX(25px);
+            }
+
+            to {
+                opacity: 1;
+
+                transform:
+                    translateX(0);
+            }
+
+        }
+
+
+        @keyframes toastOut {
+
+            from {
+                opacity: 1;
+
+                transform:
+                    translateX(0);
+            }
+
+            to {
+                opacity: 0;
+
+                transform:
+                    translateX(25px);
+            }
+
+        }
+
+
+        .careerx-toast.removing {
+            animation:
+                toastOut
+                0.25s
+                ease forwards;
+        }
+
+
+        /* =====================================================
            RESPONSIVE
            ===================================================== */
 
@@ -1053,6 +1639,36 @@
                 width: 100%;
             }
 
+
+            .careerx-modal {
+                padding:
+                    25px 20px;
+            }
+
+
+            .careerx-modal-actions {
+                flex-direction: column-reverse;
+            }
+
+
+            .careerx-btn {
+                width: 100%;
+            }
+
+
+            .careerx-toast-container {
+                top: 15px;
+                right: 15px;
+                left: 15px;
+            }
+
+
+            .careerx-toast {
+                min-width: 0;
+
+                width: 100%;
+            }
+
         }
 
     </style>
@@ -1113,9 +1729,7 @@
                 <li>
 
                     <a href="dashboard.html">
-
                         Dashboard
-
                     </a>
 
                 </li>
@@ -1124,9 +1738,7 @@
                 <li>
 
                     <a href="profile.html">
-
                         Profile Settings
-
                     </a>
 
                 </li>
@@ -1148,9 +1760,7 @@
                 <li>
 
                     <a href="candidate-applications.html">
-
                         My Applications
-
                     </a>
 
                 </li>
@@ -1159,9 +1769,7 @@
                 <li>
 
                     <a href="candidate-interviews.html">
-
                         My Interviews
-
                     </a>
 
                 </li>
@@ -1194,9 +1802,7 @@
             <header class="header">
 
                 <h1 class="page-title">
-
                     Available Jobs
-
                 </h1>
 
             </header>
@@ -1247,9 +1853,7 @@
                     class="job-list">
 
                     <div class="empty-state">
-
                         Loading jobs...
-
                     </div>
 
                 </div>
@@ -1262,6 +1866,112 @@
 
 
     <!-- =====================================================
+         CAREER X APPLICATION MODAL
+         ===================================================== -->
+
+    <div
+        id="applicationModalOverlay"
+        class="careerx-modal-overlay"
+    >
+
+        <div
+            class="careerx-modal"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="applicationModalTitle"
+        >
+
+            <button
+                type="button"
+                class="careerx-modal-close"
+                id="closeApplicationModal"
+                aria-label="Close"
+            >
+                ×
+            </button>
+
+
+            <div class="careerx-modal-icon">
+                ✦
+            </div>
+
+
+            <h2 id="applicationModalTitle">
+                Apply for this position
+            </h2>
+
+
+            <p class="careerx-modal-subtitle">
+                Tell the recruiter why you're a good fit
+                for this opportunity.
+            </p>
+
+
+            <div
+                id="applicationModalJob"
+                class="careerx-modal-job"
+            >
+                <div
+                    id="applicationModalJobTitle"
+                    class="careerx-modal-job-title"
+                >
+                    Job Position
+                </div>
+            </div>
+
+
+            <label
+                for="coverLetterInput"
+                class="careerx-modal-label"
+            >
+                Cover Letter
+            </label>
+
+
+            <textarea
+                id="coverLetterInput"
+                class="careerx-modal-textarea"
+                placeholder="Write your cover letter here..."
+            ></textarea>
+
+
+            <div class="careerx-modal-actions">
+
+                <button
+                    type="button"
+                    id="cancelApplicationBtn"
+                    class="careerx-btn careerx-btn-secondary"
+                >
+                    Cancel
+                </button>
+
+
+                <button
+                    type="button"
+                    id="submitApplicationBtn"
+                    class="careerx-btn careerx-btn-primary"
+                >
+                    Submit Application
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- =====================================================
+         CAREER X TOAST CONTAINER
+         ===================================================== -->
+
+    <div
+        id="careerxToastContainer"
+        class="careerx-toast-container"
+    ></div>
+
+
+    <!-- =====================================================
          JAVASCRIPT
          ===================================================== -->
 
@@ -1269,6 +1979,13 @@
 
 
     <script>
+
+        let selectedJobId = null;
+
+
+        /* =====================================================
+           PAGE INITIALIZATION
+           ===================================================== */
 
         document.addEventListener(
             'DOMContentLoaded',
@@ -1309,6 +2026,73 @@
 
                         }
                     );
+
+
+                document
+                    .getElementById(
+                        'closeApplicationModal'
+                    )
+                    .addEventListener(
+                        'click',
+                        closeApplicationModal
+                    );
+
+
+                document
+                    .getElementById(
+                        'cancelApplicationBtn'
+                    )
+                    .addEventListener(
+                        'click',
+                        closeApplicationModal
+                    );
+
+
+                document
+                    .getElementById(
+                        'submitApplicationBtn'
+                    )
+                    .addEventListener(
+                        'click',
+                        submitApplication
+                    );
+
+
+                document
+                    .getElementById(
+                        'applicationModalOverlay'
+                    )
+                    .addEventListener(
+                        'click',
+                        function(e) {
+
+                            if (
+                                e.target ===
+                                this
+                            ) {
+
+                                closeApplicationModal();
+
+                            }
+
+                        }
+                    );
+
+
+                document.addEventListener(
+                    'keydown',
+                    function(e) {
+
+                        if (
+                            e.key === 'Escape'
+                        ) {
+
+                            closeApplicationModal();
+
+                        }
+
+                    }
+                );
 
             }
         );
@@ -1385,9 +2169,7 @@
                     listDiv.innerHTML =
                         `
                             <div class="alert alert-error">
-
                                 Failed to load jobs.
-
                             </div>
                         `;
 
@@ -1414,9 +2196,7 @@
                     listDiv.innerHTML =
                         `
                             <div class="empty-state">
-
                                 No jobs found matching your criteria.
-
                             </div>
                         `;
 
@@ -1533,12 +2313,11 @@
                                     <div class="job-actions">
 
                                         <button
-                                            class="apply-button"
-                                            onclick="applyForJob(${job.id})">
-
-                                            Apply Now
-
-                                        </button>
+    class="apply-button"
+    onclick="applyForJob(${job.id})"
+>
+    Apply Now
+</button>
 
                                     </div>
 
@@ -1563,9 +2342,7 @@
                 listDiv.innerHTML =
                     `
                         <div class="alert alert-error">
-
                             Failed to connect to the server.
-
                         </div>
                     `;
 
@@ -1575,11 +2352,12 @@
 
 
         /* =====================================================
-           APPLY FOR JOB
+           OPEN APPLICATION MODAL
            ===================================================== */
 
-        async function applyForJob(
-            jobId
+        function applyForJob(
+            jobId,
+            jobTitle = 'Job Position'
         ) {
 
             const candidateId =
@@ -1590,13 +2368,151 @@
 
             if (!candidateId) {
 
-                alert(
-                    'Please login first.'
+                showCareerXToast(
+                    'Login Required',
+                    'Please login to apply for a job.',
+                    'error'
                 );
 
 
-                window.location.href =
-                    'index.html';
+                setTimeout(
+                    () => {
+
+                        window.location.href =
+                            'candidate-login.html';
+
+                    },
+                    900
+                );
+
+
+                return;
+
+            }
+
+
+            selectedJobId =
+                jobId;
+
+
+            document
+                .getElementById(
+                    'applicationModalJobTitle'
+                )
+                .textContent =
+                    jobTitle;
+
+
+            document
+                .getElementById(
+                    'coverLetterInput'
+                )
+                .value =
+                    '';
+
+
+            document
+                .getElementById(
+                    'submitApplicationBtn'
+                )
+                .disabled =
+                    false;
+
+
+            document
+                .getElementById(
+                    'submitApplicationBtn'
+                )
+                .textContent =
+                    'Submit Application';
+
+
+            const overlay =
+                document.getElementById(
+                    'applicationModalOverlay'
+                );
+
+
+            overlay.classList.add(
+                'show'
+            );
+
+
+            setTimeout(
+                () => {
+
+                    document
+                        .getElementById(
+                            'coverLetterInput'
+                        )
+                        .focus();
+
+                },
+                150
+            );
+
+        }
+
+
+        /* =====================================================
+           CLOSE APPLICATION MODAL
+           ===================================================== */
+
+        function closeApplicationModal() {
+
+            const overlay =
+                document.getElementById(
+                    'applicationModalOverlay'
+                );
+
+
+            overlay.classList.remove(
+                'show'
+            );
+
+
+            selectedJobId =
+                null;
+
+        }
+
+
+        /* =====================================================
+           SUBMIT APPLICATION
+           ===================================================== */
+
+        async function submitApplication() {
+
+            const candidateId =
+                localStorage.getItem(
+                    'candidateId'
+                );
+
+
+            if (!candidateId) {
+
+                closeApplicationModal();
+
+
+                showCareerXToast(
+                    'Login Required',
+                    'Please login before submitting an application.',
+                    'error'
+                );
+
+
+                return;
+
+            }
+
+
+            if (!selectedJobId) {
+
+                showCareerXToast(
+                    'Application Error',
+                    'No job was selected.',
+                    'error'
+                );
 
 
                 return;
@@ -1605,18 +2521,47 @@
 
 
             const coverLetter =
-                prompt(
-                    'Enter your cover letter:'
+                document
+                    .getElementById(
+                        'coverLetterInput'
+                    )
+                    .value
+                    .trim();
+
+
+            if (!coverLetter) {
+
+                showCareerXToast(
+                    'Cover Letter Required',
+                    'Please write a cover letter before submitting.',
+                    'error'
                 );
 
 
-            if (
-                coverLetter === null
-            ) {
+                document
+                    .getElementById(
+                        'coverLetterInput'
+                    )
+                    .focus();
+
 
                 return;
 
             }
+
+
+            const submitButton =
+                document.getElementById(
+                    'submitApplicationBtn'
+                );
+
+
+            submitButton.disabled =
+                true;
+
+
+            submitButton.textContent =
+                'Submitting...';
 
 
             try {
@@ -1633,7 +2578,7 @@
 
                 params.append(
                     'jobId',
-                    jobId
+                    selectedJobId
                 );
 
 
@@ -1650,7 +2595,7 @@
                             candidateId,
 
                         jobId:
-                            jobId
+                            selectedJobId
                     }
                 );
 
@@ -1687,8 +2632,13 @@
                     response.ok
                 ) {
 
-                    alert(
-                        'Application submitted successfully!'
+                    closeApplicationModal();
+
+
+                    showCareerXToast(
+                        'Application Submitted',
+                        'Your application has been submitted successfully.',
+                        'success'
                     );
 
                 }
@@ -1728,7 +2678,19 @@
                     }
 
 
-                    alert(message);
+                    submitButton.disabled =
+                        false;
+
+
+                    submitButton.textContent =
+                        'Submit Application';
+
+
+                    showCareerXToast(
+                        'Application Failed',
+                        message,
+                        'error'
+                    );
 
                 }
 
@@ -1743,11 +2705,102 @@
                 );
 
 
-                alert(
-                    'Could not connect to the server.'
+                submitButton.disabled =
+                    false;
+
+
+                submitButton.textContent =
+                    'Submit Application';
+
+
+                showCareerXToast(
+                    'Connection Error',
+                    'Could not connect to the server.',
+                    'error'
                 );
 
             }
+
+        }
+
+
+        /* =====================================================
+           CAREER X TOAST
+           ===================================================== */
+
+        function showCareerXToast(
+            title,
+            message,
+            type = 'success'
+        ) {
+
+            const container =
+                document.getElementById(
+                    'careerxToastContainer'
+                );
+
+
+            const toast =
+                document.createElement(
+                    'div'
+                );
+
+
+            toast.className =
+                `careerx-toast ${type}`;
+
+
+            const icon =
+                type === 'success'
+                ? '✓'
+                : '!';
+
+
+            toast.innerHTML =
+                `
+                    <div class="careerx-toast-icon">
+                        ${icon}
+                    </div>
+
+                    <div class="careerx-toast-content">
+
+                        <div class="careerx-toast-title">
+                            ${escapeHtml(title)}
+                        </div>
+
+                        <div class="careerx-toast-message">
+                            ${escapeHtml(message)}
+                        </div>
+
+                    </div>
+                `;
+
+
+            container.appendChild(
+                toast
+            );
+
+
+            setTimeout(
+                () => {
+
+                    toast.classList.add(
+                        'removing'
+                    );
+
+
+                    setTimeout(
+                        () => {
+
+                            toast.remove();
+
+                        },
+                        250
+                    );
+
+                },
+                3500
+            );
 
         }
 
